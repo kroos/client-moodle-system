@@ -64,10 +64,10 @@
 
 
 	<? startblock('jscript') ?>
-		<script type="text/javascript" src="<?=base_url()?>js/jquery-1.8.2.js"></script>
-		<script type="text/javascript" src="<?=base_url()?>js/jquery.ui.core.js"></script>
-		<script type="text/javascript" src="<?=base_url()?>js/jquery.ui.widget.js"></script>
-		<script type="text/javascript" src="<?=base_url()?>js/jquery.ui.button.js"></script>
+		<script type="text/javascript" src="<?=base_url()?>js/jquery/jquery-1.8.2.js"></script>
+		<script type="text/javascript" src="<?=base_url()?>js/jquery/jquery.ui.core.js"></script>
+		<script type="text/javascript" src="<?=base_url()?>js/jquery/jquery.ui.widget.js"></script>
+		<script type="text/javascript" src="<?=base_url()?>js/jquery/jquery.ui.button.js"></script>
 	<? endblock() ?>
 
 <? end_extend() ?>
