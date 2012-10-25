@@ -66,7 +66,7 @@
 	</div>
 <p>&nbsp;</p>
 <!-- javascript at the bottom for fast page loading -->
-<!-- <script type="text/javascript" src="<?=base_url()?>js1/jquery.js"></script> -->
+<script type="text/javascript" src="<?=base_url()?>js/jquery.js"></script>
 <script type="text/javascript" src="<?=base_url()?>js/jquery.easing-sooper.js"></script>
 <script type="text/javascript" src="<?=base_url()?>js/jquery.sooperfish.js"></script>
 <script type="text/javascript">
@@ -74,5 +74,9 @@ $(document).ready(function() {
 	$('ul.sf-menu').sooperfish();
 });
 </script>
+
+<? start_block_marker('jscript') ?>
+
+<? end_block_marker() ?>
 </body>
 </html>
