@@ -20,7 +20,7 @@ class Myilmu extends CI_Controller
 		*/
 		public function index()
 			{
-				$this->load->view('base_template');
+				$this->load->view('home');
 			}
 		
 #############################################################################################################################
