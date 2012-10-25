@@ -17,7 +17,7 @@
 			<div id="logo">
 				<div id="logo_text">
 					<!-- class="logo_colour", allows you to change the colour of the text -->
-					<h1><a href=""><?=$this->config->item('title')?><span class="logo_colour"> Tution Center</span></a></h1>
+					<h1><a href="<?=base_url()?>"><?=$this->config->item('title')?><span class="logo_colour"> Tution Center</span></a></h1>
 					<h2>Simple. Contemporary. Reliable.</h2>
 				</div>
 			</div>
