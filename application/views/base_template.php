@@ -11,7 +11,7 @@
 	<? endblock() ?>
 
 	<? startblock('top_nav') ?>
-		<li><a href="index.html">Home</a></li>
+		<li><?=anchor(base_url(), 'Home', array('title' => 'Home'))?></li>
 		<li><a href="examples.html">Examples</a></li>
 		<li><a href="page.html">A Page</a></li>
 		<li><a href="another_page.html">Another Page</a></li>
