@@ -36,10 +36,11 @@
 	<? endblock() ?>
 
 	<? startblock('top_sidebar') ?>
-		<h3>Latest News</h3>
-		<h4>New Website Launched</h4>
-		<h5>January 1st, 2012</h5>
-		<p>2012 sees the redesign of our website. Take a look around and let us know what you think.<br /><a href="#">Read more</a></p>
+		<h3>Course</h3>
+		<h4>Course We Offered</h4>
+		<h5><?=date_my()?></h5>
+		<?$r = $this->course->course()?>
+		<p><?=$r->num_rows()?> Course</p>
 	<? endblock() ?>
 	
 	<? startblock('menu') ?>

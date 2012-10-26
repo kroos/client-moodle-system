@@ -11,7 +11,7 @@ class Course extends CI_Model
 //CRUD for course db
 
 //SELECT
-		function bank()
+		function course()
 			{
 				return $this->db->order_by('bil')->get('course');
 			}
@@ -20,13 +20,13 @@ class Course extends CI_Model
 
 
 //INSERT
-		function insert_bank($course)
+		function insert_course($code_course, $course, $description, $cost, $week)
 			{
-				return $this->db->insert('course', $course);
+				return $this->db->insert('course', array('code_course' => $code_course, 'course' => $course, 'description' => $description, 'cost' => $cost, 'week' => $week));
 			}
 
 //DELETE
-		function delete_bank($id)
+		function delete_course($id)
 			{
 				return $this->db->delete('course', array('bil' => $id));
 			}
