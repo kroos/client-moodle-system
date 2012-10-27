@@ -2,7 +2,7 @@
 
 	<? startblock('content') ?>
 	
-		<h1>Enrollment <?=$q->course?></h1>
+		<h1>Enrollment <?=$q->course?> Programme</h1>
 		<p><?=@$info?></p>
 		<?=form_open('')?>
 		<div class="form_settings">
@@ -50,6 +50,10 @@
 			<?=form_input(array('name' => 'phone', 'value' => set_value('phone'), 'maxlength' => '20', 'size' => '10'))?>
 			<?=form_error('phone')?>
 			</p>
+
+			<p><span>Image Verification <?=$cap['image']?> : </span>
+			<?=form_input(array('name' => 'verify', 'value' => set_value('verify'), 'maxlength' => '5', 'size' => '5'))?>
+			<?=form_error('verify')?></p>
 
 			<p><span>&nbsp;</span><?=form_submit('signup', 'Sign Up', 'class="submit"')?></p>
 		</div>
