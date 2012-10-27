@@ -8,12 +8,12 @@ class Course extends CI_Model
 				parent::__construct();
 			}
 #############################################################################################################################
-//CRUD for course db
+//CRUD for course table
 
 //SELECT
 		function course()
 			{
-				return $this->db->order_by('bil')->get('course');
+				return $this->db->order_by('id')->get('course');
 			}
 
 //UPDATE
@@ -28,7 +28,7 @@ class Course extends CI_Model
 //DELETE
 		function delete_course($id)
 			{
-				return $this->db->delete('course', array('bil' => $id));
+				return $this->db->delete('course', array('id' => $id));
 			}
 	}
 ?>
