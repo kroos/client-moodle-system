@@ -19,7 +19,7 @@
 						<td><?=$t->course?></td>
 						<td><?=$t->description?></td>
 						<td><?=$t->week?> Week</td>
-						<td><div class="demo"><?=anchor('myilmu/enrol', 'Enrol', array('title' => 'Enrol'))?></div></td>
+						<td><div class="demo"><?=anchor('myilmu/enrol/'.$t->id, 'Enrol', array('title' => 'Enrol'))?></div></td>
 					</tr>
 				<?endforeach?>
 			</table>
