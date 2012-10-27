@@ -31,6 +31,37 @@ class Myilmu extends CI_Controller
 					}
 			}
 
+		public function enrol()
+			{
+				if ($this->session->userdata('logged_in') == TRUE)
+					{
+						redirect('/user/myilmu/index', 'location');
+					}
+					else
+					{
+						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
+						if ($this->form_validation->run() == FALSE)
+							{
+								//form
+								$course_id = $this->uri->segment(3, 0);
+								if(is_numeric($course_id))
+									{
+										$data['q'] = $this->course->course_id($course_id)->row();
+										$this->load->view('enrol', $data);
+									}
+									else
+									{
+										redirect('', 'location');
+									}
+							}
+							else
+							{
+								//form process
+								
+							}
+					}
+			}
+
 		public function login()
 			{
 				if ($this->session->userdata('logged_in') == TRUE)

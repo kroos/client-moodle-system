@@ -38,7 +38,8 @@
 |
 */
 
-$route['default_controller'] = "myilmu";
+$route['default_controller'] = 'myilmu';
+$route['myilmu/enrol/(:num)'] = 'myilmu/enrol';
 $route['404_override'] = 'myilmu/page_missing';
 
 
