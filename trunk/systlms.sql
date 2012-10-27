@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50522
 File Encoding         : 65001
 
-Date: 2012-10-27 21:00:07
+Date: 2012-10-27 23:15:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,6 +30,23 @@ CREATE TABLE `bank` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `captcha`
+-- ----------------------------
+DROP TABLE IF EXISTS `captcha`;
+CREATE TABLE `captcha` (
+  `captcha_id` bigint(13) unsigned NOT NULL AUTO_INCREMENT,
+  `captcha_time` int(10) unsigned NOT NULL,
+  `ip_address` varchar(16) NOT NULL DEFAULT '0',
+  `word` varchar(20) NOT NULL,
+  PRIMARY KEY (`captcha_id`),
+  KEY `word` (`word`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of captcha
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `ci_sessions`
 -- ----------------------------
 DROP TABLE IF EXISTS `ci_sessions`;
@@ -46,7 +63,11 @@ CREATE TABLE `ci_sessions` (
 -- ----------------------------
 -- Records of ci_sessions
 -- ----------------------------
-INSERT INTO `ci_sessions` VALUES ('fa3e82d8ff55d05e2c05b3c654f52431', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20100101 Firefox/14.0.1', '1351342760', '');
+INSERT INTO `ci_sessions` VALUES ('0770b7a6bb6dde4f5283410309ec51e1', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20100101 Firefox/14.0.1', '1351342959', '');
+INSERT INTO `ci_sessions` VALUES ('490c5292da2e5c5e2848d48842ed3443', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20100101 Firefox/14.0.1', '1351344028', '');
+INSERT INTO `ci_sessions` VALUES ('70c1aa4c9489eac97345dfa8170c4597', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20100101 Firefox/14.0.1', '1351346912', '');
+INSERT INTO `ci_sessions` VALUES ('92cf517e7ec6cc18bc70b4f754f42442', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20100101 Firefox/14.0.1', '1351349967', '');
+INSERT INTO `ci_sessions` VALUES ('9b4ebc71f3bd896147a4069aa0803c5e', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20100101 Firefox/14.0.1', '1351345042', '');
 
 -- ----------------------------
 -- Table structure for `course`
