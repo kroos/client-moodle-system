@@ -12,7 +12,7 @@
 
 	<? startblock('top_nav') ?>
 		<li><?=anchor(base_url(), 'Home', array('title' => 'Home'))?></li>
-		<li><a href="examples.html">Examples</a></li>
+		<li><?=anchor('myilmu/login', 'Login', array('title' => 'Login'))?></li>
 		<li><a href="page.html">A Page</a></li>
 		<li><a href="another_page.html">Another Page</a></li>
 		<li><a href="#">Example Drop Down</a>
@@ -40,7 +40,11 @@
 		<h4>Course We Offered</h4>
 		<h5><?=date_my()?></h5>
 		<?$r = $this->course->course()?>
-		<p><?=$r->num_rows()?> Course</p>
+		<?if($r->num_rows() < 1):?>
+			<p>No Course Have Been Offered Yet</p>
+		<?else:?>
+			<p><?=$r->num_rows()?> Course</p>
+		<?endif?>
 	<? endblock() ?>
 	
 	<? startblock('menu') ?>

@@ -22,56 +22,12 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') == TRUE)
 					{
-						redirect('/user/myilmu/index', 'location');
-					}
-					else
-					{
 						$data['a'] = $this->course->course();
-						$this->load->view('home', $data);
-					}
-			}
-
-		public function login()
-			{
-				if ($this->session->userdata('logged_in') == TRUE)
-					{
-						redirect('/user/myilmu/index', 'location');
+						$this->load->view('user/home', $data);
 					}
 					else
 					{
-						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
-						if ($this->form_validation->run() == FALSE)
-							{
-								//form
-								$this->load->view('login');
-							}
-							else
-							{
-								//form process
-								if ($this->input->post('login', TRUE))
-									{
-										$user = $this->input->post('username', TRUE);
-										$pass = md5($this->input->post('password', TRUE));
-										$r = $this->user->login($user, $pass);
-										if ($r->num_rows() == 1)
-											{
-												$session = array
-																(
-																	'username' => $user,
-																	'password' => $pass,
-																	//'group' => $r->row()->group_id,
-																	'logged_in' => TRUE,
-																);
-												$this->session->set_userdata($session);
-												redirect('/user/myilmu', 'location');
-											}
-											else
-											{
-												$data['info'] = 'Your username and password did\'nt match';
-												$this->load->view('login', $data);
-											}
-									}
-							}
+						redirect('', 'location');
 					}
 			}
 

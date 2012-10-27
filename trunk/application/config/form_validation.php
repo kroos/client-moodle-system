@@ -18,6 +18,23 @@ $config = array	(
 */
 ##################################################################################################
 
+$config = array	( 
+					'myilmu/login' => array
+					( 
+						array
+							(
+								'field' => 'username',
+								'label' => 'Username',
+								'rules' => 'trim|required|valid_email|min_length[5]|max_length[50]|xss_clean'
+							),
+						array
+							(
+								'field' => 'password',
+								'label' => 'Password',
+								'rules' => 'trim|required|min_length[5]|max_length[10]|xss_clean'
+							)
+					)
+				);
 
 
 /* End of file form_validator.php */
