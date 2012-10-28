@@ -76,6 +76,7 @@ class Myilmu extends CI_Controller
 					}
 			}
 
+		//need somemore tweak
 		public function login()
 			{
 				if ($this->session->userdata('logged_in') == TRUE)
@@ -120,6 +121,27 @@ class Myilmu extends CI_Controller
 					}
 			}
 
+		public function forgot_password()
+			{
+				if ($this->session->userdata('logged_in') == TRUE)
+					{
+						redirect('/user/myilmu/index', 'location');
+					}
+					else
+					{
+						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
+						if ($this->form_validation->run() == FALSE)
+							{
+								//form
+								$this->load->view('forgot_password');
+							}
+							else
+							{
+								//form process
+								
+							}
+					}
+			}
 #############################################################################################################################
 //error 404
 		public function page_missing()

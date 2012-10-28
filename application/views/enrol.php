@@ -26,6 +26,11 @@
 			<?=form_error('name')?>
 			</p>
 
+			<p><span>Identity Card No. <b><i><font size="1">(120101021234)</font></i></b> : </span>
+			<?=form_input(array('name' => 'ic', 'value' => set_value('ic'), 'maxlength' => '12', 'size' => '10'))?>
+			<?=form_error('ic')?>
+			</p>
+
 			<p><span>Address : </span>
 			<?=form_textarea(array('name' => 'address', 'value' => set_value('address'), 'rows' => '5', 'cols' => '10'))?>
 			<?=form_error('address')?>
@@ -42,7 +47,7 @@
 			</p>
 
 			<p><span>State : </span>
-			<?=form_input(array('name' => 'state', 'value' => set_value('state'), 'maxlength' => '20', 'size' => '10'))?>
+			<?=form_dropdown('state', $this->config->item('state'), set_value('state'))?>
 			<?=form_error('state')?>
 			</p>
 

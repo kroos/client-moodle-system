@@ -40,8 +40,32 @@ $config['from'] = 'admin@domain.com';								//this might probably differ from $
 $config['from_name'] = '[GM]Cabal';							//example [GM]Cabal
 
 #############################################################################################
+//moodle login
+$config['moodle_login'] = 'http://a3ncabalload.dyndns.info/lms/login/index.php';
 #############################################################################################
+//forgot password URL
+$config['forgot_password'] = 'http://a3ncabalload.dyndns.info/myilmu/forgot_password';
 #############################################################################################
+//state
+$config['state'] = array
+						(
+							'' => 'State',
+							'Selangor' => 'Selangor',
+							'Johor' => 'Johor',
+							'Sabah' => 'Sabah',
+							'Kuala Lumpur' => 'Kuala Lumpur',
+							'Perak' => 'Perak',
+							'Pulau Pinang' => 'Pulau Pinang',
+							'Sarawak' => 'Sarawak',
+							'Kedah' => 'Kedah',
+							'Pahang' => 'Pahang',
+							'Melaka' => 'Melaka',
+							'Negeri Sembilan' => 'Negeri Sembilan',
+							'Kelantan' => 'Kelantan',
+							'Terengganu' => 'Terengganu',
+							'Perlis' => 'Perlis',
+							'Labuan' => 'Labuan'
+						);
 #############################################################################################
 #############################################################################################
 #############################################################################################
@@ -52,4 +76,4 @@ $config['from_name'] = '[GM]Cabal';							//example [GM]Cabal
 #############################################################################################
 
 /* End of file cabal.php */
-/* Location: ./application/config/cabal.php */
+/* Location: ./application/config/systlms.php */
