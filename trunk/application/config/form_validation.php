@@ -25,13 +25,13 @@ $config = array	(
 							(
 								'field' => 'username',
 								'label' => 'Username',
-								'rules' => 'trim|required|valid_email|min_length[5]|max_length[50]|xss_clean'
+								'rules' => 'trim|required|min_length[5]|max_length[50]|xss_clean'
 							),
 						array
 							(
 								'field' => 'password',
 								'label' => 'Password',
-								'rules' => 'trim|required|min_length[5]|max_length[10]|xss_clean'
+								'rules' => 'trim|required|min_length[5]|max_length[20]|xss_clean'
 							)
 					),
 					'myilmu/enrol' => array
@@ -110,6 +110,21 @@ $config = array	(
 								'field' => 'username',
 								'label' => 'Username',
 								'rules' => 'trim|required|valid_email|min_length[5]|max_length[50]|xss_clean'
+							),
+						array
+							(
+								'field' => 'ic',
+								'label' => 'Identity Card',
+								'rules' => 'trim|required|is_natural|exact_length[12]|xss_clean'
+							)
+					),
+					'myilmu/forgot_password' => array
+					(
+						array
+							(
+								'field' => 'name',
+								'label' => 'Name',
+								'rules' => 'trim|required|alpha|min_length[5]|max_length[50]|xss_clean'
 							),
 						array
 							(

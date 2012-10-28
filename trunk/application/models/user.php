@@ -20,8 +20,16 @@ class User extends CI_Model
 			{
 				return $this->db->get_where('user', array('username' => $username, 'password' => $password));
 			}
-//UPDATE
 
+		function forgot_pass($user, $ic)
+			{
+				return $this->db->get_where('user', array('username' => $user, 'IC' => $ic));
+			}
+//UPDATE
+		function update_resetp($user, $ic, $password)
+			{
+				return $this->db->where(array('username' => $user, 'IC' => $ic))->update('user', array('password' => md5($password)));
+			}
 
 //INSERT
 		function insert_course($username, $password, $name, $address, $postal_code, $city, $state, $phone)

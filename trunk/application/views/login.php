@@ -10,7 +10,7 @@
 			<?=form_error('username')?>
 			</p>
 			<p><span>Password : </span>
-			<?=form_password(array('name' => 'password', 'value' => set_value('password'), 'maxlength' => '10', 'size' => '10'))?>
+			<?=form_password(array('name' => 'password', 'value' => set_value('password'), 'maxlength' => '20', 'size' => '10'))?>
 			<?=form_error('password')?>
 			</p>
 			<p><span>&nbsp;</span><?=form_submit('login', 'Login', 'class="submit"')?></p>
