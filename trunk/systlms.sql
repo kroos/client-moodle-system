@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50522
 File Encoding         : 65001
 
-Date: 2012-10-27 23:15:33
+Date: 2012-10-28 15:26:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,7 +40,7 @@ CREATE TABLE `captcha` (
   `word` varchar(20) NOT NULL,
   PRIMARY KEY (`captcha_id`),
   KEY `word` (`word`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of captcha
@@ -63,11 +63,6 @@ CREATE TABLE `ci_sessions` (
 -- ----------------------------
 -- Records of ci_sessions
 -- ----------------------------
-INSERT INTO `ci_sessions` VALUES ('0770b7a6bb6dde4f5283410309ec51e1', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20100101 Firefox/14.0.1', '1351342959', '');
-INSERT INTO `ci_sessions` VALUES ('490c5292da2e5c5e2848d48842ed3443', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20100101 Firefox/14.0.1', '1351344028', '');
-INSERT INTO `ci_sessions` VALUES ('70c1aa4c9489eac97345dfa8170c4597', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20100101 Firefox/14.0.1', '1351346912', '');
-INSERT INTO `ci_sessions` VALUES ('92cf517e7ec6cc18bc70b4f754f42442', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20100101 Firefox/14.0.1', '1351349967', '');
-INSERT INTO `ci_sessions` VALUES ('9b4ebc71f3bd896147a4069aa0803c5e', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20100101 Firefox/14.0.1', '1351345042', '');
 
 -- ----------------------------
 -- Table structure for `course`
@@ -97,6 +92,7 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `name` char(255) NOT NULL,
+  `IC` varchar(20) NOT NULL,
   `address` char(255) DEFAULT NULL,
   `postal code` varchar(5) DEFAULT NULL,
   `city` char(255) DEFAULT NULL,
@@ -108,7 +104,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'stud@gmail.com', '4297f44b13955235245b2497399d7a93 ', 'Students', '1, taman mutiara', '08000', 'sungai petani', 'kedah', '162172420');
+INSERT INTO `user` VALUES ('1', 'stud@gmail.com', '4297f44b13955235245b2497399d7a93 ', 'Students', '760505026479', '1, taman mutiara', '08000', 'sungai petani', 'kedah', '162172420');
 
 -- ----------------------------
 -- Table structure for `user_code_course`
@@ -149,12 +145,19 @@ DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE `user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_role` char(50) NOT NULL,
+  `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of user_role
 -- ----------------------------
+INSERT INTO `user_role` VALUES ('1', 'Manager', 'Managers can access course and modify them, they usually do not participate in courses.');
+INSERT INTO `user_role` VALUES ('2', 'Course creator', 'Course creators can create new courses.');
+INSERT INTO `user_role` VALUES ('3', 'Teacher', 'Teachers can do anything within a course, including changing the activities and grading students.');
+INSERT INTO `user_role` VALUES ('4', 'Non-editing teacher', 'Non-editing teachers can teach in courses and grade students, but may not alter activities.');
+INSERT INTO `user_role` VALUES ('5', 'Student', 'Students generally have fewer privileges within a course.');
+INSERT INTO `user_role` VALUES ('6', 'Guest', 'Guests have minimal privileges and usually can not enter text anywhere.');
 
 -- ----------------------------
 -- Table structure for `user_user_role`

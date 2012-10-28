@@ -31,6 +31,29 @@ class Myilmu extends CI_Controller
 					}
 			}
 
+		public function logout()
+			{
+				if ($this->session->userdata('logged_in') == TRUE)
+					{
+						//process
+						$array = array 
+								(
+									'usernum' => '',
+									'authkey' => '',
+									'username' => '',
+									'password' => '',
+									'group' => '',
+									'logged_in' => FALSE,
+								);
+						$this->session->unset_userdata($array);
+						redirect('', 'location');
+					}
+					else
+					{
+						redirect('', 'location');
+					}
+			}
+
 #############################################################################################################################
 //error 404
 		public function page_missing()

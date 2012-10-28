@@ -16,6 +16,7 @@
 			<p><span>&nbsp;</span><?=form_submit('login', 'Login', 'class="submit"')?></p>
 		</div>
 		<?=form_close()?>
+		<p><?=anchor('myilmu/forgot_password', 'Forgot Password?', array('title' => 'Forgot password?'))?></p>
 	<? endblock() ?>
 
 <? end_extend() ?>
