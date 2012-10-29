@@ -71,12 +71,58 @@ class Myilmu extends CI_Controller
 							else
 							{
 								//form process
-								
+								$course_id = $this->uri->segment(3, 0);
+								$data['q'] = $this->course->course_id($course_id)->row();
+								if($this->input->post('signup', TRUE))
+									{
+										$username = $this->input->post('username', TRUE);
+										$password = md5($this->input->post('password1', TRUE));
+										$name = ucwords(strtolower($this->input->post('name', TRUE)));
+										$ic = $this->input->post('ic', TRUE);
+										$postcode = $this->input->post('postcode', TRUE);
+										$city = ucwords(strtolower($this->input->post('city', TRUE)));
+										$state = $this->input->post('state', TRUE);
+										$phone = $this->input->post('phone', TRUE);
+										$address = ucwords(strtolower($this->input->post('address', TRUE)));
+										$verify = $this->input->post('verify', TRUE);
+
+										//we need to check the capthca
+										$expiration = time()-1800; // 30 minites limit
+										//delete captcha 30 minites ago
+										$this->captcha->delete_captcha($expiration);
+
+										//check the new 1
+										$check = $this->captcha->captcha($verify, $expiration)->num_rows();
+
+										if ($check == 0)
+											{
+												$data['info'] = 'You must submit the word that appears in the image';
+												$this->load->view('register', $data);
+											}
+											else
+											{
+												$course_id = $this->uri->segment(3, 0);
+												$q = $this->course->course_id($course_id)->row()->code_course;
+												$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone);
+												$t = $this->user_code_course->insert_user_course($username, $q, 0, 0);
+												//default is student
+												$b = $this->user_user_role->insert_user_role($username, 5);
+												if ($r && $t && $b)
+													{
+														$data['info'] = 'You may login with the credential.';
+														$this->load->view('enrol', $data);
+													}
+													else
+													{
+														$data['info'] = 'Something teribly wrong. please try again later';
+														$this->load->view('enrol', $data);
+													}
+											}
+									}
 							}
 					}
 			}
 
-		//need somemore tweak
 		public function login()
 			{
 				if ($this->session->userdata('logged_in') == TRUE)
@@ -223,9 +269,9 @@ class Myilmu extends CI_Controller
 							else
 							{
 								//form process
-								$name = $this->input->post('name', TRUE);
+								$name = ucwords(strtolower($this->input->post('name', TRUE)));
 								$email = $this->input->post('email', TRUE);
-								$msg = $this->input->post('message', TRUE);
+								$msg = ucwords(strtolower($this->input->post('message', TRUE)));
 								$verify = $this->input->post('verify', TRUE);
 
 								if($this->input->post('contact', TRUE))

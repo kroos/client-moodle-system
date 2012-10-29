@@ -3,7 +3,7 @@
 	<? startblock('content') ?>
 		<h1>Course List</h1>
 		<p>Welcome to <?=$this->config->item('title')?> Tution Center. You may enrol more course from here.</p>
-		<?=@$info?>
+		<p><?=@$info?></p>
 		<?if($a->num_rows() < 1):?>
 			<p><b>All course learned already.</b></p>
 		<?else:?>
