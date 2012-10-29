@@ -76,7 +76,7 @@ $config = array	(
 							(
 								'field' => 'postcode',
 								'label' => 'Postal Code',
-								'rules' => 'trim|is_natural|xss_clean'
+								'rules' => 'trim|is_natural|exact_length[5]|xss_clean'
 							),
 						array
 							(
@@ -100,7 +100,7 @@ $config = array	(
 							(
 								'field' => 'verify',
 								'label' => 'Image Verification',
-								'rules' => 'trim|is_natural|required|xss_clean'
+								'rules' => 'trim|is_natural|exact_length[5]|required|xss_clean'
 							)
 					),
 					'myilmu/forgot_password' => array
@@ -118,19 +118,37 @@ $config = array	(
 								'rules' => 'trim|required|is_natural|exact_length[12]|xss_clean'
 							)
 					),
-					'myilmu/forgot_password' => array
+					'myilmu/contact' => array
 					(
 						array
 							(
 								'field' => 'name',
 								'label' => 'Name',
-								'rules' => 'trim|required|alpha|min_length[5]|max_length[50]|xss_clean'
+								'rules' => 'trim|required|alpha_dash|min_length[5]|max_length[50]|xss_clean'
 							),
 						array
 							(
-								'field' => 'ic',
-								'label' => 'Identity Card',
-								'rules' => 'trim|required|is_natural|exact_length[12]|xss_clean'
+								'field' => 'email',
+								'label' => 'Email',
+								'rules' => 'trim|required|valid_email|max_length[50]|xss_clean'
+							),
+						array
+							(
+								'field' => 'email',
+								'label' => 'Email',
+								'rules' => 'trim|required|valid_email|max_length[50]|xss_clean'
+							),
+						array
+							(
+								'field' => 'message',
+								'label' => 'Message',
+								'rules' => 'trim|required|max_length[255]|xss_clean'
+							),
+						array
+							(
+								'field' => 'verify',
+								'label' => 'Image Verification',
+								'rules' => 'trim|is_natural|required|exact_length[5]|xss_clean'
 							)
 					),
 				);

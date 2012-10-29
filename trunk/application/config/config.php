@@ -245,7 +245,7 @@ $config['encryption_key'] = 'ayustrading';
 |
 */
 $config['sess_cookie_name']		= 'ci_session';
-$config['sess_expiration']		= 300;
+$config['sess_expiration']		= 1800;
 $config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= TRUE;
 $config['sess_use_database']	= TRUE;

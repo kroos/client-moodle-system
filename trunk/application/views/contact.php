@@ -1,7 +1,7 @@
 <? extend('base_template') ?>
 
 	<? startblock('content') ?>
-		<h1>Login</h1>
+		<h1>Contact Us</h1>
 		<p><?=@$info?></p>
 		<?=form_open('')?>
 		<div class="form_settings">

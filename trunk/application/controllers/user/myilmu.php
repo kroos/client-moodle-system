@@ -38,11 +38,8 @@ class Myilmu extends CI_Controller
 						//process
 						$array = array 
 								(
-									'usernum' => '',
-									'authkey' => '',
 									'username' => '',
 									'password' => '',
-									'group' => '',
 									'logged_in' => FALSE,
 								);
 						$this->session->unset_userdata($array);

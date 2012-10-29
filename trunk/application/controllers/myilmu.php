@@ -223,7 +223,54 @@ class Myilmu extends CI_Controller
 							else
 							{
 								//form process
-								
+								$name = $this->input->post('name', TRUE);
+								$email = $this->input->post('email', TRUE);
+								$msg = $this->input->post('message', TRUE);
+								$verify = $this->input->post('verify', TRUE);
+
+								if($this->input->post('contact', TRUE))
+									{
+										//we need to check the capthca
+										$expiration = time()-1800; // 30 minutes limit
+										//delete captcha 30 minutes ago
+										$this->captcha->delete_captcha($expiration);
+
+										//check the new 1
+										$check = $this->captcha->captcha($verify, $expiration)->num_rows();
+
+										if ($check == 0)
+											{
+												$data['info'] = 'You must submit the word that appears in the image';
+												$this->load->view('contact', $data);
+											}
+											else
+											{
+												$subject = $this->config->item('title').' Tution Center Query';
+												$message = "<html>
+															<head>
+															<meta http-equiv='Content-Language' content='en-us'>
+															<meta name='GENERATOR' content='Microsoft FrontPage 6.0'>
+															<meta name='ProgId' content='FrontPage.Editor.Document'>
+															<meta http-equiv='Content-Type' content='text/html; charset=windows-1252'>
+															<title>".$this->config->item('title')." Tution Center Query</title>
+															</head>
+															<body>";
+												$message .= $msg;
+												$message .=	"</body></html>";
+
+												$email1 = send_email($this->config->item('admin_email'), 'Admin', $subject, $message, $this->config->item('pop3_server'), $this->config->item('pop3_port'), $this->config->item('username'), $this->config->item('password'), $this->config->item('SMTP_auth'), $this->config->item('smtp_server'), $this->config->item('smtp_port'), $this->config->item('SMTP_Secure'), $email, $name, $email, $name);
+												if ($email1 == TRUE)
+													{
+														$data['info'] = 'Thank you very much. We will get back to you at the soonest.';
+														$this->load->view('contact', $data);
+													}
+													else
+													{
+														$data['info'] = 'Activation email cant be send right now<br />Please try again later';
+														$this->load->view('contact', $data);
+													}
+											}
+									}
 							}
 					}
 			}
