@@ -22,7 +22,12 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') == TRUE)
 					{
+						//show all course but not the 1 that enrolled already
 						$data['a'] = $this->course->course();
+						//$d = $this->user_code_course->user_course($this->session->userdata('username'));
+
+						//$data['a'] =$this->course->course_code_inv($d->row()->code_course);
+						//echo $this->db->last_query();
 						$this->load->view('user/home', $data);
 					}
 					else
@@ -31,6 +36,44 @@ class Myilmu extends CI_Controller
 					}
 			}
 
+		public function enrol()
+			{
+				if ($this->session->userdata('logged_in') == TRUE)
+					{
+						$data['a'] = $this->course->course();
+						$course_id = $this->uri->segment(4, 0);
+						if (ctype_digit($course_id))
+							{
+								$uy = $this->course->course_id($course_id)->row()->code_course;
+								//echo $uy;
+								$yu = $this->user_code_course->user_code_course($this->session->userdata('username'), $uy);
+								if ($yu->num_rows() < 1)
+									{
+										//insert data
+										
+									}
+									else
+									{
+										$data['info'] = '<div class="ui-widget">
+															<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+																<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+																<strong>Error:</strong> You have registered this course. Please enroll another course.</p>
+															</div>
+														</div>';
+										$this->load->view('user/home', $data);
+									}
+							}
+					}
+					else
+					{
+						redirect('/user/myilmu/index', 'location');
+					}
+			}
+
+
+
+#############################################################################################################################
+//logout
 		public function logout()
 			{
 				if ($this->session->userdata('logged_in') == TRUE)
@@ -65,10 +108,6 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') == TRUE)
 					{
-						redirect('/user/myilmu/index', 'location');
-					}
-					else
-					{
 						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
 						if ($this->form_validation->run() == FALSE)
 							{
@@ -81,10 +120,14 @@ class Myilmu extends CI_Controller
 								
 							}
 					}
+					else
+					{
+						redirect('/user/myilmu/index', 'location');
+					}
 			}
 */
 #############################################################################################################################
 	}
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+/* End of file myilmu.php */
+/* Location: ./application/controllers/user/myilmu.php */
