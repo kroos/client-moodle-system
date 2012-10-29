@@ -58,7 +58,7 @@ $config = array	(
 							(
 								'field' => 'name',
 								'label' => 'Name',
-								'rules' => 'trim|required|alpha|min_length[5]|max_length[50]|xss_clean'
+								'rules' => 'trim|required|min_length[5]|max_length[50]|xss_clean'
 							),
 						array
 							(
@@ -150,6 +150,46 @@ $config = array	(
 								'label' => 'Image Verification',
 								'rules' => 'trim|is_natural|required|exact_length[5]|xss_clean'
 							)
+					),
+					//user part
+					'myilmu/edit' => array
+					( 
+						array
+							(
+								'field' => 'name',
+								'label' => 'Name',
+								'rules' => 'trim|required|min_length[5]|max_length[50]|xss_clean'
+							),
+						array
+							(
+								'field' => 'address',
+								'label' => 'Address',
+								'rules' => 'trim|required|xss_clean'
+							),
+						array
+							(
+								'field' => 'postcode',
+								'label' => 'Postal Code',
+								'rules' => 'trim|required|is_natural|exact_length[5]|xss_clean'
+							),
+						array
+							(
+								'field' => 'city',
+								'label' => 'City',
+								'rules' => 'trim|required|xss_clean'
+							),
+						array
+							(
+								'field' => 'state',
+								'label' => 'State',
+								'rules' => 'trim|required|xss_clean'
+							),
+						array
+							(
+								'field' => 'phone',
+								'label' => 'Mobile Phone',
+								'rules' => 'trim|required|is_natural|xss_clean'
+							),
 					),
 				);
 

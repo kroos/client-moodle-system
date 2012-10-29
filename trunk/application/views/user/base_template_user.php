@@ -11,7 +11,8 @@
 	<? endblock() ?>
 
 	<? startblock('top_nav') ?>
-		<li><?=anchor(base_url().'user/myilmu/', 'Home', array('title' => 'Home'))?></li>
+		<li><?=anchor('user/myilmu', 'Home', array('title' => 'Home'))?></li>
+		<li><?=anchor('user/myilmu/account', 'Account', array('title' => 'Account'))?></li>
 		<li><?=anchor('user/myilmu/profile', 'Profile', array('title' => 'Profile'))?></li>
 		<li><?=anchor('user/myilmu/logout', 'Logout', array('title' => 'Logout'))?></li>
 	<? endblock() ?>

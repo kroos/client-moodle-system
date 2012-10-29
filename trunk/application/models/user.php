@@ -16,6 +16,11 @@ class User extends CI_Model
 				return $this->db->order_by('id')->get('user');
 			}
 
+			function user_username($username)
+			{
+				return $this->db->get_where('user', array('username' => $username));
+			}
+
 		function login($username, $password)
 			{
 				return $this->db->get_where('user', array('username' => $username, 'password' => $password));
@@ -31,14 +36,19 @@ class User extends CI_Model
 				return $this->db->where(array('username' => $user, 'IC' => $ic))->update('user', array('password' => md5($password)));
 			}
 
-//INSERT
-		function insert_course($username, $password, $name, $address, $postal_code, $city, $state, $phone)
+		function update_profile($username, $name, $address, $postal_code, $city, $state, $phone)
 			{
-				return $this->db->insert('user', array('username' => $username, 'password' => $password, 'name' => $name, 'address' => $address, 'postal_code' => $postal_code, 'city' => $city, 'state' => $state, 'phone' => $phone));
+				return $this->db->where(array('username' => $username))->update('user', array('name' => $name, 'address' => $address, 'postal_code' => $postal_code, 'city' => $city, 'state' => $state, 'phone' => $phone));
+			}
+
+//INSERT
+		function insert_user($username, $password, $name, $ic, $address, $postal_code, $city, $state, $phone)
+			{
+				return $this->db->insert('user', array('username' => $username, 'password' => $password, 'name' => $name, 'ic' => $ic, 'address' => $address, 'postal_code' => $postal_code, 'city' => $city, 'state' => $state, 'phone' => $phone));
 			}
 
 //DELETE
-		function delete_course($id)
+		function delete_user($id)
 			{
 				return $this->db->delete('user', array('id' => $id));
 			}
