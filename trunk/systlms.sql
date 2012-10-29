@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50522
 File Encoding         : 65001
 
-Date: 2012-10-28 15:26:45
+Date: 2012-10-29 21:41:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,7 +40,7 @@ CREATE TABLE `captcha` (
   `word` varchar(20) NOT NULL,
   PRIMARY KEY (`captcha_id`),
   KEY `word` (`word`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of captcha
@@ -76,12 +76,14 @@ CREATE TABLE `course` (
   `cost` int(11) NOT NULL,
   `week` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of course
 -- ----------------------------
 INSERT INTO `course` VALUES ('1', 'lk', 'lipat kain', 'kursus lipat kain', '10', '4');
+INSERT INTO `course` VALUES ('2', 'jk', 'jemur kain', 'kursus jemur kain', '10', '4');
+INSERT INTO `course` VALUES ('3', 'kr', 'kemas rumah', 'kursus kemas rumah', '20', '8');
 
 -- ----------------------------
 -- Table structure for `user`
@@ -99,12 +101,13 @@ CREATE TABLE `user` (
   `state` char(20) DEFAULT NULL,
   `phone` int(15) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'stud@gmail.com', '4297f44b13955235245b2497399d7a93 ', 'Students', '760505026479', '1, taman mutiara', '08000', 'sungai petani', 'kedah', '162172420');
+INSERT INTO `user` VALUES ('1', 'stud@gmail.com', '4297f44b13955235245b2497399d7a93', 'Students', '760505026479', '1, taman mutiara', '08000', 'sungai petani', 'kedah', '162172420');
+INSERT INTO `user` VALUES ('2', 'admin', 'efc9b1e45645f55afbf7401a728b3334', 'Admin', '123456789012', null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `user_code_course`
@@ -113,13 +116,15 @@ DROP TABLE IF EXISTS `user_code_course`;
 CREATE TABLE `user_code_course` (
   `username` varchar(255) NOT NULL,
   `code_course` char(8) NOT NULL,
-  `activate` decimal(1,0) NOT NULL
+  `activate` decimal(1,0) NOT NULL,
+  `graduate` decimal(1,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of user_code_course
 -- ----------------------------
-INSERT INTO `user_code_course` VALUES ('stud@gmail.com', 'lk', '0');
+INSERT INTO `user_code_course` VALUES ('stud@gmail.com', 'lk', '0', '0');
+INSERT INTO `user_code_course` VALUES ('stud@gmail.com', 'kr', '0', '0');
 
 -- ----------------------------
 -- Table structure for `user_payment_bank`
@@ -171,3 +176,5 @@ CREATE TABLE `user_user_role` (
 -- ----------------------------
 -- Records of user_user_role
 -- ----------------------------
+INSERT INTO `user_user_role` VALUES ('stud@gmail.com', '5');
+INSERT INTO `user_user_role` VALUES ('admin', '1');

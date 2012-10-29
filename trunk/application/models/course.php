@@ -20,6 +20,12 @@ class Course extends CI_Model
 			{
 				return $this->db->get_where('course', array('id' => $id));
 			}
+
+		function course_code($code)
+			{
+				return $this->db->get_where('course', array('code_course' => $code));
+			}
+
 //UPDATE
 
 

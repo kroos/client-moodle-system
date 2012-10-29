@@ -31,7 +31,7 @@
 			<p> of : </p>
 				<ol>
 					<?foreach($y->result() as $e):?>
-						<li><?=$e->code_course?></li>
+						<li><?=$this->course->course_code($e->code_course)->row()->course?></li>
 					<?endforeach?>
 				</ol>
 		<?endif?>
