@@ -38,7 +38,8 @@ $config['addreplyto_email'] = 'admin@localhost.com';					//this might probably d
 $config['addreplyto_name'] = 'Admin';					//example, [GM]Cabal
 $config['from'] = 'admin@localhost.com';								//this might probably differ from $config['username']. Example, admin@domain.com
 $config['from_name'] = 'Admin';							//example [GM]Cabal
-
+#############################################################################################
+$config['admin_email'] = 'dhiauddin@gmail.com';			//user for "contact us" page
 #############################################################################################
 //moodle login
 $config['moodle_login'] = 'http://a3ncabalload.dyndns.info/lms/login/index.php';
@@ -66,7 +67,6 @@ $config['state'] = array
 							'Perlis' => 'Perlis',
 							'Labuan' => 'Labuan'
 						);
-#############################################################################################
 #############################################################################################
 #############################################################################################
 #############################################################################################

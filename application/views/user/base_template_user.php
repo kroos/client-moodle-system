@@ -13,46 +13,31 @@
 	<? startblock('top_nav') ?>
 		<li><?=anchor(base_url().'user/myilmu/', 'Home', array('title' => 'Home'))?></li>
 		<li><?=anchor('user/myilmu/profile', 'Profile', array('title' => 'Profile'))?></li>
-		<li><a href="page.html">A Page</a></li>
-		<li><a href="another_page.html">Another Page</a></li>
-		<li><a href="#">Example Drop Down</a>
-		<ul>
-			<li><a href="#">Drop Down One</a></li>
-			<li><a href="#">Drop Down Two</a>
-			<ul>
-				<li><a href="#">Sub Drop Down One</a></li>
-				<li><a href="#">Sub Drop Down Two</a></li>
-				<li><a href="#">Sub Drop Down Three</a></li>
-				<li><a href="#">Sub Drop Down Four</a></li>
-				<li><a href="#">Sub Drop Down Five</a></li>
-			</ul>
-			</li>
-			<li><a href="#">Drop Down Three</a></li>
-			<li><a href="#">Drop Down Four</a></li>
-			<li><a href="#">Drop Down Five</a></li>
-		</ul>
-		</li>
 		<li><?=anchor('user/myilmu/logout', 'Logout', array('title' => 'Logout'))?></li>
 	<? endblock() ?>
 
 	<? startblock('top_sidebar') ?>
-		<h3>Course Taken</h3>
-		<h4></h4>
+	<?$t = $this->user->login($this->session->userdata('username'), $this->session->userdata('password'))?>
+		<h3>Profile</h3>
+		<h4>Hello <?=$t->row()->name?></h4>
 		<h5><?=date_my()?></h5>
-		<?$r = $this->course->course()?>
-		<?if($r->num_rows() < 1):?>
-			<p>No Course Have Been Taken Yet</p>
+		<?$n = $this->user_user_role->user_role($this->session->userdata('username'))?>
+		<?$a = $this->user_role->user_roles($n->row()->id_user_role)?>
+		<p>You are the <?=$a->row()->user_role?></p>
+		<?$y = $this->user_code_course->user_course($this->session->userdata('username'))?>
+		<?if($y->num_rows() < 1):?>
+			<p>You didnt enrol any course yet</p>
 		<?else:?>
-			<p><?=$r->num_rows()?> Course</p>
+			<p> of : </p>
+				<ol>
+					<?foreach($y->result() as $e):?>
+						<li><?=$e->code_course?></li>
+					<?endforeach?>
+				</ol>
 		<?endif?>
 	<? endblock() ?>
 	
 	<? startblock('menu') ?>
-		<li><a href="#">First Link</a></li>
-		<li><a href="#">Another Link</a></li>
-		<li><a href="#">And Another</a></li>
-		<li><a href="#">One More</a></li>
-		<li><a href="#">Last One</a></li>
 	<? endblock() ?>
 
 	<? startblock('content') ?>
