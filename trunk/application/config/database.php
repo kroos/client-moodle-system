@@ -48,10 +48,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'a3ncabal.dyndns.info';
-$db['default']['username'] = 'root';
+$db['default']['hostname'] = 'www.myilmu.my';
+$db['default']['username'] = 'myilmu_systlms';
 $db['default']['password'] = '0162172420';
-$db['default']['database'] = 'systlms';
+$db['default']['database'] = 'myilmu_systlms';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

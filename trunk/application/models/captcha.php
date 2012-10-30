@@ -12,7 +12,7 @@ class Captcha extends CI_Model
 //SELECT
 	function captcha($verify, $expiration)
 		{
-			return $this->db->get_where('Captcha', array('word' => $verify, 'ip_address' => $this->input->ip_address(), 'captcha_time >' => $expiration ));
+			return $this->db->get_where('captcha', array('word' => $verify, 'ip_address' => $this->input->ip_address(), 'captcha_time >' => $expiration ));
 		}
 
 //UPDATE
@@ -26,13 +26,13 @@ class Captcha extends CI_Model
 							'ip_address' => $this->input->ip_address(),
 							'word' => $word
 						);
-			return $this->db->insert('Captcha', $data );
+			return $this->db->insert('captcha', $data );
 		}
 
 //DELETE
 	function delete_captcha($expiration)
 		{
-			return $this->db->delete('Captcha', array('captcha_time <' => $expiration));
+			return $this->db->delete('captcha', array('captcha_time <' => $expiration));
 		}
 #############################################################################################################################
 	}
