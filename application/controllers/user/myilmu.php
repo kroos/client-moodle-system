@@ -23,7 +23,8 @@ class Myilmu extends CI_Controller
 				if ($this->session->userdata('logged_in') == TRUE)
 					{
 						//show all course but not the 1 that enrolled already
-						$data['a'] = $this->view->user_reg_course();
+						//$data['a'] = $this->view->user_reg_course();
+						$data['a'] = $this->course->course();
 
 						//$data['a'] =$this->course->course_code_inv($d->row()->code_course);
 						//echo $this->db->last_query();
@@ -126,8 +127,9 @@ class Myilmu extends CI_Controller
 										$city = ucwords(strtolower($this->input->post('city', TRUE)));
 										$state = $this->input->post('state', TRUE);
 										$phone = $this->input->post('phone', TRUE);
+										$skype = $this->input->post('skype', TRUE);
 
-										$q = $this->user->update_profile($this->session->userdata('username'), $name, $address, $postcode, $city, $state, $phone);
+										$q = $this->user->update_profile($this->session->userdata('username'), $name, $address, $postcode, $city, $state, $phone, $skype);
 										if($q)
 											{
 												redirect('/user/myilmu/profile', 'location');
@@ -221,6 +223,7 @@ class Myilmu extends CI_Controller
 								(
 									'username' => '',
 									'password' => '',
+									'role' => '',
 									'logged_in' => FALSE,
 								);
 						$this->session->unset_userdata($array);

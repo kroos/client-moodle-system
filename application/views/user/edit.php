@@ -37,6 +37,12 @@
 			<?=form_error('phone')?>
 			</p>
 
+			<p>We strongly recommend that you have an account with <?=anchor('http://www.skype.com', 'Skype', array('title' => 'Skype', 'target' => '_blank'))?> for our web conference, live interactions and live class.</p>
+			<p><span>Skype ID : </span>
+			<?=form_input(array('name' => 'skype', 'value' => $f->row()->skype, 'maxlength' => '20', 'size' => '10'))?>
+			<?=form_error('skype')?>
+			</p>
+
 			<p><span>&nbsp;</span><?=form_submit('save', 'Save', 'class="submit"')?></p>
 		</div>
 		<?=form_close()?>

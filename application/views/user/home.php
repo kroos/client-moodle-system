@@ -9,6 +9,7 @@
 		<?else:?>
 			<table style="width:100%; border-spacing:0;">
 				<tr>
+					<td><b>Code Course</b></td>
 					<td><b>Course</b></td>
 					<td><b>Description</b></td>
 					<td><b>Period</b></td>
@@ -16,6 +17,7 @@
 				</tr>
 						<?foreach($a->result() as $t):?>
 								<tr>
+									<td><?=$t->code_course?></td>
 									<td><?=$t->course?></td>
 									<td><?=$t->description?></td>
 									<td><?=$t->week?> Week</td>

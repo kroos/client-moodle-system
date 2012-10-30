@@ -84,6 +84,7 @@ class Myilmu extends CI_Controller
 										$state = $this->input->post('state', TRUE);
 										$phone = $this->input->post('phone', TRUE);
 										$address = ucwords(strtolower($this->input->post('address', TRUE)));
+										$skype = $this->input->post('skype', TRUE);
 										$verify = $this->input->post('verify', TRUE);
 
 										//we need to check the capthca
@@ -103,7 +104,7 @@ class Myilmu extends CI_Controller
 											{
 												$course_id = $this->uri->segment(3, 0);
 												$q = $this->course->course_id($course_id)->row()->code_course;
-												$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone);
+												$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
 												$t = $this->user_code_course->insert_user_course($username, $q, 0, 0);
 												//default is student
 												$b = $this->user_user_role->insert_user_role($username, 5);
@@ -147,10 +148,12 @@ class Myilmu extends CI_Controller
 										$r = $this->user->login($user, $pass);
 										if ($r->num_rows() == 1)
 											{
+												$t = $this->user_user_role->user_role($user);
 												$session = array
 																(
 																	'username' => $user,
 																	'password' => $pass,
+																	'role' => $t->row()->id_user_role,
 																	'logged_in' => TRUE
 																);
 												$this->session->set_userdata($session);
