@@ -23,8 +23,7 @@ class Myilmu extends CI_Controller
 				if ($this->session->userdata('logged_in') == TRUE)
 					{
 						//show all course but not the 1 that enrolled already
-						$data['a'] = $this->course->course();
-						//$d = $this->user_code_course->user_course($this->session->userdata('username'));
+						$data['a'] = $this->view->user_reg_course();
 
 						//$data['a'] =$this->course->course_code_inv($d->row()->code_course);
 						//echo $this->db->last_query();
@@ -40,7 +39,7 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') == TRUE)
 					{
-						$data['a'] = $this->course->course();
+						$data['a'] = $this->view->user_reg_course();
 						$course_id = $this->uri->segment(4, 0);
 						if (ctype_digit($course_id))
 							{
@@ -53,7 +52,9 @@ class Myilmu extends CI_Controller
 										$kl = $this->user_code_course->insert_user_course($this->session->userdata('username'), $uy, 0, 0);
 										if ($kl)
 											{
-												redirect('/user/myilmu/index', 'location');
+												//redirect('/user/myilmu/index', 'location');
+												$data['info'] = 'Please make a payment and inform the admin, otherwise we cant activate yet your course';
+												$this->load->view('user/home', $data);
 											}
 											else
 											{
