@@ -191,6 +191,36 @@ $config = array	(
 								'rules' => 'trim|required|is_natural|xss_clean'
 							),
 					),
+					'myilmu/contact_admin' => array
+					(
+						array
+							(
+								'field' => 'message',
+								'label' => 'Message',
+								'rules' => 'trim|required|max_length[255]|xss_clean'
+							)
+					),
+					'myilmu/change_password' => array
+					(
+						array
+							(
+								'field' => 'cpassword',
+								'label' => 'Current Password',
+								'rules' => 'trim|required|min_length[5]|max_length[20]|xss_clean'
+							),
+						array
+							(
+								'field' => 'npassword1',
+								'label' => 'New Password',
+								'rules' => 'trim|required|matches[npassword2]|min_length[5]|max_length[20]|xss_clean'
+							),
+						array
+							(
+								'field' => 'npassword2',
+								'label' => 'Retype New Password',
+								'rules' => 'trim|required|min_length[5]|max_length[20]|xss_clean'
+							)
+					),
 				);
 
 

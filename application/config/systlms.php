@@ -19,7 +19,6 @@ $config['payemail'] = 'azaliha@gmail.com';										//if u dont set anything, do
 $config['paypickupline'] = 'this should be your donation pick up line. just put in nice word to persuade them make a donation to ur server';
 
 #############################################################################################
-#############################################################################################
 //Mailer Configurations
 //pop3 server and port
 $config['pop3_server'] = 'pop.gmail.com';
@@ -38,14 +37,19 @@ $config['addreplyto_email'] = 'admin@localhost.com';					//this might probably d
 $config['addreplyto_name'] = 'Admin';					//example, [GM]Cabal
 $config['from'] = 'admin@localhost.com';								//this might probably differ from $config['username']. Example, admin@domain.com
 $config['from_name'] = 'Admin';							//example [GM]Cabal
+
 #############################################################################################
+//admin email
 $config['admin_email'] = 'dhiauddin@gmail.com';			//user for "contact us" page
+
 #############################################################################################
 //moodle login
 $config['moodle_login'] = 'http://a3ncabalload.dyndns.info/lms/login/index.php';
+
 #############################################################################################
 //forgot password URL
 $config['forgot_password'] = 'http://a3ncabalload.dyndns.info/myilmu/forgot_password';
+
 #############################################################################################
 //state
 $config['state'] = array
@@ -67,6 +71,7 @@ $config['state'] = array
 							'Perlis' => 'Perlis',
 							'Labuan' => 'Labuan'
 						);
+
 #############################################################################################
 #############################################################################################
 #############################################################################################

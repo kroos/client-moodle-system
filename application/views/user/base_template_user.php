@@ -12,8 +12,16 @@
 
 	<? startblock('top_nav') ?>
 		<li><?=anchor('user/myilmu', 'Home', array('title' => 'Home'))?></li>
-		<li><?=anchor('user/myilmu/account', 'Account', array('title' => 'Account'))?></li>
-		<li><?=anchor('user/myilmu/profile', 'Profile', array('title' => 'Profile'))?></li>
+		<li><?=anchor('user/myilmu/account', 'Account', array('title' => 'Account'))?>
+			<ul>
+				<li><?=anchor('user/myilmu/contact_admin', 'Contact Admin', array('title' => 'Contact Admin'))?></li>
+			</ul>
+		</li>
+		<li><?=anchor('user/myilmu/profile', 'Profile', array('title' => 'Profile'))?>
+			<ul>
+				<li><?=anchor('user/myilmu/change_password', 'Change Password', array('title' => 'Change Password'))?></li>
+			</ul>
+		</li>
 		<li><?=anchor('user/myilmu/logout', 'Logout', array('title' => 'Logout'))?></li>
 	<? endblock() ?>
 
@@ -22,14 +30,11 @@
 		<h3>Profile</h3>
 		<h4>Hello <?=$t->row()->name?></h4>
 		<h5><?=date_my()?></h5>
-		<?$n = $this->user_user_role->user_role($this->session->userdata('username'))?>
-		<?$a = $this->user_role->user_roles($n->row()->id_user_role)?>
-		<p>You are the <?=$a->row()->user_role?></p>
 		<?$y = $this->user_code_course->user_course($this->session->userdata('username'))?>
 		<?if($y->num_rows() < 1):?>
 			<p>You didnt enrol any course yet</p>
 		<?else:?>
-			<p> of : </p>
+			<p> Course Enrol : </p>
 				<ol>
 					<?foreach($y->result() as $e):?>
 						<li><?=$this->course->course_code($e->code_course)->row()->course?></li>

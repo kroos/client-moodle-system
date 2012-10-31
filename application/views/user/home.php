@@ -13,6 +13,7 @@
 					<td><b>Course</b></td>
 					<td><b>Description</b></td>
 					<td><b>Period</b></td>
+					<td><b>Fee</b></td>
 					<td>&nbsp;</td>
 				</tr>
 						<?foreach($a->result() as $t):?>
@@ -21,6 +22,7 @@
 									<td><?=$t->course?></td>
 									<td><?=$t->description?></td>
 									<td><?=$t->week?> Week</td>
+									<td>RM <?=$t->cost?></td>
 									<td><div class="demo"><?=anchor('user/myilmu/enrol/'.$t->id, 'Enrol', array('title' => 'Enrol'))?></div></td>
 								</tr>
 						<?endforeach?>

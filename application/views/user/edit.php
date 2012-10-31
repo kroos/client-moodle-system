@@ -12,6 +12,11 @@
 			<?=form_error('name')?>
 			</p>
 
+			<p><span>Identity Card Number : </span>
+			<?=form_input(array('name' => 'ic', 'value' => $f->row()->IC, 'maxlength' => '50', 'size' => '10'))?>
+			<?=form_error('ic')?>
+			</p>
+
 			<p><span>Address : </span>
 			<?=form_textarea(array('name' => 'address', 'value' => $f->row()->address, 'rows' => '5', 'cols' => '10'))?>
 			<?=form_error('address')?>
