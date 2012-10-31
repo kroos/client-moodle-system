@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
+Source Server         : localhost
 Source Server Version : 50522
 Source Host           : localhost:3306
 Source Database       : systlms
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50522
 File Encoding         : 65001
 
-Date: 2012-10-31 21:45:16
+Date: 2012-10-31 22:19:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -68,6 +68,7 @@ CREATE TABLE `ci_sessions` (
 -- ----------------------------
 -- Records of ci_sessions
 -- ----------------------------
+INSERT INTO `ci_sessions` VALUES ('155080aceb7985f4c82e6c2e4a5dd096', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0', '1351692536', 'a:4:{s:8:\"username\";s:14:\"stud@gmail.com\";s:8:\"password\";s:32:\"4297f44b13955235245b2497399d7a93\";s:4:\"role\";N;s:9:\"logged_in\";b:1;}');
 
 -- ----------------------------
 -- Table structure for `course`
@@ -86,11 +87,11 @@ CREATE TABLE `course` (
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES ('1', 'lk', 'lipat kain', 'kursus lipat kain', '10', '4');
-INSERT INTO `course` VALUES ('2', 'jk', 'jemur kain', 'kursus jemur kain', '10', '4');
-INSERT INTO `course` VALUES ('3', 'kr', 'kemas rumah', 'kursus kemas rumah', '20', '8');
-INSERT INTO `course` VALUES ('4', 'bp', 'basuh pinggan', 'kursus basuh pinggan', '80', '1');
-INSERT INTO `course` VALUES ('5', '0', 'Admin', 'Admin Use Only', '0', '0');
+INSERT INTO `course` VALUES ('1', '0', 'Admin', 'Admin Use Only', '0', '0');
+INSERT INTO `course` VALUES ('2', 'lk', 'lipat kain', 'kursus lipat kain', '10', '4');
+INSERT INTO `course` VALUES ('3', 'jk', 'jemur kain', 'kursus jemur kain', '10', '4');
+INSERT INTO `course` VALUES ('4', 'kr', 'kemas rumah', 'kursus kemas rumah', '20', '8');
+INSERT INTO `course` VALUES ('5', 'bp', 'basuh pinggan', 'kursus basuh pinggan', '80', '1');
 
 -- ----------------------------
 -- Table structure for `user`
