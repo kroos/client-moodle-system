@@ -13,7 +13,7 @@ class Course extends CI_Model
 //SELECT
 		function course()
 			{
-				return $this->db->order_by('id')->get_where('course', array('id <>' => 5));
+				return $this->db->order_by('id')->get_where('course', array('id <>' => 1));
 			}
 
 		function course_id($id)
