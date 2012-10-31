@@ -152,10 +152,25 @@ class Myilmu extends CI_Controller
 																(
 																	'username' => $user,
 																	'password' => md5($pass),
-																	'role' => $r->row()->id_user_role,
 																	'logged_in' => TRUE
 																);
 												$this->session->set_userdata($session);
+
+												/*checking roles
+												$j = $this->user_code_course->user_course($user);
+												foreach ($j->result() as $m)
+													{
+														if ()
+															{
+															
+															}
+															else
+															{
+																redirect('/user/myilmu', 'location');
+															}
+													}
+												*/
+
 												redirect('/user/myilmu', 'location');
 											}
 											else

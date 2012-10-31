@@ -23,7 +23,7 @@
 									<td><?=$t->description?></td>
 									<td><?=$t->week?> Week</td>
 									<td>RM <?=$t->cost?></td>
-									<td><div class="demo"><?=anchor('user/myilmu/enrol/'.$t->id, 'Enrol', array('title' => 'Enrol'))?></div></td>
+									<td><div class="demo"><?=anchor('user/myilmu/buffer/'.$t->id, 'Enrol', array('title' => 'Enrol'))?></div></td>
 								</tr>
 						<?endforeach?>
 
