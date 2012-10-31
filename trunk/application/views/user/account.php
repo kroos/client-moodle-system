@@ -10,7 +10,7 @@
 				<tr>
 					<td><b>Course Code</b></td>
 					<td><b>Course</b></td>
-					<td><b>Cost (RM)</b></td>
+					<td><b>Fee (RM)</b></td>
 				</tr>
 				<?$i = 0?>
 				<?foreach($g->result() as $t):?>

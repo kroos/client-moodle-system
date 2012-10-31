@@ -36,6 +36,24 @@ class Myilmu extends CI_Controller
 					}
 			}
 
+		public function buffer()
+			{
+				if ($this->session->userdata('logged_in') == TRUE)
+					{
+						$course_id = $this->uri->segment(4, 0);
+						if (ctype_digit($course_id))
+							{
+								$data['uy'] = $this->course->course_id($course_id);
+								//echo $uy;
+								$this->load->view('user/buffer', $data);
+							}
+					}
+					else
+					{
+						redirect('/user/myilmu/index', 'location');
+					}
+			}
+
 		public function enrol()
 			{
 				if ($this->session->userdata('logged_in') == TRUE)
@@ -50,11 +68,11 @@ class Myilmu extends CI_Controller
 								if ($yu->num_rows() < 1)
 									{
 										//insert data
-										$kl = $this->user_code_course->insert_user_course($this->session->userdata('username'), $uy, 0, 0);
+										$kl = $this->user_code_course->insert_user_course($this->session->userdata('username'), $uy, 5, 0, 0);
 										if ($kl)
 											{
 												//redirect('/user/myilmu/index', 'location');
-												$data['info'] = 'Please make a payment and inform the admin, otherwise we cant activate yet your course';
+												$data['info'] = 'Please make a payment and inform the admin, otherwise we cant activate your course';
 												$this->load->view('user/home', $data);
 											}
 											else
