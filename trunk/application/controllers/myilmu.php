@@ -27,6 +27,7 @@ class Myilmu extends CI_Controller
 					else
 					{
 						$data['a'] = $this->course->course();
+						//echo $this->db->last_query();
 						$this->load->view('home', $data);
 					}
 			}
@@ -105,17 +106,16 @@ class Myilmu extends CI_Controller
 												$course_id = $this->uri->segment(3, 0);
 												$q = $this->course->course_id($course_id)->row()->code_course;
 												$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
-												$t = $this->user_code_course->insert_user_course($username, $q, 0, 0);
+												$t = $this->user_code_course->insert_user_course($username, $q, 5, 0, 0);
 												//default is student
-												$b = $this->user_user_role->insert_user_role($username, 5);
-												if ($r && $t && $b)
+												if ($r && $t)
 													{
 														$data['info'] = 'You may login with the credential.';
 														$this->load->view('enrol', $data);
 													}
 													else
 													{
-														$data['info'] = 'Something teribly wrong. please try again later';
+														$data['info'] = 'Something teribly wrong. Please try again later';
 														$this->load->view('enrol', $data);
 													}
 											}
@@ -144,16 +144,15 @@ class Myilmu extends CI_Controller
 								if ($this->input->post('login', TRUE))
 									{
 										$user = $this->input->post('username', TRUE);
-										$pass = md5($this->input->post('password', TRUE));
-										$r = $this->user->login($user, $pass);
+										$pass = $this->input->post('password', TRUE);
+										$r = $this->user->login($user, md5($pass));
 										if ($r->num_rows() == 1)
 											{
-												$t = $this->user_user_role->user_role($user);
 												$session = array
 																(
 																	'username' => $user,
-																	'password' => $pass,
-																	'role' => $t->row()->id_user_role,
+																	'password' => md5($pass),
+																	'role' => $r->row()->id_user_role,
 																	'logged_in' => TRUE
 																);
 												$this->session->set_userdata($session);
@@ -210,7 +209,7 @@ class Myilmu extends CI_Controller
 												$message .=	"<p align='center'><a href='".base_url()."'>".$this->config->item('title')." Tution Center</a></p>
 															</body>
 															</html>";
-												$t = $this->user->update_resetp($username, $ic, $password);
+												$t = $this->user->update_resetp($username, $ic, md5($password));
 												if($t)
 													{
 														$email = send_email($username, $query->row()->name, $subject, $message, $this->config->item('pop3_server'), $this->config->item('pop3_port'), $this->config->item('username'), $this->config->item('password'), $this->config->item('SMTP_auth'), $this->config->item('smtp_server'), $this->config->item('smtp_port'), $this->config->item('SMTP_Secure'), $this->config->item('addreplyto_email'), $this->config->item('addreplyto_name'), $this->config->item('from'), $this->config->item('from_name'));

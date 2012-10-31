@@ -40,7 +40,7 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') == TRUE)
 					{
-						$data['a'] = $this->view->user_reg_course();
+						$data['a'] = $this->course->course();
 						$course_id = $this->uri->segment(4, 0);
 						if (ctype_digit($course_id))
 							{
@@ -122,6 +122,7 @@ class Myilmu extends CI_Controller
 								if($this->input->post('save', TRUE))
 									{
 										$name = ucwords(strtolower($this->input->post('name', TRUE)));
+										$ic = $this->input->post('ic', TRUE);
 										$address = ucwords(strtolower($this->input->post('address', TRUE)));
 										$postcode = $this->input->post('postcode', TRUE);
 										$city = ucwords(strtolower($this->input->post('city', TRUE)));
@@ -129,7 +130,7 @@ class Myilmu extends CI_Controller
 										$phone = $this->input->post('phone', TRUE);
 										$skype = $this->input->post('skype', TRUE);
 
-										$q = $this->user->update_profile($this->session->userdata('username'), $name, $address, $postcode, $city, $state, $phone, $skype);
+										$q = $this->user->update_profile($this->session->userdata('username'), $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
 										if($q)
 											{
 												redirect('/user/myilmu/profile', 'location');
@@ -148,8 +149,113 @@ class Myilmu extends CI_Controller
 					}
 			}
 
+		public function contact_admin()
+			{
+				if ($this->session->userdata('logged_in') == TRUE)
+					{
+						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
+						if ($this->form_validation->run() == FALSE)
+							{
+								//form
+								$this->load->view('user/contact');
+							}
+							else
+							{
+								//form process
+								$p = $this->user->user_username($this->session->userdata('username'))->row()->name;
+								$name = ucwords(strtolower($p));
+								$email = $this->session->userdata('username');
+								$msg = ucwords(strtolower($this->input->post('message', TRUE)));
 
+								if($this->input->post('send', TRUE))
+									{
+										$subject = $this->config->item('title').' Tution Center User Query';
+										$message = "<html>
+													<head>
+													<meta http-equiv='Content-Language' content='en-us'>
+													<meta name='GENERATOR' content='Microsoft FrontPage 6.0'>
+													<meta name='ProgId' content='FrontPage.Editor.Document'>
+													<meta http-equiv='Content-Type' content='text/html; charset=windows-1252'>
+													<title>".$this->config->item('title')." Tution Center Query</title>
+													</head>
+													<body>";
+										$message .= $msg;
+										$message .=	"</body></html>";
 
+										$email1 = send_email($this->config->item('admin_email'), 'Admin', $subject, $message, $this->config->item('pop3_server'), $this->config->item('pop3_port'), $this->config->item('username'), $this->config->item('password'), $this->config->item('SMTP_auth'), $this->config->item('smtp_server'), $this->config->item('smtp_port'), $this->config->item('SMTP_Secure'), $email, $name, $email, $name);
+										if ($email1 == TRUE)
+											{
+												$data['info'] = 'Thank you very much. We will get back to you at the soonest.';
+												$this->load->view('user/contact', $data);
+											}
+											else
+											{
+												$data['info'] = 'Activation email cant be send right now<br />Please try again later';
+												$this->load->view('user/contact', $data);
+											}
+									}
+							}
+					}
+					else
+					{
+						redirect('/user/myilmu/index', 'location');
+					}
+			}
+
+		public function change_password()
+			{
+				if ($this->session->userdata('logged_in') == TRUE)
+					{
+						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
+						if ($this->form_validation->run() == FALSE)
+							{
+								//form
+								$this->load->view('user/change_password');
+							}
+							else
+							{
+								//form process
+								$cpassword = $this->input->post('cpassword', TRUE);
+								$npassword1 = $this->input->post('npassword1', TRUE);
+								$npassword2 = $this->input->post('npassword2', TRUE);
+								if ($this->input->post('save', TRUE))
+									{
+										if ($this->session->userdata('password') == md5($cpassword))
+											{
+												if ($cpassword == $npassword1)
+													{
+														$data['info'] = 'You are using the same password as your old password. Please try again.';
+														$this->load->view('user/change_password', $data);
+													}
+													else
+													{
+														$g = $this->user->update_pass($this->session->userdata('username'), md5($npassword1));
+														if($g)
+															{
+																$this->session->set_userdata(array('password' => md5($npassword1)));
+																$data['info'] = 'Success changing password';
+																$this->load->view('user/change_password', $data);
+															}
+															else
+															{
+																$data['info'] = 'Something teribly happen. Please try again later';
+																$this->load->view('user/change_password', $data);
+															}
+													}
+											}
+											else
+											{
+												$data['info'] = 'Please try again because this is not your current password';
+												$this->load->view('user/change_password', $data);
+											}
+									}
+							}
+					}
+					else
+					{
+						redirect('/user/myilmu/index', 'location');
+					}
+			}
 
 
 

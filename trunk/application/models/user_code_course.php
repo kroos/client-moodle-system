@@ -27,7 +27,8 @@ class User_code_course extends CI_Model
 				return $this->db->where(array('username' => $username, 'code_course' => $code_course))->update('user_code_course', array('activate' => $activate));
 			}
 
-		function update_user_course_a($username, $code_course, $activate)
+		
+		function update_user_course_a($username, $code_course, $code_course)
 			{
 				return $this->db->where(array('username' => $username, 'activate' => $activate))->update('user_code_course', array('code_course' => $code_course));
 			}
@@ -38,9 +39,9 @@ class User_code_course extends CI_Model
 			}
 
 //INSERT
-		function insert_user_course($username, $code_course, $activate, $graduate)
+		function insert_user_course($username, $code_course, $id_user_role, $activate, $graduate)
 			{
-				return $this->db->insert('user_code_course', array('username' => $username, 'code_course' => $code_course, 'activate' => $activate, 'graduate' => $graduate));
+				return $this->db->insert('user_code_course', array('username' => $username, 'code_course' => $code_course, 'id_user_role' => $id_user_role, 'activate' => $activate, 'graduate' => $graduate));
 			}
 
 //DELETE
