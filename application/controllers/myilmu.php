@@ -2,22 +2,6 @@
 
 class Myilmu extends CI_Controller 
 	{
-	
-		/**
-		* Index Page for this controller.
-		*
-		* Maps to the following URL
-		* 		http://example.com/index.php/welcome
-		*	- or -  
-		* 		http://example.com/index.php/welcome/index
-		*	- or -
-		* Since this controller is set as the default controller in 
-		* config/routes.php, it's displayed at http://example.com/
-		*
-		* So any other public methods not prefixed with an underscore will
-		* map to /index.php/welcome/<method_name>
-		* @see http://codeigniter.com/user_guide/general/urls.html
-		*/
 		public function index()
 			{
 				if ($this->session->userdata('logged_in') == TRUE)
@@ -148,30 +132,40 @@ class Myilmu extends CI_Controller
 										$r = $this->user->login($user, md5($pass));
 										if ($r->num_rows() == 1)
 											{
-												$session = array
+												///*checking roles. probably 1 user with many roles
+												$j = $this->user_code_course->user_course($user);
+												$i = 1;
+												foreach ($j->result() as $m)
+													{
+														echo $this->user_role->user_roles($m->id_user_role)->row()->user_role.'<br />';
+														$role[$i++] = $m->id_user_role;
+													}
+
+													$session = array
 																(
 																	'username' => $user,
 																	'password' => md5($pass),
+																	'role' => $role,
 																	'logged_in' => TRUE
 																);
 												$this->session->set_userdata($session);
 
-												/*checking roles
-												$j = $this->user_code_course->user_course($user);
-												foreach ($j->result() as $m)
+												if(in_array(5, $this->session->userdata('role')))
 													{
-														if ()
-															{
-															
-															}
-															else
-															{
-																redirect('/user/myilmu', 'location');
-															}
+														redirect('/user/myilmu', 'location');
 													}
-												*/
 
-												redirect('/user/myilmu', 'location');
+												if(in_array(3, $this->session->userdata('role')))
+													{
+														redirect('/teacher/myilmu', 'location');
+													}
+
+												///*
+												foreach ($this->session->userdata('role') as $p => $r)
+													{
+														echo $p.'&nbsp;'.$r.'<br />';
+													}
+												//*/
 											}
 											else
 											{

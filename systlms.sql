@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50522
 File Encoding         : 65001
 
-Date: 2012-10-31 22:19:10
+Date: 2012-11-01 22:46:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,11 +45,17 @@ CREATE TABLE `captcha` (
   `word` varchar(20) NOT NULL,
   PRIMARY KEY (`captcha_id`),
   KEY `word` (`word`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of captcha
 -- ----------------------------
+INSERT INTO `captcha` VALUES ('1', '1351780529', '127.0.0.1', '14696');
+INSERT INTO `captcha` VALUES ('2', '1351781055', '127.0.0.1', '62327');
+INSERT INTO `captcha` VALUES ('3', '1351781084', '127.0.0.1', '79417');
+INSERT INTO `captcha` VALUES ('4', '1351781101', '127.0.0.1', '16531');
+INSERT INTO `captcha` VALUES ('5', '1351781106', '127.0.0.1', '19379');
+INSERT INTO `captcha` VALUES ('6', '1351781108', '127.0.0.1', '56518');
 
 -- ----------------------------
 -- Table structure for `ci_sessions`
@@ -68,7 +74,7 @@ CREATE TABLE `ci_sessions` (
 -- ----------------------------
 -- Records of ci_sessions
 -- ----------------------------
-INSERT INTO `ci_sessions` VALUES ('155080aceb7985f4c82e6c2e4a5dd096', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0', '1351692536', 'a:4:{s:8:\"username\";s:14:\"stud@gmail.com\";s:8:\"password\";s:32:\"4297f44b13955235245b2497399d7a93\";s:4:\"role\";N;s:9:\"logged_in\";b:1;}');
+INSERT INTO `ci_sessions` VALUES ('ac79849257309ddfad907b5153513c8e', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0', '1351781054', 'a:1:{s:9:\"user_data\";s:0:\"\";}');
 
 -- ----------------------------
 -- Table structure for `course`
@@ -80,18 +86,39 @@ CREATE TABLE `course` (
   `course` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `cost` int(11) NOT NULL,
+  `id_payment_type` int(11) NOT NULL,
   `week` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES ('1', '0', 'Admin', 'Admin Use Only', '0', '0');
-INSERT INTO `course` VALUES ('2', 'lk', 'lipat kain', 'kursus lipat kain', '10', '4');
-INSERT INTO `course` VALUES ('3', 'jk', 'jemur kain', 'kursus jemur kain', '10', '4');
-INSERT INTO `course` VALUES ('4', 'kr', 'kemas rumah', 'kursus kemas rumah', '20', '8');
-INSERT INTO `course` VALUES ('5', 'bp', 'basuh pinggan', 'kursus basuh pinggan', '80', '1');
+INSERT INTO `course` VALUES ('1', '0', 'Admin', 'Admin Use Only', '0', '1', '0');
+INSERT INTO `course` VALUES ('2', 'lk', 'lipat kain', 'kursus lipat kain', '10', '1', '4');
+INSERT INTO `course` VALUES ('3', 'jk', 'jemur kain', 'kursus jemur kain', '10', '1', '4');
+INSERT INTO `course` VALUES ('4', 'kr', 'kemas rumah', 'kursus kemas rumah', '20', '1', '8');
+INSERT INTO `course` VALUES ('5', 'bp', 'basuh pinggan', 'kursus basuh pinggan', '80', '1', '1');
+INSERT INTO `course` VALUES ('6', 'stam', 'sijil tinggi agama malaysia', 'kursus STAM', '330', '2', '48');
+
+-- ----------------------------
+-- Table structure for `payment_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `payment_type`;
+CREATE TABLE `payment_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `payment_recurring` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of payment_type
+-- ----------------------------
+INSERT INTO `payment_type` VALUES ('1', 'course');
+INSERT INTO `payment_type` VALUES ('2', 'month');
+INSERT INTO `payment_type` VALUES ('3', 'semester');
+INSERT INTO `payment_type` VALUES ('4', 'year');
+INSERT INTO `payment_type` VALUES ('5', 'session');
 
 -- ----------------------------
 -- Table structure for `user`
@@ -136,13 +163,12 @@ CREATE TABLE `user_code_course` (
 -- ----------------------------
 -- Records of user_code_course
 -- ----------------------------
-INSERT INTO `user_code_course` VALUES ('stud@gmail.com', 'lk', '5', '', '');
-INSERT INTO `user_code_course` VALUES ('stud@gmail.com', 'kr', '5', '', '');
+INSERT INTO `user_code_course` VALUES ('stud@gmail.com', 'lk', '3', '', '');
 INSERT INTO `user_code_course` VALUES ('gerabah@gmail.com', 'lk', '5', '', '');
-INSERT INTO `user_code_course` VALUES ('stud@gmail.com', 'jk', '5', '', '');
 INSERT INTO `user_code_course` VALUES ('admin', '0', '1', '', '');
 INSERT INTO `user_code_course` VALUES ('krooitnot@gmail.com', 'bp', '5', '', '');
 INSERT INTO `user_code_course` VALUES ('heam@gmail.com', 'lk', '5', '', '');
+INSERT INTO `user_code_course` VALUES ('stud@gmail.com', 'stam', '3', '', '');
 
 -- ----------------------------
 -- Table structure for `user_payment_bank`
