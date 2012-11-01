@@ -44,7 +44,6 @@
 	<? endblock() ?>
 	
 	<? startblock('menu') ?>
-
 		<!-- checking roles -->
 		<??>
 		<!-- end checking roles -->

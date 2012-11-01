@@ -2,32 +2,11 @@
 
 class Myilmu extends CI_Controller 
 	{
-	
-		/**
-		* Index Page for this controller.
-		*
-		* Maps to the following URL
-		* 		http://example.com/index.php/welcome
-		*	- or -  
-		* 		http://example.com/index.php/welcome/index
-		*	- or -
-		* Since this controller is set as the default controller in 
-		* config/routes.php, it's displayed at http://example.com/
-		*
-		* So any other public methods not prefixed with an underscore will
-		* map to /index.php/welcome/<method_name>
-		* @see http://codeigniter.com/user_guide/general/urls.html
-		*/
 		public function index()
 			{
 				if ($this->session->userdata('logged_in') == TRUE)
 					{
-						//show all course but not the 1 that enrolled already
-						//$data['a'] = $this->view->user_reg_course();
 						$data['a'] = $this->course->course();
-
-						//$data['a'] =$this->course->course_code_inv($d->row()->code_course);
-						//echo $this->db->last_query();
 						$this->load->view('user/home', $data);
 					}
 					else
@@ -44,7 +23,6 @@ class Myilmu extends CI_Controller
 						if (ctype_digit($course_id))
 							{
 								$data['uy'] = $this->course->course_id($course_id);
-								//echo $uy;
 								$this->load->view('user/buffer', $data);
 							}
 					}

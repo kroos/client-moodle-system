@@ -2,6 +2,8 @@
 
 	<? startblock('content') ?>
 		<h1>Course List</h1>
+		<p>Welcome to <?=$this->config->item('title')?> Tution Center. You may enrol more course from here.</p>
+		<p><?=@$info?></p>
 		<?if($a->num_rows() < 1):?>
 			<p><b>No Course Have Been Created</b></p>
 		<?else:?>
