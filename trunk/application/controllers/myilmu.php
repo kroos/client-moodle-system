@@ -89,9 +89,23 @@ class Myilmu extends CI_Controller
 											{
 												$course_id = $this->uri->segment(3, 0);
 												$q = $this->course->course_id($course_id)->row()->code_course;
-												$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
-												$t = $this->user_code_course->insert_user_course($username, $q, 5, 0, 0);
-												//default is student
+
+												//check rcurring fees for monthly course
+												$g = $this->course->course_id($course_id)->row()->id_payment_type;
+
+												echo $q.'<br />'.$g;
+
+												if($g == 2)
+													{
+														//adding 12 or less rows (till end of year)
+														//if registered b4 7th of any month then starts from that month
+														//else course will starts next month
+
+														//1st chec
+													}
+												//$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
+												//$t = $this->user_code_course->insert_user_course($username, $q, 5, 0, 0);
+												//default is student n paymnt check for th system especially for monthly payment..
 												if ($r && $t)
 													{
 														$data['info'] = 'You may login with the credential.';
