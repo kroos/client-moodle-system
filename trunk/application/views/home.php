@@ -12,7 +12,9 @@
 					<td><b>Course Code</b></td>
 					<td><b>Course</b></td>
 					<td><b>Description</b></td>
-					<td><b>Period</b></td>
+					<td><b>Registration Date End</b></td>
+					<td><b>Date Start</b></td>
+					<td><b>Date End</b></td>
 					<td><b>Fee</b></td>
 					<td>&nbsp;</td>
 				</tr>
@@ -21,8 +23,10 @@
 						<td><b><?=$t->code_course?></b></td>
 						<td><?=$t->course?></td>
 						<td><?=$t->description?></td>
-						<td><?=$t->week?> Week</td>
-						<td>RM <?=$t->cost?></td>
+						<td><?=date_date($t->registration_date_end)?></td>
+						<td><?=date_date($t->date_start)?></td>
+						<td><?=date_date($t->date_end)?></td>
+						<td>RM <?=$t->cost?> per <?=$t->id_payment_type?></td>
 						<td><div class="demo"><?=anchor('myilmu/enrol/'.$t->id, 'Enrol', array('title' => 'Enrol'))?></div></td>
 					</tr>
 				<?endforeach?>

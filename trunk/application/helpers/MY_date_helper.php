@@ -10,7 +10,8 @@
 
 		function date_date($date)
 			{
-				return mdate("%D, %j %M %Y %g:%i %a", mysql_to_unix($date));
+				//return mdate("%D, %j %M %Y %g:%i %a", mysql_to_unix($date));
+				return mdate("%D, %j %M %Y", mysql_to_unix($date));
 			}
 //*/
 #############################################################################################################################

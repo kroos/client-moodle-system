@@ -6,7 +6,7 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') == TRUE)
 					{
-						$data['a'] = $this->course->course();
+						$data['a'] = $this->course->course_avail();
 						$this->load->view('user/home', $data);
 					}
 					else
@@ -36,7 +36,7 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') == TRUE)
 					{
-						$data['a'] = $this->course->course();
+						$data['a'] = $this->course->course_avail();
 						$course_id = $this->uri->segment(4, 0);
 						if (ctype_digit($course_id))
 							{
