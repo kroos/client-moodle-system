@@ -114,7 +114,7 @@ class Myilmu extends CI_Controller
 																				//echo $i.' = count month<br />';
 																				$nmp = $this->month->month_day($dyst, $i, $this->config->item('day_payment') - 1)->row()->nmp;
 																				//echo $nmp.' = next month payment<br />';
-																				$gh = $this->user_payment_bank->insert_user_payment($username, $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.$this->config->item('day_payment').'th day of each month');
+																				$gh = $this->user_payment_bank->insert_user_payment($username, $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
 																			}
 																		$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
 																		$t = $this->user_code_course->insert_user_course($username, $course_id, 5, 0, 0);
@@ -145,7 +145,7 @@ class Myilmu extends CI_Controller
 																						//echo $nmp.' = next month payment<br />';
 																						if (date_db(now()) < $nmp)
 																							{
-																								$gh = $this->user_payment_bank->insert_user_payment($username, $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.$this->config->item('day_payment').'th day of each month');
+																								$gh = $this->user_payment_bank->insert_user_payment($username, $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
 																							}
 																					}
 																				$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
@@ -171,7 +171,7 @@ class Myilmu extends CI_Controller
 																		//insert only 1 row data.... argghhh
 
 																		$nmp = $this->month->month_day($dyst, 0, $this->config->item('day_payment') - 1)->row()->nmp;
-																		$n = $this->user_payment_bank->insert_user_payment($username, $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.$this->config->item('day_payment').'th day of each month');
+																		$n = $this->user_payment_bank->insert_user_payment($username, $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
 																		$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
 																		$t = $this->user_code_course->insert_user_course($username, $course_id, 5, 0, 0);
 																		if ($r && $t)

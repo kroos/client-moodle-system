@@ -11,32 +11,38 @@ class View extends CI_Model
 //CRUD for view table
 
 //SELECT
-		function user_cost_view($username)
+		function user_unpaid_view($username)
 			{
-				return $this->db->query("SELECT
-										user_code_course.code_course,
-										course.course,
-										course.cost
-										FROM
-										user_code_course
-										INNER JOIN course ON user_code_course.code_course = course.code_course
-										WHERE
-										user_code_course.username = '$username'");
+				return $this->db->query("
+											SELECT *
+											FROM
+											user_payment_bank
+											INNER JOIN course ON course.id = user_payment_bank.id_course
+											WHERE
+											user_payment_bank.username = '$username' AND
+											user_payment_bank.date_due <= (SELECT LAST_DAY(CURDATE())) AND
+											user_payment_bank.paid = 0
+											ORDER BY
+											user_payment_bank.id_course ASC,
+											user_payment_bank.date_due DESC
+										");
 			}
 
-		function user_payment_view($username)
+		function user_paid_view($username)
 			{
-				return $this->db->query("SELECT
-										user_payment_bank.username,
-										user_payment_bank.payment,
-										user_payment_bank.reference,
-										user_payment_bank.date,
-										bank.bank
-										FROM
-										user_payment_bank
-										INNER JOIN bank ON user_payment_bank.id_bank = bank.id
-										WHERE
-										user_payment_bank.username = '$username'");
+				return $this->db->query("
+											SELECT *
+											FROM
+											user_payment_bank
+											INNER JOIN course ON course.id = user_payment_bank.id_course
+											WHERE
+											user_payment_bank.username = '$username' AND
+											user_payment_bank.date_due <= (SELECT LAST_DAY(CURDATE())) AND
+											user_payment_bank.paid = 1
+											ORDER BY
+											user_payment_bank.id_course ASC,
+											user_payment_bank.date_due DESC
+										");
 			}
 
 		function user_course($username, $id_course)
