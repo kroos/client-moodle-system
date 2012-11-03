@@ -95,12 +95,13 @@ class Myilmu extends CI_Controller
 														//check rcurring fees for monthly course
 														//echo $q->row()->id.' = id dourse<br />'.$q->row()->id_payment_type.' = payment type<br />'.date_db(now()).' = date now<br />';
 
+														//register before date_start of the course
+														$dyst = $q->row()->date_start;
+														$dyed = $q->row()->date_end;
+														//echo $dyst.' = day start<br />'.$dyed.' = day end<br />';
+
 														if($q->row()->id_payment_type == 2)
 															{
-																//register before date_start of the course
-																$dyst = $q->row()->date_start;
-																$dyed = $q->row()->date_end;
-																//echo $dyst.' = day start<br />'.$dyed.' = day end<br />';
 																if (date_db(now()) < $dyst)
 																	{
 																		//how many months for that course
@@ -113,7 +114,7 @@ class Myilmu extends CI_Controller
 																				//echo $i.' = count month<br />';
 																				$nmp = $this->month->month_day($dyst, $i, $this->config->item('day_payment') - 1)->row()->nmp;
 																				//echo $nmp.' = next month payment<br />';
-																				$gh = $this->user_payment_bank->insert_user_payment($username, $course_id, 0, '', $nmp, 0, 0, 'Please pay before '.$this->config->item('day_payment').'th day of each month');
+																				$gh = $this->user_payment_bank->insert_user_payment($username, $course_id, 0, '', $nmp, 0, 0, 'Please make a payment before '.$this->config->item('day_payment').'th day of each month');
 																			}
 																		$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
 																		$t = $this->user_code_course->insert_user_course($username, $course_id, 5, 0, 0);
@@ -144,7 +145,7 @@ class Myilmu extends CI_Controller
 																						//echo $nmp.' = next month payment<br />';
 																						if (date_db(now()) < $nmp)
 																							{
-																								$gh = $this->user_payment_bank->insert_user_payment($username, $course_id, 0, '', $nmp, 0, 0, 'Please pay before '.$this->config->item('day_payment').'th day of each month');
+																								$gh = $this->user_payment_bank->insert_user_payment($username, $course_id, 0, '', $nmp, 0, 0, 'Please make a payment before '.$this->config->item('day_payment').'th day of each month');
 																							}
 																					}
 																				$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
@@ -168,8 +169,9 @@ class Myilmu extends CI_Controller
 																	{
 																		//have to pay within 7 days after registration or after what??
 																		//insert only 1 row data.... argghhh
-																		
 
+																		$nmp = $this->month->month_day($dyst, 0, $this->config->item('day_payment') - 1)->row()->nmp;
+																		$n = $this->user_payment_bank->insert_user_payment($username, $course_id, 0, '', $nmp, 0, 0, 'Please make a payment before '.$this->config->item('day_payment').'th day of each month');
 																		$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
 																		$t = $this->user_code_course->insert_user_course($username, $course_id, 5, 0, 0);
 																		if ($r && $t)
