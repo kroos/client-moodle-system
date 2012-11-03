@@ -11,25 +11,30 @@
 	<? endblock() ?>
 
 	<? startblock('top_nav') ?>
-		<li><?=anchor(base_url(), 'Home', array('title' => 'Home'))?></li>
-		<li><?=anchor('myilmu/login', 'Login', array('title' => 'Login'))?></li>
-		<li><?=anchor('myilmu/contact', 'Contact Us', array('title' => 'Contact Us'))?></li>
+		<li><?=anchor('admin/myilmu', 'Home', array('title' => 'Home'))?></li>
+		<li><?=anchor('admin/myilmu/account', 'Account', array('title' => 'Account'))?>
+			<ul>
+				<li><?=anchor('admin/myilmu/contact_admin', 'Contact Admin', array('title' => 'Contact Admin'))?></li>
+			</ul>
+		</li>
+		<li><?=anchor('admin/myilmu/profile', 'Profile', array('title' => 'Profile'))?>
+			<ul>
+				<li><?=anchor('admin/myilmu/change_password', 'Change Password', array('title' => 'Change Password'))?></li>
+			</ul>
+		</li>
+		<li><?=anchor('admin/myilmu/logout', 'Logout', array('title' => 'Logout'))?></li>
 	<? endblock() ?>
 
 	<? startblock('top_sidebar') ?>
-		<h3>Course</h3>
-		<h4>Course We Offered</h4>
+	<?$t = $this->user->login($this->session->userdata('username'), $this->session->userdata('password'))?>
+		<h3>Profile</h3>
+		<h4>Hello <?=$t->row()->name?></h4>
 		<h5><?=date_my()?></h5>
-		<?$r = $this->course->course()?>
-		<?if($r->num_rows() < 1):?>
-			<p>No Course Have Been Offered Yet</p>
-		<?else:?>
-			<p><?=$r->num_rows()?> Course</p>
-		<?endif?>
+		<?$y = $this->user_code_course->user_course($this->session->userdata('username'))?>
 	<? endblock() ?>
 	
 	<? startblock('menu') ?>
-		<li><?=anchor('myilmu/tnc', 'Terms and Conditions', array('title' => 'Terms and Conditions'))?></li>
+		<li><?=anchor('admin/myilmu/tnc', 'Terms and Conditions', array('title' => 'Terms and Conditions'))?></li>
 	<? endblock() ?>
 
 	<? startblock('content') ?>

@@ -155,7 +155,8 @@ class Myilmu extends CI_Controller
 												$i = 1;
 												foreach ($j->result() as $m)
 													{
-														echo $this->user_role->user_roles($m->id_user_role)->row()->user_role.'<br />';
+														//echo $this->user_role->user_roles($m->id_user_role)->row()->user_role.'<br />';
+														//echo $m->id_user_role.'<br />';
 														$role[$i++] = $m->id_user_role;
 													}
 
@@ -168,17 +169,31 @@ class Myilmu extends CI_Controller
 																);
 												$this->session->set_userdata($session);
 
-												if(in_array(5, $this->session->userdata('role')))
+												//in array strict checking
+												if(in_array('1', $this->session->userdata('role'), TRUE))
 													{
-														redirect('/user/myilmu', 'location');
+														redirect('/admin/myilmu', 'location');
+													}
+													else
+													{
+														if(in_array('3', $this->session->userdata('role'), TRUE))
+															{
+																redirect('/teacher/myilmu', 'location');
+															}
+															else
+															{
+																if(in_array('5', $this->session->userdata('role'), TRUE))
+																	{
+																		redirect('/user/myilmu', 'location');
+																	}
+																	else
+																	{
+																		redirect('/myilmu', 'location');
+																	}
+															}
 													}
 
-												if(in_array(3, $this->session->userdata('role')))
-													{
-														redirect('/teacher/myilmu', 'location');
-													}
-
-												///*
+												/*
 												foreach ($this->session->userdata('role') as $p => $r)
 													{
 														echo $p.'&nbsp;'.$r.'<br />';
@@ -348,6 +363,11 @@ class Myilmu extends CI_Controller
 									}
 							}
 					}
+			}
+
+		function tnc()
+			{
+				$this->load->view('tnc');
 			}
 #############################################################################################################################
 //error 404

@@ -4,20 +4,50 @@ class Myilmu extends CI_Controller
 	{
 		public function index()
 			{
-				if ($this->session->userdata('logged_in') == TRUE)
+				if ($this->session->userdata('logged_in') === TRUE && in_array('5', $this->session->userdata('role'), TRUE) === TRUE)
 					{
 						$data['a'] = $this->course->course_avail();
 						$this->load->view('user/home', $data);
 					}
 					else
 					{
-						redirect('', 'location');
+						if(in_array('1', $this->session->userdata('role'), TRUE))
+							{
+								redirect('/admin/myilmu', 'location');
+							}
+							else
+							{
+								if(in_array('3', $this->session->userdata('role'), TRUE))
+									{
+										redirect('/teacher/myilmu', 'location');
+									}
+									else
+									{
+										if(in_array('5', $this->session->userdata('role'), TRUE))
+											{
+												redirect('/user/myilmu', 'location');
+											}
+											else
+											{
+												$array = array 
+														(
+															'username' => '',
+															'password' => '',
+															'role' => '',
+															'logged_in' => FALSE
+														);
+												$this->session->unset_userdata($array);
+												redirect('', 'location');
+											}
+									}
+							}
+						//redirect('', 'location');
 					}
 			}
 
 		public function buffer()
 			{
-				if ($this->session->userdata('logged_in') == TRUE)
+				if ($this->session->userdata('logged_in') === TRUE && in_array('5', $this->session->userdata('role'), TRUE) === TRUE)
 					{
 						$course_id = $this->uri->segment(4, 0);
 						if (ctype_digit($course_id))
@@ -34,7 +64,7 @@ class Myilmu extends CI_Controller
 
 		public function enrol()
 			{
-				if ($this->session->userdata('logged_in') == TRUE)
+				if ($this->session->userdata('logged_in') === TRUE && in_array('5', $this->session->userdata('role'), TRUE) === TRUE)
 					{
 						$data['a'] = $this->course->course_avail();
 						$course_id = $this->uri->segment(4, 0);
@@ -74,7 +104,7 @@ class Myilmu extends CI_Controller
 
 		public function account()
 			{
-				if ($this->session->userdata('logged_in') == TRUE)
+				if ($this->session->userdata('logged_in') === TRUE && in_array('5', $this->session->userdata('role'), TRUE) === TRUE)
 					{
 						//form
 						$data['g'] = $this->view->user_cost_view($this->session->userdata('username'));
@@ -90,7 +120,7 @@ class Myilmu extends CI_Controller
 
 		public function profile()
 			{
-				if ($this->session->userdata('logged_in') == TRUE)
+				if ($this->session->userdata('logged_in') === TRUE && in_array('5', $this->session->userdata('role'), TRUE) === TRUE)
 					{
 						$data['l'] = $this->user->user_username($this->session->userdata('username'));
 						$this->load->view('user/profile', $data);
@@ -103,7 +133,7 @@ class Myilmu extends CI_Controller
 
 		public function edit()
 			{
-				if ($this->session->userdata('logged_in') == TRUE)
+				if ($this->session->userdata('logged_in') === TRUE && in_array('5', $this->session->userdata('role'), TRUE) === TRUE)
 					{
 						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
 						if ($this->form_validation->run() == FALSE)
@@ -147,7 +177,7 @@ class Myilmu extends CI_Controller
 
 		public function contact_admin()
 			{
-				if ($this->session->userdata('logged_in') == TRUE)
+				if ($this->session->userdata('logged_in') === TRUE && in_array('5', $this->session->userdata('role'), TRUE) === TRUE)
 					{
 						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
 						if ($this->form_validation->run() == FALSE)
@@ -179,7 +209,7 @@ class Myilmu extends CI_Controller
 										$message .=	"</body></html>";
 
 										$email1 = send_email($this->config->item('admin_email'), 'Admin', $subject, $message, $this->config->item('pop3_server'), $this->config->item('pop3_port'), $this->config->item('username'), $this->config->item('password'), $this->config->item('SMTP_auth'), $this->config->item('smtp_server'), $this->config->item('smtp_port'), $this->config->item('SMTP_Secure'), $email, $name, $email, $name);
-										if ($email1 == TRUE)
+										if ($email1 === TRUE)
 											{
 												$data['info'] = 'Thank you very much. We will get back to you at the soonest.';
 												$this->load->view('user/contact', $data);
@@ -200,7 +230,7 @@ class Myilmu extends CI_Controller
 
 		public function change_password()
 			{
-				if ($this->session->userdata('logged_in') == TRUE)
+				if ($this->session->userdata('logged_in') === TRUE && in_array('5', $this->session->userdata('role'), TRUE) === TRUE)
 					{
 						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
 						if ($this->form_validation->run() == FALSE)
@@ -253,72 +283,15 @@ class Myilmu extends CI_Controller
 					}
 			}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		function tnc()
+			{
+				$this->load->view('user/tnc');
+			}
 #############################################################################################################################
 //logout
 		public function logout()
 			{
-				if ($this->session->userdata('logged_in') == TRUE)
+				if ($this->session->userdata('logged_in') === TRUE)
 					{
 						//process
 						$array = array 
@@ -349,7 +322,7 @@ class Myilmu extends CI_Controller
 /*
 		public function home()
 			{
-				if ($this->session->userdata('logged_in') == TRUE)
+				if ($this->session->userdata('logged_in') === TRUE && in_array('5', $this->session->userdata('role'), TRUE) === TRUE)
 					{
 						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
 						if ($this->form_validation->run() == FALSE)
