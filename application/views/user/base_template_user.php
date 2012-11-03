@@ -44,31 +44,7 @@
 	<? endblock() ?>
 	
 	<? startblock('menu') ?>
-		<!-- checking roles -->
-		<??>
-		<!-- end checking roles -->
-
-		<?if($this->session->userdata('role') == 1):?>
-			<li><?=anchor('admin/myilmu/index', 'Admin', array('title' => 'Admin'))?></li>
-		<?endif?>
-		<?if($this->session->userdata('role') == 2):?>
-			<li><?=anchor('admin/myilmu/index', 'Admin', array('title' => 'Admin'))?></li>
-		<?endif?>
-		<?if($this->session->userdata('role') == 3):?>
-			<li><?=anchor('admin/myilmu/index', 'Admin', array('title' => 'Admin'))?></li>
-		<?endif?>
-		<?if($this->session->userdata('role') == 4):?>
-			<li><?=anchor('admin/myilmu/index', 'Admin', array('title' => 'Admin'))?></li>
-		<?endif?>
-		<?if($this->session->userdata('role') == 5):?>
-			<li><?=anchor('admin/myilmu/index', 'Admin', array('title' => 'Admin'))?></li>
-		<?endif?>
-		<?if($this->session->userdata('role') == 6):?>
-			<li><?=anchor('admin/myilmu/index', 'Admin', array('title' => 'Admin'))?></li>
-		<?endif?>
-		<?if($this->session->userdata('role') == 7):?>
-			<li><?=anchor('admin/myilmu/index', 'Admin', array('title' => 'Admin'))?></li>
-		<?endif?>
+		<li><?=anchor('user/myilmu/tnc', 'Terms and Conditions', array('title' => 'Terms and Conditions'))?></li>
 	<? endblock() ?>
 
 	<? startblock('content') ?>
