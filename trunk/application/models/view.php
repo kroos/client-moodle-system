@@ -38,5 +38,21 @@ class View extends CI_Model
 										WHERE
 										user_payment_bank.username = '$username'");
 			}
+
+		function user_course($username, $id_course)
+			{
+				return $this->db->query("
+											SELECT *
+											FROM
+											course
+											INNER JOIN user_code_course ON user_code_course.id_course = course.id
+											WHERE
+											user_code_course.username = '$username' AND
+											curdate() < course.date_end AND
+											user_code_course.id_course = $id_course AND
+											user_code_course.graduate = 0 AND
+											(SELECT curdate()) < course.date_end
+										");
+			}
 	}
 ?>

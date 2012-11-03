@@ -22,15 +22,15 @@ class User_payment_bank extends CI_Model
 			}
 
 //UPDATE
-		function update_user_payment_paid($id, $id_bank, $date, $paid)
+		function update_user_payment_paid($id, $id_bank, $date_payment, $paid)
 			{
-				return $this->db->where(array('id' => $id))->update('user_payment_bank', array('id_bank' => $id_bank, 'date' => $date, 'paid' => $paid));
+				return $this->db->where(array('id' => $id))->update('user_payment_bank', array('id_bank' => $id_bank, 'date_payment' => $date_payment, 'paid' => $paid));
 			}
 
 //INSERT
-		function insert_user_payment($username, $id_course, $payment, $reference, $date, $id_bank, $paid, $remarks)
+		function insert_user_payment($username, $id_course, $payment, $reference, $date_payment, $date_due, $id_bank, $paid, $remarks)
 			{
-				return $this->db->insert('user_payment_bank', array('username' => $username, 'id_course' => $id_course, 'payment' => $payment, 'reference' => $reference, 'date' => $date, 'id_bank' => $id_bank, 'paid' => $paid, 'remarks' => $remarks));
+				return $this->db->insert('user_payment_bank', array('username' => $username, 'id_course' => $id_course, 'payment' => $payment, 'reference' => $reference, 'date_due' => $date_due, 'id_bank' => $id_bank, 'paid' => $paid, 'remarks' => $remarks));
 			}
 
 //DELETE
