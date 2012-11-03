@@ -10,7 +10,7 @@ class Myilmu extends CI_Controller
 					}
 					else
 					{
-						$data['a'] = $this->course->course();
+						$data['a'] = $this->course->course_avail();
 						//echo $this->db->last_query();
 						$this->load->view('home', $data);
 					}
@@ -88,23 +88,27 @@ class Myilmu extends CI_Controller
 											else
 											{
 												$course_id = $this->uri->segment(3, 0);
-												$q = $this->course->course_id($course_id)->row()->code_course;
+												$q = $this->course->course_id($course_id);
 
 												//check rcurring fees for monthly course
-												$g = $this->course->course_id($course_id)->row()->id_payment_type;
+												echo $q->row()->code_course.' = code dourse<br />'.$q->row()->id_payment_type.' = payment type<br />';
 
-												echo $q.'<br />'.$g;
-
-												if($g == 2)
+												if($q->row()->id_payment_type == 2)
 													{
 														//adding 12 or less rows (till end of year)
 														//if registered b4 7th of any month then starts from that month
 														//else course will starts next month
 
-														//1st chec
+														//1st chec.. period of the course
+														$t = $q->row()->week;
+														echo $t.' = how long in week<br />';
+														
+														//finished checking course,now check how long that course in month
+														$n = $t / 4;
+														echo $n.' = how long in month<br />';
 													}
 												//$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
-												//$t = $this->user_code_course->insert_user_course($username, $q, 5, 0, 0);
+												//$t = $this->user_code_course->insert_user_course($username, $q->row()->code_course, 5, 0, 0);
 												//default is student n paymnt check for th system especially for monthly payment..
 												if ($r && $t)
 													{
