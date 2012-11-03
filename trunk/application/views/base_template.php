@@ -19,7 +19,7 @@
 	<? startblock('top_sidebar') ?>
 		<h3>Course</h3>
 		<h4>Course We Offered</h4>
-		<h5><?=date_my()?></h5>
+		<h5><?=datetime_view(now())?></h5>
 		<?$r = $this->course->course()?>
 		<?if($r->num_rows() < 1):?>
 			<p>No Course Have Been Offered Yet</p>

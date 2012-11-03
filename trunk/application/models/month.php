@@ -13,8 +13,14 @@ class Month extends CI_Model
 //SELECT
 		function month($date_start, $date_end)
 			{
-				//must add 1 to te month
-				return $this->db->query("SELECT PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM '$date_end'), EXTRACT(YEAR_MONTH FROM '$date_start')) AS month");
+				//must add 1 to the month
+				$y = $this->db->query("SELECT PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM '$date_end'), EXTRACT(YEAR_MONTH FROM '$date_start')) AS month");
+				return $y;
+			}
+
+		function month_day($date_start, $month, $day)
+			{
+				return $this->db->query("select DATE_ADD(DATE_ADD('$date_start', interval $month MONTH), interval $day day) AS nmp");
 			}
 	}
 ?>

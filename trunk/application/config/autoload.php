@@ -53,7 +53,6 @@ $autoload['packages'] = array();
 */
 
 $autoload['libraries'] = array('database', 'session', 'form_validation');
-//$autoload['libraries'] = array('session', 'form_validation');
 
 
 /*
@@ -110,7 +109,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('captcha', 'course', 'month', 'payment_type', 'user', 'user_code_course', 'user_role', 'view');
+$autoload['model'] = array('captcha', 'course', 'month', 'payment_type', 'user', 'user_code_course', 'user_payment_bank', 'user_role', 'view');
 
 
 /* End of file autoload.php */

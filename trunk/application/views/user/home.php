@@ -12,20 +12,24 @@
 					<td><b>Code Course</b></td>
 					<td><b>Course</b></td>
 					<td><b>Description</b></td>
-					<td><b>Period</b></td>
+					<td><b>Registration Date End</b></td>
+					<td><b>Date Start</b></td>
+					<td><b>Date End</b></td>
 					<td><b>Fee</b></td>
 					<td>&nbsp;</td>
 				</tr>
-						<?foreach($a->result() as $t):?>
-								<tr>
-									<td><?=$t->code_course?></td>
-									<td><?=$t->course?></td>
-									<td><?=$t->description?></td>
-									<td><?=$t->week?> Week</td>
-									<td>RM <?=$t->cost?></td>
-									<td><div class="demo"><?=anchor('user/myilmu/buffer/'.$t->id, 'Enrol', array('title' => 'Enrol'))?></div></td>
-								</tr>
-						<?endforeach?>
+				<?foreach($a->result() as $t):?>
+					<tr>
+						<td><?=$t->code_course?></td>
+						<td><?=$t->course?></td>
+						<td><?=$t->description?></td>
+						<td><?=date_view($t->registration_date_end)?></td>
+						<td><?=date_view($t->date_start)?></td>
+						<td><?=date_view($t->date_end)?></td>
+						<td>RM <?=$t->cost?> per <?=$this->payment_type->payment($t->id_payment_type)->row()->payment_recurring?></td>
+						<td><div class="demo"><?=anchor('user/myilmu/buffer/'.$t->id, 'Enrol', array('title' => 'Enrol'))?></div></td>
+					</tr>
+				<?endforeach?>
 
 			</table>
 		<?endif?>
