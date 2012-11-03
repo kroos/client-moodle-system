@@ -109,7 +109,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('captcha', 'course', 'month', 'payment_type', 'user', 'user_code_course', 'user_payment_bank', 'user_role', 'view');
+$autoload['model'] = array('bank', 'captcha', 'course', 'month', 'payment_type', 'user', 'user_code_course', 'user_payment_bank', 'user_role', 'view');
 
 
 /* End of file autoload.php */

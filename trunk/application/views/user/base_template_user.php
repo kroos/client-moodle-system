@@ -12,6 +12,7 @@
 
 	<? startblock('top_nav') ?>
 		<li><?=anchor('user/myilmu', 'Home', array('title' => 'Home'))?></li>
+		<li><?=anchor('user/myilmu/course', 'Course', array('title' => 'Course'))?></li>
 		<li><?=anchor('user/myilmu/account', 'Account', array('title' => 'Account'))?>
 			<ul>
 				<li><?=anchor('user/myilmu/contact_admin', 'Contact Admin', array('title' => 'Contact Admin'))?></li>

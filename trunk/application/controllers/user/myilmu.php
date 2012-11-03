@@ -97,7 +97,7 @@ class Myilmu extends CI_Controller
 																//echo $i.' = count month<br />';
 																$nmp = $this->month->month_day($dyst, $i, $this->config->item('day_payment') - 1)->row()->nmp;
 																//echo $nmp.' = next month payment<br />';
-																$gh = $this->user_payment_bank->insert_user_payment($this->session->userdata('username'), $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.$this->config->item('day_payment').'th day of each month');
+																$gh = $this->user_payment_bank->insert_user_payment($this->session->userdata('username'), $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
 															}
 														$t = $this->user_code_course->insert_user_course($this->session->userdata('username'), $course_id, 5, 0, 0);
 														if ($t)
@@ -127,7 +127,7 @@ class Myilmu extends CI_Controller
 																		//echo $nmp.' = next month payment<br />';
 																		if (date_db(now()) < $nmp)
 																			{
-																				$gh = $this->user_payment_bank->insert_user_payment($this->session->userdata('username'), $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.$this->config->item('day_payment').'th day of each month');
+																				$gh = $this->user_payment_bank->insert_user_payment($this->session->userdata('username'), $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
 																			}
 																	}
 																$t = $this->user_code_course->insert_user_course($this->session->userdata('username'), $course_id, 5, 0, 0);
@@ -152,7 +152,7 @@ class Myilmu extends CI_Controller
 														//insert only 1 row data.... argghhh
 
 														$nmp = $this->month->month_day($dyst, 0, $this->config->item('day_payment') - 1)->row()->nmp;
-														$n = $this->user_payment_bank->insert_user_payment($this->session->userdata('username'), $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.$this->config->item('day_payment').'th day of each month');
+														$n = $this->user_payment_bank->insert_user_payment($this->session->userdata('username'), $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
 														$t = $this->user_code_course->insert_user_course($this->session->userdata('username'), $course_id, 5, 0, 0);
 														if ($n && $t)
 															{
@@ -188,10 +188,8 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') === TRUE && in_array('5', $this->session->userdata('role'), TRUE) === TRUE)
 					{
-						//form
-						$data['g'] = $this->view->user_cost_view($this->session->userdata('username'));
-						$data['o'] = $this->view->user_payment_view($this->session->userdata('username'));
-						//echo $this->db->last_query();
+						$data['o'] = $this->view->user_unpaid_view($this->session->userdata('username'));
+						$data['a'] = $this->view->user_paid_view($this->session->userdata('username'));
 						$this->load->view('user/account', $data);
 					}
 					else
@@ -365,9 +363,15 @@ class Myilmu extends CI_Controller
 					}
 			}
 
-		function tnc()
+		public function tnc()
 			{
 				$this->load->view('user/tnc');
+			}
+
+		public function course()
+			{
+				$data['s'] = 'test';
+				$this->load->view('user/course', $data);
 			}
 #############################################################################################################################
 //logout
