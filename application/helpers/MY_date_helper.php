@@ -3,15 +3,24 @@
 #############################################################################################################################
 //date format
 ///*
-		function date_my()
+		function date_db($date)
 			{
-				return mdate("%D, %j %M %Y %g:%i %a", now());
+				return mdate("%Y-%m-%d", $date);
 			}
 
-		function date_date($date)
+		function datetime_db($date)
 			{
-				//return mdate("%D, %j %M %Y %g:%i %a", mysql_to_unix($date));
+				return mdate("%Y-%m-%d %H:%i:%s", $date);
+			}
+
+		function date_view($date)
+			{
 				return mdate("%D, %j %M %Y", mysql_to_unix($date));
+			}
+
+		function datetime_view($date)
+			{
+				return mdate("%D, %j %M %Y %g:%i %a", mysql_to_unix($date));
 			}
 //*/
 #############################################################################################################################

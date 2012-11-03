@@ -41,7 +41,7 @@
 				<?$ie = 0?>
 				<?foreach($o->result() as $p):?>
 					<tr>
-						<td><?=date_date($p->date)?></td>
+						<td><?=datetime_view($p->date)?></td>
 						<td><?=$p->reference?></td>
 						<td><?=$p->bank?></td>
 						<td><?=$p->payment?><?$ie += $p->payment?></td>

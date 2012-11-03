@@ -58,69 +58,138 @@ class Myilmu extends CI_Controller
 								//form process
 								$course_id = $this->uri->segment(3, 0);
 								$data['q'] = $this->course->course_id($course_id)->row();
-								if($this->input->post('signup', TRUE))
+								if(is_numeric($course_id))
 									{
-										$username = $this->input->post('username', TRUE);
-										$password = md5($this->input->post('password1', TRUE));
-										$name = ucwords(strtolower($this->input->post('name', TRUE)));
-										$ic = $this->input->post('ic', TRUE);
-										$postcode = $this->input->post('postcode', TRUE);
-										$city = ucwords(strtolower($this->input->post('city', TRUE)));
-										$state = $this->input->post('state', TRUE);
-										$phone = $this->input->post('phone', TRUE);
-										$address = ucwords(strtolower($this->input->post('address', TRUE)));
-										$skype = $this->input->post('skype', TRUE);
-										$verify = $this->input->post('verify', TRUE);
-
-										//we need to check the capthca
-										$expiration = time()-1800; // 30 minites limit
-										//delete captcha 30 minites ago
-										$this->captcha->delete_captcha($expiration);
-
-										//check the new 1
-										$check = $this->captcha->captcha($verify, $expiration)->num_rows();
-
-										if ($check == 0)
+										if($this->input->post('signup', TRUE))
 											{
-												$data['info'] = 'You must submit the word that appears in the image';
-												$this->load->view('register', $data);
-											}
-											else
-											{
-												$course_id = $this->uri->segment(3, 0);
-												$q = $this->course->course_id($course_id);
+												$username = $this->input->post('username', TRUE);
+												$password = md5($this->input->post('password1', TRUE));
+												$name = ucwords(strtolower($this->input->post('name', TRUE)));
+												$ic = $this->input->post('ic', TRUE);
+												$postcode = $this->input->post('postcode', TRUE);
+												$city = ucwords(strtolower($this->input->post('city', TRUE)));
+												$state = $this->input->post('state', TRUE);
+												$phone = $this->input->post('phone', TRUE);
+												$address = ucwords(strtolower($this->input->post('address', TRUE)));
+												$skype = $this->input->post('skype', TRUE);
+												$verify = $this->input->post('verify', TRUE);
 
-												//check rcurring fees for monthly course
-												echo $q->row()->code_course.' = code dourse<br />'.$q->row()->id_payment_type.' = payment type<br />';
+												//we need to check the capthca
+												$expiration = time()- 1800; // 30 minites limit
+												//delete captcha 30 minites ago
+												$this->captcha->delete_captcha($expiration);
 
-												if($q->row()->id_payment_type == 2)
+												//check the new 1
+												$check = $this->captcha->captcha($verify, $expiration)->num_rows();
+
+												if ($check == 0)
 													{
-														//adding 12 or less rows (till end of year)
-														//if registered b4 7th of any month then starts from that month
-														//else course will starts next month
-
-														//1st chec.. period of the course
-														$t = $q->row()->week;
-														echo $t.' = how long in week<br />';
-														
-														//finished checking course,now check how long that course in month
-														$n = $t / 4;
-														echo $n.' = how long in month<br />';
-													}
-												//$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
-												//$t = $this->user_code_course->insert_user_course($username, $q->row()->code_course, 5, 0, 0);
-												//default is student n paymnt check for th system especially for monthly payment..
-												if ($r && $t)
-													{
-														$data['info'] = 'You may login with the credential.';
+														$data['info'] = 'You must submit the word that appears in the image';
 														$this->load->view('enrol', $data);
 													}
 													else
 													{
-														$data['info'] = 'Something teribly wrong. Please try again later';
-														$this->load->view('enrol', $data);
+														$course_id = $this->uri->segment(3, 0);
+														$q = $this->course->course_id($course_id);
+
+														//check rcurring fees for monthly course
+														//echo $q->row()->id.' = id dourse<br />'.$q->row()->id_payment_type.' = payment type<br />'.date_db(now()).' = date now<br />';
+
+														if($q->row()->id_payment_type == 2)
+															{
+																//register before date_start of the course
+																$dyst = $q->row()->date_start;
+																$dyed = $q->row()->date_end;
+																//echo $dyst.' = day start<br />'.$dyed.' = day end<br />';
+																if (date_db(now()) < $dyst)
+																	{
+																		//how many months for that course
+																		$mn = $this->month->month($dyst, $dyed)->row()->month;	//must add 1 to the query
+																		//echo $mn.' = month<br />';
+
+																		//so insert $mn row to the user_payment_bank table
+																		for ($i = 0; $i <= $mn; $i++)
+																			{
+																				//echo $i.' = count month<br />';
+																				$nmp = $this->month->month_day($dyst, $i, $this->config->item('day_payment') - 1)->row()->nmp;
+																				//echo $nmp.' = next month payment<br />';
+																				$gh = $this->user_payment_bank->insert_user_payment($username, $course_id, 0, '', $nmp, 0, 0, 'Please pay before '.$this->config->item('day_payment').'th day of each month');
+																			}
+																		$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
+																		$t = $this->user_code_course->insert_user_course($username, $course_id, 5, 0, 0);
+																		if ($r && $t)
+																			{
+																				$data['info'] = 'You may login with the credential.';
+																				$this->load->view('enrol', $data);
+																			}
+																			else
+																			{
+																				$data['info'] = 'Something teribly wrong. Please try again later';
+																				$this->load->view('enrol', $data);
+																			}
+																	}
+																	else
+																	{
+																		if (date_db(now()) > $dyst)
+																			{
+																				//calculate how many months left from the start date
+																				$mn = $this->month->month($dyst, $dyed)->row()->month;	//must add 1 to the query
+																				//echo $mn.' = month<br />';
+
+																				//so insert $mn row to the user_payment_bank table
+																				for ($i = 0; $i <= $mn; $i++)
+																					{
+																						//echo $i.' = count month<br />';
+																						$nmp = $this->month->month_day($dyst, $i, $this->config->item('day_payment') - 1)->row()->nmp;
+																						//echo $nmp.' = next month payment<br />';
+																						if (date_db(now()) < $nmp)
+																							{
+																								$gh = $this->user_payment_bank->insert_user_payment($username, $course_id, 0, '', $nmp, 0, 0, 'Please pay before '.$this->config->item('day_payment').'th day of each month');
+																							}
+																					}
+																				$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
+																				$t = $this->user_code_course->insert_user_course($username, $course_id, 5, 0, 0);
+																				if ($r && $t)
+																					{
+																						$data['info'] = 'You may login with the credential.';
+																						$this->load->view('enrol', $data);
+																					}
+																					else
+																					{
+																						$data['info'] = 'Something teribly wrong. Please try again later';
+																						$this->load->view('enrol', $data);
+																					}
+																			}
+																	}
+															}
+															else
+															{
+																if($q->row()->id_payment_type == 1)
+																	{
+																		//have to pay within 7 days after registration or after what??
+																		//insert only 1 row data.... argghhh
+																		
+
+																		$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
+																		$t = $this->user_code_course->insert_user_course($username, $course_id, 5, 0, 0);
+																		if ($r && $t)
+																			{
+																				$data['info'] = 'You may login with the credential.';
+																				$this->load->view('enrol', $data);
+																			}
+																			else
+																			{
+																				$data['info'] = 'Something teribly wrong. Please try again later';
+																				$this->load->view('enrol', $data);
+																			}
+																	}
+															}
 													}
 											}
+									}
+									else
+									{
+										redirect('', 'location');
 									}
 							}
 					}
