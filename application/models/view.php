@@ -60,5 +60,12 @@ class View extends CI_Model
 											(SELECT curdate()) < course.date_end
 										");
 			}
+
+		/*function user_payment_type ()
+			{
+				return $this->db->query("
+										
+										");
+			}//*/
 	}
 ?>

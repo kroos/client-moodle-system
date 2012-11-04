@@ -370,8 +370,16 @@ class Myilmu extends CI_Controller
 
 		public function course()
 			{
-				$data['s'] = 'test';
-				$this->load->view('user/course', $data);
+				if ($this->session->userdata('logged_in') === TRUE && in_array('5', $this->session->userdata('role'), TRUE) === TRUE)
+					{
+						//1st we check the course been taken n not finished yet (graduate = 0) --> continue to page 'views/user/course.php'
+						$data['s'] = $this->user_code_course->user_grad_course($this->session->userdata('username'), 0);
+						$this->load->view('user/course', $data);
+					}
+					else
+					{
+						redirect('/user/myilmu/index', 'location');
+					}
 			}
 #############################################################################################################################
 //logout

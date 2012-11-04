@@ -22,5 +22,10 @@ class Month extends CI_Model
 			{
 				return $this->db->query("select DATE_ADD(DATE_ADD('$date_start', interval $month MONTH), interval $day day) AS nmp");
 			}
+
+		function month_end($date)
+			{
+				return $this->db->query("SELECT LAST_DAY($date) AS me");
+			}
 	}
 ?>
