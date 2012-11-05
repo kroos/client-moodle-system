@@ -13,7 +13,7 @@ class Bank extends CI_Model
 //SELECT
 		function bank()
 			{
-				return $this->db->order_by('id')->get_where('course', array('id <>' => 1));
+				return $this->db->get('bank');
 			}
 
 		function bank_id($id)

@@ -188,8 +188,7 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') === TRUE && in_array('5', $this->session->userdata('role'), TRUE) === TRUE)
 					{
-						$data['o'] = $this->view->user_unpaid_view($this->session->userdata('username'));
-						$data['a'] = $this->view->user_paid_view($this->session->userdata('username'));
+						$data['s'] = $this->user_code_course->user_grad_course($this->session->userdata('username'), 0);
 						$this->load->view('user/account', $data);
 					}
 					else
@@ -326,7 +325,7 @@ class Myilmu extends CI_Controller
 								$npassword2 = $this->input->post('npassword2', TRUE);
 								if ($this->input->post('save', TRUE))
 									{
-										if ($this->session->userdata('password') == md5($cpassword))
+										if ($this->session->userdata('password') == $cpassword)
 											{
 												if ($cpassword == $npassword1)
 													{
@@ -340,6 +339,8 @@ class Myilmu extends CI_Controller
 															{
 																$this->session->set_userdata(array('password' => md5($npassword1)));
 																$data['info'] = 'Success changing password';
+																$this->session->unset_userdata('password', '');
+																$this->session->set_userdata('password', $npassword1);
 																$this->load->view('user/change_password', $data);
 															}
 															else

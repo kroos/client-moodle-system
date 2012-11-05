@@ -32,5 +32,10 @@ class Month extends CI_Model
 			{
 				return $this->db->query("SELECT DATE_ADD(LAST_DAY(DATE_SUB('$date', interval 1 month)), interval 1 day) AS ms");
 			}
+
+		function bftd($date)
+			{
+				return $this->db->query("SELECT DATE_SUB('$date', interval 14 day) AS bftd");
+			}
 	}
 ?>
