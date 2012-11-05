@@ -30,7 +30,6 @@
 						<td><div class="demo"><?=anchor('user/myilmu/buffer/'.$t->id, 'Enrol', array('title' => 'Enrol'))?></div></td>
 					</tr>
 				<?endforeach?>
-
 			</table>
 		<?endif?>
 	<? endblock() ?>

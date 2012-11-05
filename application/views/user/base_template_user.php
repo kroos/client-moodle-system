@@ -27,7 +27,7 @@
 	<? endblock() ?>
 
 	<? startblock('top_sidebar') ?>
-	<?$t = $this->user->login($this->session->userdata('username'), $this->session->userdata('password'))?>
+	<?$t = $this->user->login($this->session->userdata('username'), md5($this->session->userdata('password')))?>
 		<h3>Profile</h3>
 		<h4>Hello <?=$t->row()->name?></h4>
 		<h5><?=datetime_view(now())?></h5>

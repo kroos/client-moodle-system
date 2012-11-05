@@ -234,7 +234,7 @@ class Myilmu extends CI_Controller
 													$session = array
 																(
 																	'username' => $user,
-																	'password' => md5($pass),
+																	'password' => $pass,
 																	'role' => $role,
 																	'logged_in' => TRUE
 																);

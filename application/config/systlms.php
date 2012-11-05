@@ -44,7 +44,7 @@ $config['admin_email'] = 'dhiauddin@gmail.com';			//user for "contact us" page
 
 #############################################################################################
 //moodle login
-$config['moodle_login'] = 'http://a3ncabalload.dyndns.info/lms/login/index.php';
+$config['moodle_login'] = 'http://localhost/moodle/login/index.php';
 
 #############################################################################################
 //forgot password URL
