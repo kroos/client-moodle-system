@@ -7,7 +7,7 @@
 		<meta name="keywords" content="moodle, e-learning, learning online, web conference, islamic, islam" />
 		<meta name="author" content="Zaugola" />
 		<link rel="shortcut icon" href="<?=base_url()?>images/favicon.ico" type="image/x-icon" />
-		<link href="<?=base_url()?>css/jquery/jquery-ui-1.9.0.custom.css" rel="stylesheet">
+		<link href="<?=base_url()?>css/jquery/jquery-ui-1.9.1.custom.css" rel="stylesheet">
 	<? endblock() ?>
 
 	<? startblock('top_nav') ?>
@@ -43,7 +43,7 @@
 
 	<? startblock('jscript') ?>
 		<script src="<?=base_url()?>js1/jquery/jquery-1.8.2.js"></script>
-		<script src="<?=base_url()?>js/jquery/jquery-ui-1.9.0.custom.js"></script>
+		<script src="<?=base_url()?>js/jquery/jquery-ui-1.9.1.custom.js"></script>
 		<script>
 			$(function() {
 				$( "input[type=submit], a, button", ".demo" )
@@ -58,6 +58,55 @@
 				$('#datepicker1').datetimepicker({dateFormat: "yy-mm-dd", timeFormat: "hh:mm:ss", showSecond: true, showMillisec: false, ampm: false, stepHour: 1, stepMinute: 1, stepSecond: 5});
 			});
 		</script>
+    <style>
+    .ui-autocomplete-loading {
+        background: white url('../images/ui-anim_basic_16x16.gif') right center no-repeat;
+    }
+    #city {  }
+    </style>
+    <script>
+    $(function() {
+        function log( message ) {
+            $( "<div>" ).text( message ).prependTo( "#log" );
+            $( "#log" ).scrollTop( 0 );
+        }
+ 
+        $( "#city" ).autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    url: "http://ws.geonames.org/searchJSON",
+                    dataType: "jsonp",
+                    data: {
+                        featureClass: "P",
+                        style: "full",
+                        maxRows: 12,
+                        name_startsWith: request.term
+                    },
+                    success: function( data ) {
+                        response( $.map( data.geonames, function( item ) {
+                            return {
+                                label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
+                                value: item.name
+                            }
+                        }));
+                    }
+                });
+            },
+            minLength: 2,
+            select: function( event, ui ) {
+                log( ui.item ?
+                    "Selected: " + ui.item.label :
+                    "Nothing selected, input was " + this.value);
+            },
+            open: function() {
+                $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+            },
+            close: function() {
+                $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+            }
+        });
+    });
+    </script>
 	<? endblock() ?>
 
 <? end_extend() ?>

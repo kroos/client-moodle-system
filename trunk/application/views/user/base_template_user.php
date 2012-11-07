@@ -7,7 +7,7 @@
 		<meta name="keywords" content="moodle, e-learning, learning online, web conference, islamic, islam" />
 		<meta name="author" content="Zaugola" />
 		<link rel="shortcut icon" href="<?=base_url()?>images/favicon.ico" type="image/x-icon" />
-		<link href="<?=base_url()?>css/jquery/jquery-ui-1.9.0.custom.css" rel="stylesheet">
+		<link href="<?=base_url()?>css/jquery/jquery-ui-1.9.1.custom.css" rel="stylesheet">
 	<? endblock() ?>
 
 	<? startblock('top_nav') ?>
@@ -59,7 +59,7 @@
 
 	<? startblock('jscript') ?>
 		<script src="<?=base_url()?>js1/jquery/jquery-1.8.2.js"></script>
-		<script src="<?=base_url()?>js/jquery/jquery-ui-1.9.0.custom.js"></script>
+		<script src="<?=base_url()?>js/jquery/jquery-ui-1.9.1.custom.js"></script>
 		<script>
 			$(function() {
 				$( "input[type=submit], a, button", ".demo" )

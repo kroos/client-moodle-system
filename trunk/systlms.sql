@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50522
 File Encoding         : 65001
 
-Date: 2012-11-07 18:25:54
+Date: 2012-11-08 02:42:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,13 +45,54 @@ CREATE TABLE `captcha` (
   `word` varchar(20) NOT NULL,
   PRIMARY KEY (`captcha_id`),
   KEY `word` (`word`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of captcha
 -- ----------------------------
-INSERT INTO `captcha` VALUES ('1', '1352269902', '127.0.0.1', '15677');
-INSERT INTO `captcha` VALUES ('2', '1352269955', '127.0.0.1', '28437');
+INSERT INTO `captcha` VALUES ('3', '1352310914', '127.0.0.1', '32368');
+INSERT INTO `captcha` VALUES ('4', '1352310952', '127.0.0.1', '18014');
+INSERT INTO `captcha` VALUES ('5', '1352310953', '127.0.0.1', '36584');
+INSERT INTO `captcha` VALUES ('6', '1352310954', '127.0.0.1', '55153');
+INSERT INTO `captcha` VALUES ('7', '1352311041', '127.0.0.1', '50712');
+INSERT INTO `captcha` VALUES ('8', '1352311042', '127.0.0.1', '50712');
+INSERT INTO `captcha` VALUES ('9', '1352311042', '127.0.0.1', '69282');
+INSERT INTO `captcha` VALUES ('10', '1352311043', '127.0.0.1', '69282');
+INSERT INTO `captcha` VALUES ('11', '1352311043', '127.0.0.1', '69282');
+INSERT INTO `captcha` VALUES ('12', '1352311043', '127.0.0.1', '69282');
+INSERT INTO `captcha` VALUES ('13', '1352311043', '127.0.0.1', '87851');
+INSERT INTO `captcha` VALUES ('14', '1352311043', '127.0.0.1', '87851');
+INSERT INTO `captcha` VALUES ('15', '1352311044', '127.0.0.1', '87851');
+INSERT INTO `captcha` VALUES ('16', '1352311126', '127.0.0.1', '99132');
+INSERT INTO `captcha` VALUES ('17', '1352311128', '127.0.0.1', '27701');
+INSERT INTO `captcha` VALUES ('18', '1352311128', '127.0.0.1', '46271');
+INSERT INTO `captcha` VALUES ('19', '1352311129', '127.0.0.1', '46271');
+INSERT INTO `captcha` VALUES ('20', '1352311130', '127.0.0.1', '64841');
+INSERT INTO `captcha` VALUES ('21', '1352311231', '127.0.0.1', '68944');
+INSERT INTO `captcha` VALUES ('22', '1352311232', '127.0.0.1', '87514');
+INSERT INTO `captcha` VALUES ('23', '1352311236', '127.0.0.1', '53222');
+INSERT INTO `captcha` VALUES ('24', '1352311300', '127.0.0.1', '71679');
+INSERT INTO `captcha` VALUES ('25', '1352312164', '127.0.0.1', '95849');
+INSERT INTO `captcha` VALUES ('26', '1352312165', '127.0.0.1', '24419');
+INSERT INTO `captcha` VALUES ('27', '1352312166', '127.0.0.1', '42989');
+INSERT INTO `captcha` VALUES ('28', '1352312166', '127.0.0.1', '42989');
+INSERT INTO `captcha` VALUES ('29', '1352312213', '127.0.0.1', '15762');
+INSERT INTO `captcha` VALUES ('30', '1352312368', '127.0.0.1', '14056');
+INSERT INTO `captcha` VALUES ('31', '1352312369', '127.0.0.1', '32626');
+INSERT INTO `captcha` VALUES ('32', '1352312369', '127.0.0.1', '32626');
+INSERT INTO `captcha` VALUES ('33', '1352312369', '127.0.0.1', '51195');
+INSERT INTO `captcha` VALUES ('34', '1352312369', '127.0.0.1', '51195');
+INSERT INTO `captcha` VALUES ('35', '1352312371', '127.0.0.1', '69765');
+INSERT INTO `captcha` VALUES ('36', '1352312371', '127.0.0.1', '69765');
+INSERT INTO `captcha` VALUES ('37', '1352312371', '127.0.0.1', '88335');
+INSERT INTO `captcha` VALUES ('38', '1352312371', '127.0.0.1', '88335');
+INSERT INTO `captcha` VALUES ('39', '1352312373', '127.0.0.1', '35474');
+INSERT INTO `captcha` VALUES ('40', '1352312469', '127.0.0.1', '89590');
+INSERT INTO `captcha` VALUES ('41', '1352312469', '127.0.0.1', '89590');
+INSERT INTO `captcha` VALUES ('42', '1352312469', '127.0.0.1', '18160');
+INSERT INTO `captcha` VALUES ('43', '1352312469', '127.0.0.1', '18160');
+INSERT INTO `captcha` VALUES ('44', '1352312471', '127.0.0.1', '55299');
+INSERT INTO `captcha` VALUES ('45', '1352312690', '127.0.0.1', '53481');
 
 -- ----------------------------
 -- Table structure for `ci_sessions`
@@ -70,7 +111,7 @@ CREATE TABLE `ci_sessions` (
 -- ----------------------------
 -- Records of ci_sessions
 -- ----------------------------
-INSERT INTO `ci_sessions` VALUES ('5a8e9a5e05c08ed6c553da5899c32888', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0', '1352282406', 'a:5:{s:9:\"user_data\";s:0:\"\";s:8:\"username\";s:5:\"admin\";s:8:\"password\";s:15:\"Administrator1.\";s:4:\"role\";a:1:{i:1;s:1:\"1\";}s:9:\"logged_in\";b:1;}');
+INSERT INTO `ci_sessions` VALUES ('fbe0a5e7f29776aeda9bb0010a937801', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0', '1352313696', 'a:1:{s:9:\"user_data\";s:0:\"\";}');
 
 -- ----------------------------
 -- Table structure for `course`
@@ -94,8 +135,8 @@ CREATE TABLE `course` (
 -- Records of course
 -- ----------------------------
 INSERT INTO `course` VALUES ('1', '0', 'Admin', 'Admin Use Only', '0', '1', '2012-11-01', '2012-12-31', '2013-01-01', '2013-12-31');
-INSERT INTO `course` VALUES ('2', 'PHU 1001', 'Panduan Lengkap Haji &amp; Umrah', ' Panduan Lengkap Haji &amp; Umrah<br /><span style=\"font-weight: bold;\">Bahagian Pengenalan</span><br />', '10', '1', '2012-11-01', '2012-12-31', '2013-01-01', '2013-12-31');
-INSERT INTO `course` VALUES ('5', 'KPP1001', 'Kursus Pra Perkahwinan', 'Kursus Pra Perkahwinan.. ', '10', '1', '2012-11-01', '2012-12-31', '2013-01-01', '2013-12-31');
+INSERT INTO `course` VALUES ('2', 'PHU 1001', 'Panduan Lengkap Haji &amp; Umrah', 'Bahagian Pengenalan', '10', '1', '2012-11-01', '2012-12-31', '2013-01-01', '2013-12-31');
+INSERT INTO `course` VALUES ('5', 'KPP1001', 'Kursus Pra Perkahwinan', 'Kursus Pra Perkahwinan', '10', '1', '2012-11-01', '2012-12-31', '2013-01-01', '2013-12-31');
 INSERT INTO `course` VALUES ('6', 'PIT 1001', 'Pengenalan / Muqaddimah', 'Pengenalan', '10', '1', '2012-11-01', '2012-12-31', '2013-01-01', '2013-12-31');
 INSERT INTO `course` VALUES ('7', 'BA 1003', 'Nahu', 'Nahu', '10', '1', '2012-11-01', '2012-12-31', '2013-01-01', '2013-12-31');
 INSERT INTO `course` VALUES ('8', 'BA 1004', 'Sorof', 'Sorof', '10', '1', '2012-11-01', '2012-12-31', '2013-01-01', '2013-12-31');
@@ -117,7 +158,7 @@ INSERT INTO `course` VALUES ('23', 'STAM 1012', 'Arud dan Qafiyah', 'Arud dan Qa
 INSERT INTO `course` VALUES ('24', 'STAM 1013', 'Balaghah', 'Balaghah', '10', '1', '2012-11-01', '2012-12-31', '2013-01-01', '2013-12-31');
 INSERT INTO `course` VALUES ('25', 'Doa - 1001', 'Doa-doa pilihan', 'Doa-doa pilihan', '10', '1', '2012-11-01', '2012-12-31', '2013-01-01', '2013-12-31');
 INSERT INTO `course` VALUES ('26', 'PKK 1001', 'Usul Tauhid (Tuan Hussain Kedah)', 'Usul Tauhid (Tuan Hussain Kedah)', '10', '1', '2012-11-01', '2012-12-31', '2013-01-01', '2013-12-31');
-INSERT INTO `course` VALUES ('27', 'KK 1002', 'Ta\'lim Muta\'allim Tariq Ta\'allum', '<span class=\"notranslate\"><span style=\"left: 928px; top: 4719px; word-spacing: 13px;\" class=\"a\">Ta\'lim Muta\'allim Tariq Ta\'allum<br /><br /></span></span>', '10', '1', '2012-11-01', '2012-12-31', '2013-01-01', '2013-12-31');
+INSERT INTO `course` VALUES ('27', 'KK 1002', 'Ta\'lim Muta\'allim Tariq Ta\'allum', 'Ta\'lim Muta\'allim Tariq Ta\'allum', '10', '2', '2012-11-01', '2012-12-31', '2013-01-01', '2013-12-31');
 INSERT INTO `course` VALUES ('28', 'PKK 1003', 'Hidayah As Subyan', 'Hidayah As Subyan', '10', '1', '2012-11-01', '2012-12-31', '2013-01-01', '2013-12-31');
 
 -- ----------------------------
@@ -135,7 +176,6 @@ CREATE TABLE `payment_type` (
 -- ----------------------------
 INSERT INTO `payment_type` VALUES ('1', 'course');
 INSERT INTO `payment_type` VALUES ('2', 'month');
-INSERT INTO `payment_type` VALUES ('3', 'semester');
 
 -- ----------------------------
 -- Table structure for `user`
@@ -154,13 +194,14 @@ CREATE TABLE `user` (
   `phone` varchar(15) DEFAULT NULL,
   `skype` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', 'admin', 'efc9b1e45645f55afbf7401a728b3334', 'Admin', '123456789012', null, null, null, null, null, null);
 INSERT INTO `user` VALUES ('2', 'stud@gmail.com', '4297f44b13955235245b2497399d7a93', 'Nabil Asif', '123456789012', '72, Jalan Keranji 11, Taman Keranji,', '05400', 'Alor Setar', 'Kedah', '0162172420', '');
+INSERT INTO `user` VALUES ('3', 'stud1@gmail.com', '4297f44b13955235245b2497399d7a93', 'Azaliha Abdullah', '123456789012', '123, Sdfsdf Sdfsdf, Trytyu, Ghjgvbn,', '08000', 'Johor Bahru', 'Johor', '0162172420', '');
 
 -- ----------------------------
 -- Table structure for `user_code_course`
@@ -174,13 +215,16 @@ CREATE TABLE `user_code_course` (
   `activate` bit(1) NOT NULL,
   `graduate` bit(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of user_code_course
 -- ----------------------------
 INSERT INTO `user_code_course` VALUES ('1', 'admin', '1', '1', '', '');
 INSERT INTO `user_code_course` VALUES ('2', 'stud@gmail.com', '12', '5', '', '');
+INSERT INTO `user_code_course` VALUES ('4', 'stud1@gmail.com', '2', '5', '', '');
+INSERT INTO `user_code_course` VALUES ('5', 'stud@gmail.com', '8', '5', '', '');
+INSERT INTO `user_code_course` VALUES ('6', 'stud@gmail.com', '19', '5', '', '');
 
 -- ----------------------------
 -- Table structure for `user_payment_bank`
@@ -198,12 +242,15 @@ CREATE TABLE `user_payment_bank` (
   `paid` int(1) NOT NULL,
   `remarks` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of user_payment_bank
 -- ----------------------------
 INSERT INTO `user_payment_bank` VALUES ('1', 'stud@gmail.com', '12', '0', '', null, '2013-01-07', '0', '0', 'Please make a payment before Mon, 7 Jan 2013');
+INSERT INTO `user_payment_bank` VALUES ('3', 'stud1@gmail.com', '2', '0', '', null, '2013-01-07', '0', '0', 'Please make a payment before Mon, 7 Jan 2013');
+INSERT INTO `user_payment_bank` VALUES ('4', 'stud@gmail.com', '8', '0', '', null, '2013-01-07', '0', '0', 'Please make a payment before Mon, 7 Jan 2013');
+INSERT INTO `user_payment_bank` VALUES ('5', 'stud@gmail.com', '19', '0', '', null, '2013-01-07', '0', '0', 'Please make a payment before Mon, 7 Jan 2013');
 
 -- ----------------------------
 -- Table structure for `user_role`

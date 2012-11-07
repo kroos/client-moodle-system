@@ -19,16 +19,17 @@
 					<td>&nbsp;</td>
 				</tr>
 				<?foreach($a->result() as $t):?>
-					<tr>
-						<td><b><?=$t->code_course?></b></td>
-						<td><?=$t->course?></td>
-						<td><?=$t->description?></td>
-						<td><?=date_view($t->registration_date_end)?></td>
-						<td><?=date_view($t->date_start)?></td>
-						<td><?=date_view($t->date_end)?></td>
-						<td>RM <?=$t->cost?> per <?=$this->payment_type->payment($t->id_payment_type)->row()->payment_recurring?></td>
-						<td><div class="demo"><?=anchor('myilmu/enrol/'.$t->id, 'Enrol', array('title' => 'Enrol'))?></div></td>
-					</tr>
+
+						<tr>
+							<td><b><?=$t->code_course?></b></td>
+							<td><?=$t->course?></td>
+							<td><?=$t->description?></td>
+							<td><?=date_view($t->registration_date_end)?></td>
+							<td><?=date_view($t->date_start)?></td>
+							<td><?=date_view($t->date_end)?></td>
+							<td>RM <?=$t->cost?> per <?=$this->payment_type->payment($t->id_payment_type)->row()->payment_recurring?></td>
+							<td><div class="demo"><?=anchor('myilmu/enrol/'.$t->id, 'Enrol', array('title' => 'Enrol'))?></div></td>
+						</tr>
 				<?endforeach?>
 			</table>
 		<?endif?>

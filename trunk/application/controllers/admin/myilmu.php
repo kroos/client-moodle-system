@@ -27,32 +27,130 @@ class Myilmu extends CI_Controller
 					}
 			}
 
-		public function edit_course()
+		public function add_course()
 			{
 				if ($this->session->userdata('logged_in') === TRUE && in_array('1', $this->session->userdata('role'), TRUE) === TRUE)
 					{
+
+						//process pagination
+						$this->load->library('pagination');
+						$config['base_url'] = base_url().'admin/myilmu/add_course';
+						$config['total_rows'] = $this->course->course()->num_rows();
+						$config['uri_segment'] = 4;
+						$config['per_page'] = 5;
+						$config['suffix'] = '.htm';
+
+						$this->pagination->initialize($config);
+
+						$data['u'] = $this->course->course_page($this->uri->segment(4, 0), $config['per_page']);
+						$data['pagination'] = $this->pagination->create_links();
+
 						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
 						if ($this->form_validation->run() == FALSE)
 							{
-								//form
-								//process pagination
-								$this->load->library('pagination');
-								$config['base_url'] = base_url().'admin/myilmu/edit_course';
-								$config['total_rows'] = $this->course->course()->num_rows();
-								$config['uri_segment'] = 4;
-								$config['per_page'] = 5;
-
-								$this->pagination->initialize($config);
-
-								$data['u'] = $this->course->course_page($this->uri->segment(4, 0), $config['per_page']);
-								$data['pagination'] = $this->pagination->create_links();
-								echo $data['pagination'].'<br />';
-								$this->load->view('admin/edit_course', $data);
+								$this->load->view('admin/add_course', $data);
 							}
 							else
 							{
 								//form process
-								
+								if($this->input->post('add_course', TRUE))
+									{
+										$code_course = strtoupper(strtolower($this->input->post('code_course', TRUE)));
+										$course = ucwords(strtolower($this->input->post('course', TRUE)));
+										$description = ucwords(strtolower($this->input->post('description', TRUE)));
+										$cost = $this->input->post('cost', TRUE);
+										$id_payment_type = $this->input->post('id_payment_type', TRUE);
+										$registration_date_start = $this->input->post('registration_date_start', TRUE);
+										$registration_date_end = $this->input->post('registration_date_end', TRUE);
+										$date_start = $this->input->post('date_start', TRUE);
+										$date_end = $this->input->post('date_end', TRUE);
+
+										$g = $this->course->insert_course($code_course, $course, $description, $cost, $id_payment_type, $registration_date_start, $registration_date_end, $date_start, $date_end);
+										echo $this->db->last_query().' = last query<br />';
+										if($g)
+											{
+												$data['info'] = 'Success inserting data';
+												$this->load->view('admin/add_course', $data);
+											}
+											else
+											{
+												$data['info'] = 'Something teribly happen. Please try again later';
+												$this->load->view('admin/add_course', $data);
+											}
+									}
+							}
+					}
+					else
+					{
+						redirect('/admin/myilmu/index', 'location');
+					}
+			}
+
+		public function update_course()
+			{
+				if ($this->session->userdata('logged_in') === TRUE && in_array('1', $this->session->userdata('role'), TRUE) === TRUE)
+					{
+						$r = $this->uri->segment(4, 0);
+						if (is_numeric($r))
+							{
+								$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
+								if ($this->form_validation->run() == FALSE)
+									{
+										//form
+										$data['e'] = $this->course->course_id($r);
+										$this->load->view('admin/update_course', $data);
+									}
+									else
+									{
+										//form process
+										if($this->input->post('upd_course', TRUE))
+											{
+												$code_course = strtoupper(strtolower($this->input->post('code_course', TRUE)));
+												$course = ucwords(strtolower($this->input->post('course', TRUE)));
+												$description = ucwords(strtolower($this->input->post('description', TRUE)));
+												$cost = $this->input->post('cost', TRUE);
+												$id_payment_type = $this->input->post('id_payment_type', TRUE);
+												$registration_date_start = $this->input->post('registration_date_start', TRUE);
+												$registration_date_end = $this->input->post('registration_date_end', TRUE);
+												$date_start = $this->input->post('date_start', TRUE);
+												$date_end = $this->input->post('date_end', TRUE);
+		
+												$g = $this->course->update_course($r, $code_course, $course, $description, $cost, $id_payment_type, $registration_date_start, $registration_date_end, $date_start, $date_end);
+												if($g)
+													{
+														$data['e'] = $this->course->course_id($r);
+														$data['info'] = 'Success updating data';
+														$this->load->view('admin/update_course', $data);
+													}
+													else
+													{
+														$data['e'] = $this->course->course_id($r);
+														$data['info'] = 'Something teribly happen. Please try again later';
+														$this->load->view('admin/update_course', $data);
+													}
+											}
+									}
+							}
+					}
+					else
+					{
+						redirect('/admin/myilmu/index', 'location');
+					}
+			}
+
+		public function delete_course()
+			{
+				if ($this->session->userdata('logged_in') === TRUE && in_array('1', $this->session->userdata('role'), TRUE) === TRUE)
+					{
+						$r = $this->uri->segment(4, 0);
+						if (is_numeric($r))
+							{
+								echo $this->uri->segment(4, 0);
+								$t = $this->course->delete_course($r);
+								if ($t)
+									{
+										redirect ('/admin/myilmu/add_course', 'location');
+									}
 							}
 					}
 					else
