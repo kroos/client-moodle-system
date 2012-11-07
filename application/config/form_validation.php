@@ -221,6 +221,120 @@ $config = array	(
 								'rules' => 'trim|required|min_length[5]|max_length[20]|xss_clean'
 							)
 					),
+					'myilmu/add_course' => array
+					(
+						array
+							(
+								'field' => 'code_course',
+								'label' => 'Code Course',
+								'rules' => 'trim|required|min_length[2]|is_unique[course.code_course]|max_length[10]|xss_clean'
+							),
+						array
+							(
+								'field' => 'course',
+								'label' => 'Course Name',
+								'rules' => 'trim|required|is_unique[course.course]|min_length[5]|max_length[50]|xss_clean'
+							),
+						array
+							(
+								'field' => 'description',
+								'label' => 'Description',
+								'rules' => 'trim|required|is_unique[course.description]|min_length[5]|max_length[255]|xss_clean'
+							),
+						array
+							(
+								'field' => 'cost',
+								'label' => 'Fees',
+								'rules' => 'trim|required|is_natural|min_length[1]|max_length[5]|xss_clean'
+							),
+						array
+							(
+								'field' => 'id_payment_type',
+								'label' => 'Payment Type',
+								'rules' => 'trim|required|is_natural_no_zero|min_length[1]|max_length[5]|xss_clean'
+							),
+						array
+							(
+								'field' => 'registration_date_start',
+								'label' => 'Registration Date Start',
+								'rules' => 'trim|required|exact_length[10]|xss_clean'
+							),
+						array
+							(
+								'field' => 'registration_date_end',
+								'label' => 'Registration Date End',
+								'rules' => 'trim|required|exact_length[10]|xss_clean'
+							),
+						array
+							(
+								'field' => 'date_start',
+								'label' => 'Course Date Start',
+								'rules' => 'trim|required|exact_length[10]|xss_clean'
+							),
+						array
+							(
+								'field' => 'date_end',
+								'label' => 'Course Date End',
+								'rules' => 'trim|required|exact_length[10]|xss_clean'
+							),
+					),
+					'myilmu/update_course' => array
+					(
+						array
+							(
+								'field' => 'code_course',
+								'label' => 'Code Course',
+								'rules' => 'trim|required|min_length[2]|max_length[10]|xss_clean'
+							),
+						array
+							(
+								'field' => 'course',
+								'label' => 'Course Name',
+								'rules' => 'trim|required|min_length[5]|max_length[50]|xss_clean'
+							),
+						array
+							(
+								'field' => 'description',
+								'label' => 'Description',
+								'rules' => 'trim|required|min_length[5]|max_length[255]|xss_clean'
+							),
+						array
+							(
+								'field' => 'cost',
+								'label' => 'Fees',
+								'rules' => 'trim|required|is_natural|min_length[1]|max_length[5]|xss_clean'
+							),
+						array
+							(
+								'field' => 'id_payment_type',
+								'label' => 'Payment Type',
+								'rules' => 'trim|required|is_natural_no_zero|min_length[1]|max_length[5]|xss_clean'
+							),
+						array
+							(
+								'field' => 'registration_date_start',
+								'label' => 'Registration Date Start',
+								'rules' => 'trim|required|exact_length[10]|xss_clean'
+							),
+						array
+							(
+								'field' => 'registration_date_end',
+								'label' => 'Registration Date End',
+								'rules' => 'trim|required|exact_length[10]|xss_clean'
+							),
+						array
+							(
+								'field' => 'date_start',
+								'label' => 'Course Date Start',
+								'rules' => 'trim|required|exact_length[10]|xss_clean'
+							),
+						array
+							(
+								'field' => 'date_end',
+								'label' => 'Course Date End',
+								'rules' => 'trim|required|exact_length[10]|xss_clean'
+							),
+					),
 				);
 
 

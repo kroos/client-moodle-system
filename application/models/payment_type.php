@@ -15,6 +15,12 @@ class Payment_type extends CI_Model
 			{
 				return $this->db->get_where('payment_type', array('id' => $id));
 			}
+
+		function tpayment()
+			{
+				return $this->db->get('payment_type');
+			}
+
 //UPDATE
 
 //INSERT

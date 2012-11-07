@@ -37,7 +37,10 @@ class Course extends CI_Model
 			}
 
 //UPDATE
-
+		function update_course($id, $code_course, $course, $description, $cost, $id_payment_type, $registration_date_start, $registration_date_end, $date_start, $date_end)
+			{
+				return $this->db->where(array('id' => $id))->update('course', array('code_course' => $code_course, 'course' => $course, 'description' => $description, 'cost' => $cost, 'id_payment_type' => $id_payment_type, 'registration_date_start' => $registration_date_start, 'registration_date_end' => $registration_date_end, 'date_start' => $date_start, 'date_end' => $date_end));
+			}
 
 //INSERT
 		function insert_course($code_course, $course, $description, $cost, $id_payment_type, $registration_date_start, $registration_date_end, $date_start, $date_end)

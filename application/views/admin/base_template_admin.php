@@ -7,14 +7,14 @@
 		<meta name="keywords" content="moodle, e-learning, learning online, web conference, islamic, islam" />
 		<meta name="author" content="Zaugola" />
 		<link rel="shortcut icon" href="<?=base_url()?>images/favicon.ico" type="image/x-icon" />
-		<link href="<?=base_url()?>css/jquery/jquery-ui-1.9.0.custom.css" rel="stylesheet">
+		<link href="<?=base_url()?>css/jquery/jquery-ui-1.9.1.custom.css" rel="stylesheet">
 	<? endblock() ?>
 
 	<? startblock('top_nav') ?>
 		<li><?=anchor('admin/myilmu', 'Home', array('title' => 'Home'))?></li>
 		<li><?=anchor('admin/myilmu/course', 'Course', array('title' => 'Course'))?>
 			<ul>
-				<li><?=anchor('admin/myilmu/edit_course', 'Edit Course', array('title' => 'Edit Course'))?></li>
+				<li><?=anchor('admin/myilmu/add_course', 'Edit Course', array('title' => 'Edit Course'))?></li>
 			</ul>
 		</li>
 		<li><?=anchor('admin/myilmu/bursary', 'Bursary', array('title' => 'Bursary'))?></li>
@@ -55,19 +55,15 @@
 
 	<? startblock('jscript') ?>
 		<script src="<?=base_url()?>js1/jquery/jquery-1.8.2.js"></script>
-		<script src="<?=base_url()?>js/jquery/jquery-ui-1.9.0.custom.js"></script>
+		<script src="<?=base_url()?>js/jquery/jquery-ui-1.9.1.custom.js"></script>
 		<script>
 			$(function() {
-				$( "input[type=submit], a, button", ".demo" )
-					.button();
+				$( "input[type=submit], a, button", ".demo" ).button();
+				$( "#datepicker1" ).datepicker({dateFormat: "yy-mm-dd", showButtonPanel: true, changeMonth: true, changeYear: true, showWeek: true, firstDay: 1});
+				$( "#datepicker2" ).datepicker({dateFormat: "yy-mm-dd", showButtonPanel: true, changeMonth: true, changeYear: true, showWeek: true, firstDay: 1});
+				$( "#datepicker3" ).datepicker({dateFormat: "yy-mm-dd", showButtonPanel: true, changeMonth: true, changeYear: true, showWeek: true, firstDay: 1});
+				$( "#datepicker4" ).datepicker({dateFormat: "yy-mm-dd", showButtonPanel: true, changeMonth: true, changeYear: true, showWeek: true, firstDay: 1});
 				$( "#radioset" ).buttonset();
-			});
-		</script>
-		<script type="text/javascript" src="<?=base_url()?>js/jquery/jquery-ui-timepicker-addon.js"></script>
-		<script type="text/javascript">
-			$(function(){
-				// Datepicker
-				$('#datepicker1').datetimepicker({dateFormat: "yy-mm-dd", timeFormat: "hh:mm:ss", showSecond: true, showMillisec: false, ampm: false, stepHour: 1, stepMinute: 1, stepSecond: 5});
 			});
 		</script>
 	<? endblock() ?>

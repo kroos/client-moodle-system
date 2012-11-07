@@ -1,7 +1,6 @@
 <? extend('base_template') ?>
 
 	<? startblock('content') ?>
-	
 		<h1>Enrollment <?=$q->course?> Programme</h1>
 		<p><?=@$info?></p>
 		<p>If you had register already and wanted to add more course, please login and enrol more course from the portal menu.</p>
@@ -41,12 +40,12 @@
 			<?=form_input(array('name' => 'postcode', 'value' => set_value('postcode'), 'maxlength' => '5', 'size' => '10'))?>
 			<?=form_error('postcode')?>
 			</p>
-
+<div class="ui-widget">
 			<p><span>City : </span>
-			<?=form_input(array('name' => 'city', 'value' => set_value('city'), 'maxlength' => '20', 'size' => '10'))?>
+			<?=form_input(array('name' => 'city', 'value' => set_value('city'), 'maxlength' => '20', 'size' => '10', 'id' => 'city'))?>
 			<?=form_error('city')?>
 			</p>
-
+</div>
 			<p><span>State : </span>
 			<?=form_dropdown('state', $this->config->item('state'), set_value('state'))?>
 			<?=form_error('state')?>
