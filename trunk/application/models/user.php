@@ -13,7 +13,7 @@ class User extends CI_Model
 //SELECT
 		function user()
 			{
-				return $this->db->order_by('id')->get('user');
+				return $this->db->order_by('id')->get_where('user', array('id <>' => 1));
 			}
 
 			function user_username($username)

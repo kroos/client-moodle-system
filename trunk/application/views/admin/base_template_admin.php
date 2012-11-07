@@ -12,9 +12,16 @@
 
 	<? startblock('top_nav') ?>
 		<li><?=anchor('admin/myilmu', 'Home', array('title' => 'Home'))?></li>
-		<li><?=anchor('admin/myilmu/account', 'Account', array('title' => 'Account'))?>
+		<li><?=anchor('admin/myilmu/course', 'Course', array('title' => 'Course'))?>
 			<ul>
-				<li><?=anchor('admin/myilmu/contact_admin', 'Contact Admin', array('title' => 'Contact Admin'))?></li>
+				<li><?=anchor('admin/myilmu/edit_course', 'Edit Course', array('title' => 'Edit Course'))?></li>
+			</ul>
+		</li>
+		<li><?=anchor('admin/myilmu/bursary', 'Bursary', array('title' => 'Bursary'))?></li>
+		<li><?=anchor('admin/myilmu/user', 'User', array('title' => 'User'))?>
+			<ul>
+				<li><?=anchor('admin/myilmu/teacher', 'Teacher', array('title' => 'Teacher'))?></li>
+				<li><?=anchor('admin/myilmu/student', 'Student', array('title' => 'Student'))?></li>
 			</ul>
 		</li>
 		<li><?=anchor('admin/myilmu/profile', 'Profile', array('title' => 'Profile'))?>

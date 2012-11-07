@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50522
 File Encoding         : 65001
 
-Date: 2012-11-06 02:31:39
+Date: 2012-11-07 18:25:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,11 +45,13 @@ CREATE TABLE `captcha` (
   `word` varchar(20) NOT NULL,
   PRIMARY KEY (`captcha_id`),
   KEY `word` (`word`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of captcha
 -- ----------------------------
+INSERT INTO `captcha` VALUES ('1', '1352269902', '127.0.0.1', '15677');
+INSERT INTO `captcha` VALUES ('2', '1352269955', '127.0.0.1', '28437');
 
 -- ----------------------------
 -- Table structure for `ci_sessions`
@@ -68,7 +70,7 @@ CREATE TABLE `ci_sessions` (
 -- ----------------------------
 -- Records of ci_sessions
 -- ----------------------------
-INSERT INTO `ci_sessions` VALUES ('dcd28fae88e1febc9d0f44007217b5b2', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0', '1352140106', 'a:1:{s:9:\"user_data\";s:0:\"\";}');
+INSERT INTO `ci_sessions` VALUES ('5a8e9a5e05c08ed6c553da5899c32888', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0', '1352282406', 'a:5:{s:9:\"user_data\";s:0:\"\";s:8:\"username\";s:5:\"admin\";s:8:\"password\";s:15:\"Administrator1.\";s:4:\"role\";a:1:{i:1;s:1:\"1\";}s:9:\"logged_in\";b:1;}');
 
 -- ----------------------------
 -- Table structure for `course`
@@ -152,12 +154,13 @@ CREATE TABLE `user` (
   `phone` varchar(15) DEFAULT NULL,
   `skype` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', 'admin', 'efc9b1e45645f55afbf7401a728b3334', 'Admin', '123456789012', null, null, null, null, null, null);
+INSERT INTO `user` VALUES ('2', 'stud@gmail.com', '4297f44b13955235245b2497399d7a93', 'Nabil Asif', '123456789012', '72, Jalan Keranji 11, Taman Keranji,', '05400', 'Alor Setar', 'Kedah', '0162172420', '');
 
 -- ----------------------------
 -- Table structure for `user_code_course`
@@ -171,12 +174,13 @@ CREATE TABLE `user_code_course` (
   `activate` bit(1) NOT NULL,
   `graduate` bit(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of user_code_course
 -- ----------------------------
 INSERT INTO `user_code_course` VALUES ('1', 'admin', '1', '1', '', '');
+INSERT INTO `user_code_course` VALUES ('2', 'stud@gmail.com', '12', '5', '', '');
 
 -- ----------------------------
 -- Table structure for `user_payment_bank`
@@ -194,11 +198,12 @@ CREATE TABLE `user_payment_bank` (
   `paid` int(1) NOT NULL,
   `remarks` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of user_payment_bank
 -- ----------------------------
+INSERT INTO `user_payment_bank` VALUES ('1', 'stud@gmail.com', '12', '0', '', null, '2013-01-07', '0', '0', 'Please make a payment before Mon, 7 Jan 2013');
 
 -- ----------------------------
 -- Table structure for `user_role`

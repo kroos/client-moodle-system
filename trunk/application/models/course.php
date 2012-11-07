@@ -16,9 +16,14 @@ class Course extends CI_Model
 				return $this->db->order_by('id')->get_where('course', array('id <>' => 1));
 			}
 
+		function course_page($num, $offset)
+			{
+				return $this->db->order_by('id')->limit($offset, $num)->get_where('course', array('id <>' => 1));
+			}
+
 		function course_avail()
 			{
-				return $this->db->query('SELECT * FROM course WHERE course.id <> 1 AND now() BETWEEN course.registration_date_start AND  course.registration_date_end ORDER BY course.id ASC');
+				return $this->db->query('SELECT * FROM course WHERE course.id <> 1 AND CURDATE() BETWEEN course.registration_date_start AND  course.registration_date_end ORDER BY course.id ASC');
 			}
 
 		function course_id($id)
