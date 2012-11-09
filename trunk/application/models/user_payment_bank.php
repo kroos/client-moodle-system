@@ -22,9 +22,9 @@ class User_payment_bank extends CI_Model
 			}
 
 //UPDATE
-		function update_user_payment_paid($id, $id_bank, $date_payment, $paid)
+		function update_user_payment_paid($id, $id_bank, $date_payment, $paid, $payment, $remarks)
 			{
-				return $this->db->where(array('id' => $id))->update('user_payment_bank', array('id_bank' => $id_bank, 'date_payment' => $date_payment, 'paid' => $paid));
+				return $this->db->where(array('id' => $id))->update('user_payment_bank', array('id_bank' => $id_bank, 'date_payment' => $date_payment, 'paid' => $paid, 'payment' => $payment, 'remarks' => $remarks));
 			}
 
 //INSERT

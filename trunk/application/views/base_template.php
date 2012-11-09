@@ -58,12 +58,7 @@
 				$('#datepicker1').datetimepicker({dateFormat: "yy-mm-dd", timeFormat: "hh:mm:ss", showSecond: true, showMillisec: false, ampm: false, stepHour: 1, stepMinute: 1, stepSecond: 5});
 			});
 		</script>
-    <style>
-    .ui-autocomplete-loading {
-        background: white url('../images/ui-anim_basic_16x16.gif') right center no-repeat;
-    }
-    #city {  }
-    </style>
+
     <script>
     $(function() {
         function log( message ) {

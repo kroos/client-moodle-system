@@ -16,9 +16,19 @@ class User extends CI_Model
 				return $this->db->order_by('id')->get_where('user', array('id <>' => 1));
 			}
 
-			function user_username($username)
+		function user_username($username)
 			{
 				return $this->db->get_where('user', array('username' => $username));
+			}
+
+		function user_id($id)
+			{
+				return $this->db->get_where('user', array('id' => $id));
+			}
+
+		function user_ic($ic)
+			{
+				return $this->db->get_where('user', array('IC' => $ic));
 			}
 
 		function login($username, $password)
@@ -30,6 +40,7 @@ class User extends CI_Model
 			{
 				return $this->db->get_where('user', array('username' => $user, 'IC' => $ic));
 			}
+
 //UPDATE
 		function update_resetp($user, $ic, $password)
 			{

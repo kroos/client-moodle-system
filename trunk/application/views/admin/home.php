@@ -7,10 +7,10 @@
 		<?else:?>
 			<table style="width:100%; border-spacing:0;">
 				<tr>
-					<td>Name</td>
-					<td>Role</td>
-					<td>Status</td>
-					<td>Course</td>
+					<td><b>Name</b></td>
+					<td><b>Role</b></td>
+					<td><b>Status</b></td>
+					<td><b>Course</b></td>
 				</tr>
 				<?foreach($q->result() as $g):?>
 				<?$v = $this->user_code_course->user_course($g->username)?>

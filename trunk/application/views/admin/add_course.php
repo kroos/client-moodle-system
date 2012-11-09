@@ -90,7 +90,7 @@
 							<td><?=date_view($h->registration_date_end)?></td>
 							<td><?=date_view($h->date_start)?></td>
 							<td><?=date_view($h->date_end)?></td>
-							<td><?=anchor('admin/myilmu/update_course/'.$h->id, 'Edit', array('title' => 'Edit'))?><br /><?=anchor('admin/myilmu/delete_course/'.$h->id, 'Delete', array('title' => 'Delete'))?></td>
+							<td><div class="demo"><?=anchor('admin/myilmu/update_course/'.$h->id, 'Edit', array('title' => 'Edit'))?><br /><?=anchor('admin/myilmu/delete_course/'.$h->id, 'Delete', array('title' => 'Delete'))?></div></td>
 						</tr>
 					<?endforeach?>
 			</table>
