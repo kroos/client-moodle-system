@@ -42,6 +42,7 @@ $route['default_controller'] = 'myilmu';
 $route['myilmu/enrol/(:num)'] = 'myilmu/enrol';
 $route['admin/myilmu/edit_course/(:num)'] = 'admin/myilmu/edit_course';
 $route['admin/myilmu/update_course/(:num)'] = 'admin/myilmu/update_course';
+$route['admin/myilmu/upd_payment/(:num)'] = 'admin/myilmu/upd_payment';
 $route['404_override'] = 'myilmu/page_missing';
 
 

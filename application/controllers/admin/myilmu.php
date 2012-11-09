@@ -199,8 +199,70 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') === TRUE && in_array('1', $this->session->userdata('role'), TRUE) === TRUE )
 					{
-						
-						$this->load->view('admin/bursary');
+						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
+						if ($this->form_validation->run() == FALSE)
+							{
+								//form
+								$this->load->view('admin/bursary');
+							}
+							else
+							{
+								//form process
+								if($this->input->post('search_ic', TRUE))
+									{
+										$ic = $this->input->post('ic', TRUE);
+										$data['ic'] = $this->user->user_ic($ic);
+										$this->load->view('admin/bursary', $data);
+									}
+							}
+					}
+					else
+					{
+						redirect('', 'location');
+					}
+			}
+
+		public function upd_payment()
+			{
+				if ($this->session->userdata('logged_in') === TRUE && in_array('1', $this->session->userdata('role'), TRUE) === TRUE )
+					{
+						$id = $this->uri->segment(4, 0);
+						if(is_numeric($id))
+							{
+								$data['r'] = $this->user->user_id($id);
+							}
+
+						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
+						if ($this->form_validation->run() == FALSE)
+							{
+								//form
+								$this->load->view('admin/upd_payment', $data);
+							}
+							else
+							{
+								//form process
+								if($this->input->post('upd_payment', TRUE))
+									{
+										$id = $this->input->post('id', TRUE);
+										$payment = $this->input->post('payment', TRUE);
+										$date_payment = $this->input->post('date_payment', TRUE);
+										$id_bank = $this->input->post('id_bank', TRUE);
+										$paid = $this->input->post('paid', TRUE);
+										$remarks = ucwords(strtolower($this->input->post('remarks', TRUE)));
+										
+										$c = $this->user_payment_bank->update_user_payment_paid($id, $id_bank, $date_payment, $paid, $payment, $remarks);
+										if($c)
+											{
+												$data['info'] = 'User have paid';
+												$this->load->view('admin/upd_payment', $data);
+											}
+											else
+											{
+												$data['info'] = 'Something teribly has happen. Please try again later';
+												$this->load->view('admin/upd_payment', $data);
+											}
+									}
+							}
 					}
 					else
 					{

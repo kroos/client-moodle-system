@@ -8,6 +8,11 @@
 		<meta name="author" content="Zaugola" />
 		<link rel="shortcut icon" href="<?=base_url()?>images/favicon.ico" type="image/x-icon" />
 		<link href="<?=base_url()?>css/jquery/jquery-ui-1.9.1.custom.css" rel="stylesheet">
+    <style>
+    .ui-autocomplete-loading {
+        background: white url('<?=base_url()?>images/ui-anim_basic_16x16.gif') right center no-repeat;
+    }
+    </style>
 	<? endblock() ?>
 
 	<? startblock('top_nav') ?>

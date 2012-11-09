@@ -1,6 +1,12 @@
 <? extend('base_template') ?>
 
 	<? startblock('content') ?>
+    <style>
+    .ui-autocomplete-loading {
+        background: white url('<?=base_url()?>images/ui-anim_basic_16x16.gif') right center no-repeat;
+    }
+    #city {  }
+    </style>
 		<h1>Enrollment <?=$q->course?> Programme</h1>
 		<p><?=@$info?></p>
 		<p>If you had register already and wanted to add more course, please login and enrol more course from the portal menu.</p>

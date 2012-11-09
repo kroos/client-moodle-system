@@ -64,7 +64,7 @@ $config = array	(
 							(
 								'field' => 'ic',
 								'label' => 'Identity Card',
-								'rules' => 'trim|required|is_natural|exact_length[12]|xss_clean'
+								'rules' => 'trim|required|is_unique[user.IC]|is_natural|exact_length[12]|xss_clean'
 							),
 						array
 							(
@@ -333,6 +333,54 @@ $config = array	(
 								'field' => 'date_end',
 								'label' => 'Course Date End',
 								'rules' => 'trim|required|exact_length[10]|xss_clean'
+							),
+					),
+					'myilmu/bursary' => array
+					(
+						array
+							(
+								'field' => 'ic',
+								'label' => 'Identity Card',
+								'rules' => 'trim|required|is_natural|exact_length[12]|xss_clean'
+							)
+					),
+					'myilmu/upd_payment' => array
+					(
+						array
+							(
+								'field' => 'id',
+								'label' => 'ID Payment',
+								'rules' => 'trim|required|is_natural|min_length[1]|xss_clean'
+							),
+						array
+							(
+								'field' => 'payment',
+								'label' => 'Payment Amount',
+								'rules' => 'trim|required|is_natural|min_length[1]|xss_clean'
+							),
+						array
+							(
+								'field' => 'date_payment',
+								'label' => 'Payment Date',
+								'rules' => 'trim|required|exact_length[10]|xss_clean'
+							),
+						array
+							(
+								'field' => 'id_bank',
+								'label' => 'Payment Bank',
+								'rules' => 'trim|required|is_natural|min_length[1]|xss_clean'
+							),
+						array
+							(
+								'field' => 'paid',
+								'label' => 'Paid',
+								'rules' => 'trim|required|is_natural|exact_length[1]|xss_clean'
+							),
+						array
+							(
+								'field' => 'remarks',
+								'label' => 'Remarks',
+								'rules' => 'trim|required|xss_clean'
 							),
 					),
 				);
