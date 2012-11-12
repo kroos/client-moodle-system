@@ -16,6 +16,11 @@ class Course extends CI_Model
 				return $this->db->order_by('id')->get_where('course', array('id <>' => 1));
 			}
 
+		function courseadmin()
+			{
+				return $this->db->order_by('id')->get_where('course', array('(SELECT CURDATE()) <= ' => 'date_end'));
+			}
+
 		function course_page($num, $offset)
 			{
 				return $this->db->order_by('id')->limit($offset, $num)->get_where('course', array('id <>' => 1));

@@ -85,7 +85,7 @@
 							<td><?=$h->course?></td>
 							<td><?=$h->description?></td>
 							<td><?=$h->cost?></td>
-							<td><?=$h->id_payment_type?></td>
+							<td><?=$this->payment_type->payment($h->id_payment_type)->row()->payment_recurring?></td>
 							<td><?=date_view($h->registration_date_start)?></td>
 							<td><?=date_view($h->registration_date_end)?></td>
 							<td><?=date_view($h->date_start)?></td>

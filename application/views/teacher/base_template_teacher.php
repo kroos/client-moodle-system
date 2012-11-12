@@ -8,36 +8,18 @@
 		<meta name="author" content="Zaugola" />
 		<link rel="shortcut icon" href="<?=base_url()?>images/favicon.ico" type="image/x-icon" />
 		<link href="<?=base_url()?>css/jquery/jquery-ui-1.9.1.custom.css" rel="stylesheet">
-    <style>
-    .ui-autocomplete-loading {
-        background: white url('<?=base_url()?>images/ui-anim_basic_16x16.gif') right center no-repeat;
-    }
-    </style>
 	<? endblock() ?>
 
 	<? startblock('top_nav') ?>
-		<li><?=anchor('admin/myilmu', 'Home', array('title' => 'Home'))?></li>
-		<li><?=anchor('admin/myilmu/course', 'Course', array('title' => 'Course'))?>
+		<li><?=anchor('teacher/myilmu', 'Home', array('title' => 'Home'))?></li>
+		<li><?=anchor('teacher/myilmu/course', 'Course', array('title' => 'Course'))?></li>
+		<li><?=anchor('teacher/myilmu/contact_admin', 'Contact Admin', array('title' => 'Contact Admin'))?></li>
+		<li><?=anchor('teacher/myilmu/profile', 'Profile', array('title' => 'Profile'))?>
 			<ul>
-				<li><?=anchor('admin/myilmu/add_course', 'Edit Course', array('title' => 'Edit Course'))?></li>
+				<li><?=anchor('teacher/myilmu/change_password', 'Change Password', array('title' => 'Change Password'))?></li>
 			</ul>
 		</li>
-		<li><?=anchor('admin/myilmu/bursary', 'Bursary', array('title' => 'Bursary'))?>
-			<ul>
-				<li><?=anchor('admin/myilmu/stud_payment', 'Bursary Report', array('title' => 'Bursary Report'))?></li>
-			</ul>
-		</li>
-		<li><?=anchor('admin/myilmu/user', 'User', array('title' => 'User'))?>
-			<ul>
-				<li><?=anchor('admin/myilmu/teacher', 'Teacher', array('title' => 'Teacher'))?></li>
-			</ul>
-		</li>
-		<li><?=anchor('admin/myilmu/profile', 'Profile', array('title' => 'Profile'))?>
-			<ul>
-				<li><?=anchor('admin/myilmu/change_password', 'Change Password', array('title' => 'Change Password'))?></li>
-			</ul>
-		</li>
-		<li><?=anchor('admin/myilmu/logout', 'Logout', array('title' => 'Logout'))?></li>
+		<li><?=anchor('teacher/myilmu/logout', 'Logout', array('title' => 'Logout'))?></li>
 	<? endblock() ?>
 
 	<? startblock('top_sidebar') ?>
@@ -46,10 +28,20 @@
 		<h4>Hello <?=$t->row()->name?></h4>
 		<h5><?=datetime_view(now())?></h5>
 		<?$y = $this->user_code_course->user_course($this->session->userdata('username'))?>
+		<?if($y->num_rows() < 1):?>
+			<p>You didnt enrol any course yet</p>
+		<?else:?>
+			<p> Course Enrol : </p>
+				<ol>
+					<?foreach($y->result() as $e):?>
+						<li><?=$this->course->course_id($e->id_course)->row()->course?></li>
+					<?endforeach?>
+				</ol>
+		<?endif?>
 	<? endblock() ?>
 	
 	<? startblock('menu') ?>
-		<li><?=anchor('admin/myilmu/tnc', 'Terms and Conditions', array('title' => 'Terms and Conditions'))?></li>
+		<li><?=anchor('teacher/myilmu/tnc', 'Terms and Conditions', array('title' => 'Terms and Conditions'))?></li>
 	<? endblock() ?>
 
 	<? startblock('content') ?>
@@ -66,12 +58,16 @@
 		<script src="<?=base_url()?>js/jquery/jquery-ui-1.9.1.custom.js"></script>
 		<script>
 			$(function() {
-				$( "input[type=submit], a, button", ".demo" ).button();
-				$( "#datepicker1" ).datepicker({dateFormat: "yy-mm-dd", showButtonPanel: true, changeMonth: true, changeYear: true, showWeek: true, firstDay: 1});
-				$( "#datepicker2" ).datepicker({dateFormat: "yy-mm-dd", showButtonPanel: true, changeMonth: true, changeYear: true, showWeek: true, firstDay: 1});
-				$( "#datepicker3" ).datepicker({dateFormat: "yy-mm-dd", showButtonPanel: true, changeMonth: true, changeYear: true, showWeek: true, firstDay: 1});
-				$( "#datepicker4" ).datepicker({dateFormat: "yy-mm-dd", showButtonPanel: true, changeMonth: true, changeYear: true, showWeek: true, firstDay: 1});
+				$( "input[type=submit], a, button", ".demo" )
+					.button();
 				$( "#radioset" ).buttonset();
+			});
+		</script>
+		<script type="text/javascript" src="<?=base_url()?>js/jquery/jquery-ui-timepicker-addon.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				// Datepicker
+				$('#datepicker1').datetimepicker({dateFormat: "yy-mm-dd", timeFormat: "hh:mm:ss", showSecond: true, showMillisec: false, ampm: false, stepHour: 1, stepMinute: 1, stepSecond: 5});
 			});
 		</script>
 	<? endblock() ?>

@@ -16,7 +16,7 @@
 					<td><b>Date Start</b></td>
 					<td><b>Date End</b></td>
 					<td><b>Fee</b></td>
-					<td>&nbsp;</td>
+					<!-- <td>&nbsp;</td> -->
 				</tr>
 				<?foreach($a->result() as $t):?>
 					<?$r = $this->user_code_course->user_code_course($this->session->userdata('username'), $t->id)?>
@@ -30,7 +30,7 @@
 							<td><?=date_view($t->date_start)?></td>
 							<td><?=date_view($t->date_end)?></td>
 							<td>RM <?=$t->cost?> per <?=$this->payment_type->payment($t->id_payment_type)->row()->payment_recurring?></td>
-							<td><div class="demo"><?=anchor('user/myilmu/buffer/'.$t->id, 'Enrol', array('title' => 'Enrol'))?></div></td>
+							<!-- <td><div class="demo"><?=anchor('user/myilmu/buffer/'.$t->id, 'Enrol', array('title' => 'Enrol'))?></div></td> -->
 						</tr>
 					<?endif?>
 				<?endforeach?>
