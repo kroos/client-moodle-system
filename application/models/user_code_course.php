@@ -31,6 +31,11 @@ class User_code_course extends CI_Model
 				return $this->db->get_where('user_code_course', array('username' => $username, 'graduate' => $graduate));
 			}
 
+		function grad_course($id_course, $id_user_role, $graduate)
+			{
+				return $this->db->get_where('user_code_course', array('id_course' => $id_course, 'graduate' => $graduate, 'id_user_role' => $id_user_role));
+			}
+
 //UPDATE
 		function update_user_c_activate($username, $id_course, $activate)
 			{
