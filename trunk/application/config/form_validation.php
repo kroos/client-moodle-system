@@ -39,7 +39,7 @@ $config = array	(
 						array
 							(
 								'field' => 'username',
-								'label' => 'Username',
+								'label' => 'Email Address',
 								'rules' => 'trim|required|valid_email|is_unique[user.username]|min_length[5]|max_length[50]|xss_clean'
 							),
 						array
@@ -382,6 +382,105 @@ $config = array	(
 								'label' => 'Remarks',
 								'rules' => 'trim|required|xss_clean'
 							),
+					),
+					'myilmu/stud_payment' => array
+					(
+						array
+							(
+								'field' => 'payment_status',
+								'label' => 'Payment Status',
+								'rules' => 'trim|required|is_natural|exact_length[1]|xss_clean'
+							),
+					),
+					'myilmu/user' => array
+					( 
+						array
+							(
+								'field' => 'username',
+								'label' => 'Email Address',
+								'rules' => 'trim|required|valid_email|is_unique[user.username]|min_length[5]|max_length[50]|xss_clean'
+							),
+						array
+							(
+								'field' => 'password1',
+								'label' => 'Password',
+								'rules' => 'trim|required|matches[password2]|min_length[5]|max_length[10]|xss_clean'
+							),
+						array
+							(
+								'field' => 'password2',
+								'label' => 'Confirm Password',
+								'rules' => 'trim|required|min_length[5]|max_length[10]|xss_clean'
+							),
+						array
+							(
+								'field' => 'name',
+								'label' => 'Name',
+								'rules' => 'trim|required|min_length[5]|max_length[50]|xss_clean'
+							),
+						array
+							(
+								'field' => 'ic',
+								'label' => 'Identity Card',
+								'rules' => 'trim|required|is_unique[user.IC]|is_natural|exact_length[12]|xss_clean'
+							),
+						array
+							(
+								'field' => 'address',
+								'label' => 'Address',
+								'rules' => 'trim|xss_clean'
+							),
+						array
+							(
+								'field' => 'postcode',
+								'label' => 'Postal Code',
+								'rules' => 'trim|is_natural|exact_length[5]|xss_clean'
+							),
+						array
+							(
+								'field' => 'city',
+								'label' => 'City',
+								'rules' => 'trim|xss_clean'
+							),
+						array
+							(
+								'field' => 'state',
+								'label' => 'State',
+								'rules' => 'trim|xss_clean'
+							),
+						array
+							(
+								'field' => 'phone',
+								'label' => 'Mobile Phone',
+								'rules' => 'trim|is_natural|xss_clean'
+							),
+						array
+							(
+								'field' => 'role',
+								'label' => 'User Role',
+								'rules' => 'trim|is_natural|required|xss_clean'
+							),
+						array
+							(
+								'field' => 'course',
+								'label' => 'User to the course of',
+								'rules' => 'trim|is_natural|required|xss_clean'
+							)
+					),
+					'myilmu/teacher' => array
+					(
+						array
+							(
+								'field' => 'teacher',
+								'label' => 'Teacher',
+								'rules' => 'trim|required|valid_email|max_length[50]|xss_clean'
+							),
+						array
+							(
+								'field' => 'course',
+								'label' => 'Course',
+								'rules' => 'required|xss_clean'
+							)
 					),
 				);
 

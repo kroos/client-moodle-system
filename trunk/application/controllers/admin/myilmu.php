@@ -163,7 +163,182 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') === TRUE && in_array('1', $this->session->userdata('role'), TRUE) === TRUE )
 					{
-						$this->load->view('admin/user');
+						$data['r'] = $this->user_role->Getuser_roles();
+						$data['c'] = $this->course->courseadmin();
+
+						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
+						if ($this->form_validation->run() == FALSE)
+							{
+								//form
+								$this->load->view('admin/user', $data);
+							}
+							else
+							{
+								//form process
+								if ($this->input->post('add_user', TRUE))
+									{
+										$role = $this->input->post('role', TRUE);
+										$course = $this->input->post('course', TRUE);
+										$username = $this->input->post('username', TRUE);
+										$password1 = $this->input->post('password1', TRUE);
+										$password2 = $this->input->post('password2', TRUE);
+										$name = ucwords(strtolower($this->input->post('name', TRUE)));
+										$ic = $this->input->post('ic', TRUE);
+										$address = ucwords(strtolower($this->input->post('address', TRUE)));
+										$postal_code = $this->input->post('postcode', TRUE);
+										$city = ucwords(strtolower($this->input->post('city', TRUE)));
+										$state = ucwords(strtolower($this->input->post('state', TRUE)));
+										$phone = $this->input->post('phone', TRUE);
+										$skype = $this->input->post('skype', TRUE);
+
+										//1st kena check adakah user ni dah wujud atau belum dlm db, check dalam 2 table. user & user_code_course
+										$us = $this->user->user_username($username);
+										$ucc = $this->user_code_course->user_code_course($username, $course);
+										if($us->num_rows() > 0 || $ucc->num_rows() > 0)
+											{
+												$data['info'] = 'This user is in the system. Please use another account username.';
+											}
+											else
+											{
+												//bahagikan kpd 3 sbb role 3 dan 4 adalah sama
+												//start dgn admin role
+												if ($role == 1)
+													{
+														//so nak kena check id_course la puulak
+														if ($course == 1)
+															{
+																//terus masukkan dalam db (2 table)
+																$u = $this->user->insert_user($username, md5($password1), $name, $ic, $address, $postal_code, $city, $state, $phone, $skype);
+																$c = $this->user_code_course->insert_user_course($username, $course, $role, 0, 1);
+																if ($u && $c)
+																	{
+																		$data['info'] = 'Successfully insert the user';
+																	}
+																	else
+																	{
+																		$data['info'] = 'Something teribly has happen. Please try again later.';
+																	}
+															}
+															else
+															{
+																$data['info'] = 'This user role is an <strong>"Administrator"</strong>, you should choose <strong>"ADM | Admin Course"</strong> as the course for the Administrator role';
+															}
+													}
+													else
+													{
+														//cikgu kpd course
+														if ($role == 3 || $role == 4)
+															{
+																if ($course != 1)
+																	{
+																		$u = $this->user->insert_user($username, md5($password1), $name, $ic, $address, $postal_code, $city, $state, $phone, $skype);
+																		$c = $this->user_code_course->insert_user_course($username, $course, $role, 0, 1);
+																		if ($u && $c)
+																			{
+																				$data['info'] = 'Successfully insert the user';
+																			}
+																			else
+																			{
+																				$data['info'] = 'Something teribly has happen. Please try again later.';
+																			}
+																	}
+																	else
+																	{
+																		$data['info'] = 'Sorry, you cant choose <strong>"ADM | Admin Course"</strong> as a course to the <strong>"Teacher"</strong> role. Please choose other course related to the teacher role.';
+																	}
+															}
+															else
+															{
+																//student kpd course
+																if ($role == 5)
+																	{
+																		if ($course != 1)
+																			{
+																				//mula2 kena tau payment type
+																				$cpt = $this->course->course_id($course);
+																				$dyst = $cpt->row()->date_start;
+																				$dyed = $cpt->row()->date_end;
+																				if($cpt->row()->id_payment_type == 1)
+																					{
+																						//1 time payment off
+																						//have to pay within 7 days after registration or after what??
+																						//insert only 1 row data.... argghhh
+
+																						$nmp = $this->month->month_day($dyst, 0, $this->config->item('day_payment') - 1)->row()->nmp;
+																						$n = $this->user_payment_bank->insert_user_payment($username, $course, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
+																						if ($n)
+																							{
+																								$data['info'] = 'Success register course';
+																							}
+																							else
+																							{
+																								$data['info'] = 'Something teribly wrong. Please try again later';
+																							}
+																					}
+																					else
+																					{
+																						if ($cpt->row()->id_payment_type == 2)
+																							{
+																								if (date_db(now()) < $dyst)
+																									{
+																										//how many months for that course
+																										$mn = $this->month->month($dyst, $dyed)->row()->month;	//must add 1 to the query
+																										//echo $mn.' = month<br />';
+
+																										//so insert $mn row to the user_payment_bank table
+																										for ($i = 0; $i <= $mn; $i++)
+																											{
+																												//echo $i.' = count month<br />';
+																												$nmp = $this->month->month_day($dyst, $i, $this->config->item('day_payment') - 1)->row()->nmp;
+																												//echo $nmp.' = next month payment<br />';
+																												$gh = $this->user_payment_bank->insert_user_payment($username, $course, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
+																											}
+																									}
+																									else
+																									{
+																										if (date_db(now()) > $dyst)
+																											{
+																												//calculate how many months left from the start date
+																												$mn = $this->month->month($dyst, $dyed)->row()->month;	//must add 1 to the query
+																												//echo $mn.' = month<br />';
+
+																												//so insert $mn row to the user_payment_bank table
+																												for ($i = 0; $i <= $mn; $i++)
+																													{
+																														//echo $i.' = count month<br />';
+																														$nmp = $this->month->month_day($dyst, $i, $this->config->item('day_payment') - 1)->row()->nmp;
+																														//echo $nmp.' = next month payment<br />';
+																														if (date_db(now()) < $nmp)
+																															{
+																																$gh = $this->user_payment_bank->insert_user_payment($this->session->userdata('username'), $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
+																															}
+																													}
+																											}
+																									}
+																							}
+																					}
+																				$u = $this->user->insert_user($username, md5($password1), $name, $ic, $address, $postal_code, $city, $state, $phone, $skype);
+																				$c = $this->user_code_course->insert_user_course($username, $course, $role, 0, 0);
+																				if ($u && $c)
+																					{
+																						$data['info'] = 'Successfully insert the user';
+																					}
+																					else
+																					{
+																						$data['info'] = 'Something teribly has happen. Please try again later.';
+																					}
+																			}
+																			else
+																			{
+																				$data['info'] = 'Sorry, you cant choose <strong>"ADM | Admin Course"</strong> as a course to the <strong>"Teacher"</strong> role. Please choose other course related to the teacher role.';
+																			}
+																	}
+															}
+													}
+											}
+										$this->load->view('admin/user', $data);
+									}
+							}
 					}
 					else
 					{
@@ -175,7 +350,35 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') === TRUE && in_array('1', $this->session->userdata('role'), TRUE) === TRUE )
 					{
-						$this->load->view('admin/teacher');
+						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
+						$data['user'] = $this->user->user();
+						$data['course'] = $this->course->course();
+						if ($this->form_validation->run() == FALSE)
+							{
+								//form
+							}
+							else
+							{
+								//form process
+								if($this->input->post('submit', TRUE))
+									{
+										$teacher = $this->input->post('teacher', TRUE);
+										$course = $this->input->post('course', TRUE);
+										
+										//terus masuk saja tp kena tau berapa subjek
+										foreach ($course as $r)
+											{
+												//checking utk data yg dah ada dah..
+												$uc = $this->user_code_course->user_code_course($teacher, $r);
+												if ($uc->num_rows() < 1)
+													{
+														$this->user_code_course->insert_user_course($teacher, $r, 3, 0, 1);
+													}
+											}
+										$data['info'] = 'Successfully adding user <strong>Teacher</strong> to the <strong>Course</strong>';
+									}
+							}
+						$this->load->view('admin/teacher', $data);
 					}
 					else
 					{
@@ -219,6 +422,33 @@ class Myilmu extends CI_Controller
 					else
 					{
 						redirect('', 'location');
+					}
+			}
+
+		public function stud_payment()
+			{
+				if ($this->session->userdata('logged_in') === TRUE && in_array('1', $this->session->userdata('role'), TRUE) === TRUE)
+					{
+						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
+						if ($this->form_validation->run() == FALSE)
+							{
+								//form
+								$this->load->view('admin/stud_payment');
+							}
+							else
+							{
+								//form process
+								if ($this->input->post('paid_stat', TRUE))
+									{
+										$data['paid'] = $this->input->post('payment_status', TRUE);
+										$data['y'] = $this->user_code_course->Getuser_course();
+										$this->load->view('admin/stud_payment', $data);
+									}
+							}
+					}
+					else
+					{
+						redirect('/admin/myilmu/index', 'location');
 					}
 			}
 

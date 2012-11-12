@@ -15,6 +15,12 @@ class User_role extends CI_Model
 			{
 				return $this->db->get_where('user_role', array('id' => $id));
 			}
+
+			function Getuser_roles()
+			{
+				return $this->db->get_where('user_role');
+			}
+
 //UPDATE
 //		function update_resetp($user, $ic, $password)
 //			{

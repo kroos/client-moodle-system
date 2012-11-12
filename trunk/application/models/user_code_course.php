@@ -16,6 +16,11 @@ class User_code_course extends CI_Model
 				return $this->db->get_where('user_code_course', array('username' => $username));
 			}
 
+		function Getuser_course()
+			{
+				return $this->db->order_by('username')->get_where('user_code_course', array('graduate' => 0, 'id_user_role <>' => 1));
+			}
+
 		function user_code_course($username, $id_course)
 			{
 				return $this->db->get_where('user_code_course', array('username' => $username, 'id_course' => $id_course));

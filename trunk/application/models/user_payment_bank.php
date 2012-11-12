@@ -21,6 +21,11 @@ class User_payment_bank extends CI_Model
 				return $this->db->get_where('user_payment_bank', array('username' => $username, 'id_course' => $id_course));
 			}
 
+		function getuser_payment_course($id_course, $paid)
+			{
+				return $this->db->order_by('username')-> get_where('user_payment_bank', array('id_course' => $id_course, 'paid' => $paid));
+			}
+
 //UPDATE
 		function update_user_payment_paid($id, $id_bank, $date_payment, $paid, $payment, $remarks)
 			{
