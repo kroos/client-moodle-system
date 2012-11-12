@@ -36,9 +36,9 @@ class Course extends CI_Model
 				return $this->db->get_where('course', array('id' => $id));
 			}
 
-		function course_code($code)
+		function course_code($id, $now)
 			{
-				return $this->db->get_where('course', array('code_course' => $code));
+				return $this->db->get_where('course', array('id' => $id, 'date_end <= ' => $now));	//(select curdate()) >= course.date_end
 			}
 
 //UPDATE

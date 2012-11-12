@@ -12,7 +12,11 @@
 
 	<? startblock('top_nav') ?>
 		<li><?=anchor('teacher/myilmu', 'Home', array('title' => 'Home'))?></li>
-		<li><?=anchor('teacher/myilmu/course', 'Course', array('title' => 'Course'))?></li>
+		<li><?=anchor('teacher/myilmu/course', 'Course', array('title' => 'Course'))?>
+			<ul>
+				<li><?=anchor('teacher/myilmu/grad_stud', 'Graduate Student', array('title' => 'Graduate Student'))?></li>
+			</ul>
+		</li>
 		<li><?=anchor('teacher/myilmu/contact_admin', 'Contact Admin', array('title' => 'Contact Admin'))?></li>
 		<li><?=anchor('teacher/myilmu/profile', 'Profile', array('title' => 'Profile'))?>
 			<ul>
@@ -29,9 +33,9 @@
 		<h5><?=datetime_view(now())?></h5>
 		<?$y = $this->user_code_course->user_course($this->session->userdata('username'))?>
 		<?if($y->num_rows() < 1):?>
-			<p>You didnt enrol any course yet</p>
+			<p>You didnt teach any course yet</p>
 		<?else:?>
-			<p> Course Enrol : </p>
+			<p>Course Teach : </p>
 				<ol>
 					<?foreach($y->result() as $e):?>
 						<li><?=$this->course->course_id($e->id_course)->row()->course?></li>
