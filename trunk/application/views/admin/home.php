@@ -1,6 +1,7 @@
 <? extend('admin/base_template_admin') ?>
 
 	<? startblock('content') ?>
+
 		<h1>User List</h1>
 		<?if ($q->num_rows() < 1):?>
 			<p>No user yet</p>
