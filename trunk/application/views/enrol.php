@@ -46,6 +46,7 @@
 			<?=form_input(array('name' => 'postcode', 'value' => set_value('postcode'), 'maxlength' => '5', 'size' => '10'))?>
 			<?=form_error('postcode')?>
 			</p>
+
 <div class="ui-widget">
 			<p><span>City : </span>
 			<?=form_input(array('name' => 'city', 'value' => set_value('city'), 'maxlength' => '20', 'size' => '10', 'id' => 'city'))?>
