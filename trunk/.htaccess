@@ -3,3 +3,5 @@ RewriteBase /systlms/trunk/
 
 RewriteCond $1 !^(index\.php|images|robots\.txt|css|js|fonts|eof|ttf)
 RewriteRule ^(.*)$ /systlms/trunk/index.php/$1 [L]
+
+php_flag short_open_tag On
