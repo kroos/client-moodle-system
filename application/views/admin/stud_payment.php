@@ -2,9 +2,9 @@
 
 	<? startblock('content') ?>
 		<h1>Student Payment</h1>
-		<p></p>
+		<p><font color="#FF0000"><?=@$info?></font></p>
 
-		<?=form_open('')?>
+		<?=form_open()?>
 		<div class="form_settings">
 
 			<?$paid_status = array(0 => 'Unpaid', 1 => 'Paid')?>

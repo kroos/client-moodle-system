@@ -6,7 +6,17 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') === TRUE && in_array('5', $this->session->userdata('role'), TRUE) === TRUE)
 					{
-						$data['a'] = $this->course->course_avail();
+						//pagination process
+						$this->load->library('pagination');
+						$config['base_url'] = base_url().'user/myilmu/index';
+						$config['total_rows'] = $this->course->course_avail()->num_rows();
+						$config['per_page'] = 5;
+						$config['uri_segment'] = 4;
+						$config['suffix'] = '.htm';
+						$this->pagination->initialize($config);
+						$data['a'] = $this->course->course_avail_page($config['per_page'], $this->uri->segment(4, 0));
+						$data['paginate'] = $this->pagination->create_links();
+						
 						$this->load->view('user/home', $data);
 					}
 					else
@@ -65,106 +75,35 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') === TRUE && in_array('5', $this->session->userdata('role'), TRUE) === TRUE)
 					{
-						$data['a'] = $this->course->course_avail();
+						//pagination process
+						$this->load->library('pagination');
+						$config['base_url'] = base_url().'user/myilmu/index';
+						$config['total_rows'] = $this->course->course_avail()->num_rows();
+						$config['per_page'] = 5;
+						$config['uri_segment'] = 4;
+						$config['suffix'] = '.htm';
+						$this->pagination->initialize($config);
+						$data['a'] = $this->course->course_avail_page($config['per_page'], $this->uri->segment(4, 0));
+						$data['paginate'] = $this->pagination->create_links();
+						
+						//$data['a'] = $this->course->course_avail();
 						$course_id = $this->uri->segment(4, 0);
 						if (ctype_digit($course_id))
 							{
-								$q = $this->course->course_id($course_id);
-
-								//check rcurring fees for monthly course
-								//echo $q->row()->id.' = id dourse<br />'.$q->row()->id_payment_type.' = payment type<br />'.date_db(now()).' = date now<br />';
-
-								//register before date_start of the course
-								$dyst = $q->row()->date_start;
-								$dyed = $q->row()->date_end;
-								//echo $dyst.' = day start<br />'.$dyed.' = day end<br />';
-
 								//now we check if the student taking 2 same course in the same period (double clicking accident)
-								$uac = $this->view->user_course($this->session->userdata('username'), $course_id);
+								$uac = $this->user_code_course->user_code_course($this->session->userdata('username'), $course_id);
 								if($uac->num_rows() < 1)
 									{
-										if($q->row()->id_payment_type == 2)
+										$t = $this->user_code_course->insert_user_course($this->session->userdata('username'), $course_id, 5, date_db(now()), 0, '0000-00-00', '0000-00-00', '0000-00-00');
+										if ($t)
 											{
-												if (date_db(now()) < $dyst)
-													{
-														//how many months for that course
-														$mn = $this->month->month($dyst, $dyed)->row()->month;	//must add 1 to the query
-														//echo $mn.' = month<br />';
-
-														//so insert $mn row to the user_payment_bank table
-														for ($i = 0; $i <= $mn; $i++)
-															{
-																//echo $i.' = count month<br />';
-																$nmp = $this->month->month_day($dyst, $i, $this->config->item('day_payment') - 1)->row()->nmp;
-																//echo $nmp.' = next month payment<br />';
-																$gh = $this->user_payment_bank->insert_user_payment($this->session->userdata('username'), $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
-															}
-														$t = $this->user_code_course->insert_user_course($this->session->userdata('username'), $course_id, 5, 0, 0);
-														if ($t)
-															{
-																$data['info'] = 'Success register course.';
-																$this->load->view('user/home', $data);
-															}
-															else
-															{
-																$data['info'] = 'Something teribly wrong. Please try again later';
-																$this->load->view('user/home', $data);
-															}
-													}
-													else
-													{
-														if (date_db(now()) > $dyst)
-															{
-																//calculate how many months left from the start date
-																$mn = $this->month->month($dyst, $dyed)->row()->month;	//must add 1 to the query
-																//echo $mn.' = month<br />';
-
-																//so insert $mn row to the user_payment_bank table
-																for ($i = 0; $i <= $mn; $i++)
-																	{
-																		//echo $i.' = count month<br />';
-																		$nmp = $this->month->month_day($dyst, $i, $this->config->item('day_payment') - 1)->row()->nmp;
-																		//echo $nmp.' = next month payment<br />';
-																		if (date_db(now()) < $nmp)
-																			{
-																				$gh = $this->user_payment_bank->insert_user_payment($this->session->userdata('username'), $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
-																			}
-																	}
-																$t = $this->user_code_course->insert_user_course($this->session->userdata('username'), $course_id, 5, 0, 0);
-																if ($t)
-																	{
-																		$data['info'] = 'Success register course.';
-																		$this->load->view('user/home', $data);
-																	}
-																	else
-																	{
-																		$data['info'] = 'Something teribly wrong. Please try again later';
-																		$this->load->view('user/home', $data);
-																	}
-															}
-													}
+												$data['info'] = 'Success register course.';
+												$this->load->view('user/home', $data);
 											}
 											else
 											{
-												if($q->row()->id_payment_type == 1)
-													{
-														//have to pay within 7 days after registration or after what??
-														//insert only 1 row data.... argghhh
-
-														$nmp = $this->month->month_day($dyst, 0, $this->config->item('day_payment') - 1)->row()->nmp;
-														$n = $this->user_payment_bank->insert_user_payment($this->session->userdata('username'), $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
-														$t = $this->user_code_course->insert_user_course($this->session->userdata('username'), $course_id, 5, 0, 0);
-														if ($n && $t)
-															{
-																$data['info'] = 'Success register course';
-																$this->load->view('user/home', $data);
-															}
-															else
-															{
-																$data['info'] = 'Something teribly wrong. Please try again later';
-																$this->load->view('user/home', $data);
-															}
-													}
+												$data['info'] = 'Something teribly wrong. Please try again later';
+												$this->load->view('user/home', $data);
 											}
 									}
 									else
@@ -180,7 +119,7 @@ class Myilmu extends CI_Controller
 					}
 					else
 					{
-						redirect('/user/myilmu/index', 'location');
+						redirect('/myilmu/index', 'location');
 					}
 			}
 
@@ -188,7 +127,7 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') === TRUE && in_array('5', $this->session->userdata('role'), TRUE) === TRUE)
 					{
-						$data['s'] = $this->user_code_course->user_grad_course($this->session->userdata('username'), 0);
+						$data['s'] = $this->user_code_course->user_course($this->session->userdata('username'));
 						$this->load->view('user/account', $data);
 					}
 					else
@@ -373,8 +312,7 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') === TRUE && in_array('5', $this->session->userdata('role'), TRUE) === TRUE)
 					{
-						//1st we check the course been taken n not finished yet (graduate = 0) --> continue to page 'views/user/course.php'
-						$data['s'] = $this->user_code_course->user_grad_course($this->session->userdata('username'), 0);
+						$data['s'] = $this->user_code_course->user_course($this->session->userdata('username'));
 						$this->load->view('user/course', $data);
 					}
 					else

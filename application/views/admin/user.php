@@ -5,7 +5,7 @@
 
 		<p>Please take note that you cant add more than 1 role to the same user</p>
 
-		<p><?=@$info?></p>
+		<p><font color="#FF0000"><?=@$info?></font></p>
 
 		<?=form_open('')?>
 		<div class="form_settings">

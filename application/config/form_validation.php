@@ -19,7 +19,7 @@ $config = array	(
 ##################################################################################################
 
 $config = array	( 
-					'myilmu/login' => array
+					'myilmu/index' => array
 					( 
 						array
 							(
@@ -246,37 +246,7 @@ $config = array	(
 								'field' => 'cost',
 								'label' => 'Fees',
 								'rules' => 'trim|required|is_natural|min_length[1]|max_length[5]|xss_clean'
-							),
-						array
-							(
-								'field' => 'id_payment_type',
-								'label' => 'Payment Type',
-								'rules' => 'trim|required|is_natural_no_zero|min_length[1]|max_length[5]|xss_clean'
-							),
-						array
-							(
-								'field' => 'registration_date_start',
-								'label' => 'Registration Date Start',
-								'rules' => 'trim|required|exact_length[10]|xss_clean'
-							),
-						array
-							(
-								'field' => 'registration_date_end',
-								'label' => 'Registration Date End',
-								'rules' => 'trim|required|exact_length[10]|xss_clean'
-							),
-						array
-							(
-								'field' => 'date_start',
-								'label' => 'Course Date Start',
-								'rules' => 'trim|required|exact_length[10]|xss_clean'
-							),
-						array
-							(
-								'field' => 'date_end',
-								'label' => 'Course Date End',
-								'rules' => 'trim|required|exact_length[10]|xss_clean'
-							),
+							)
 					),
 					'myilmu/update_course' => array
 					(
@@ -303,45 +273,15 @@ $config = array	(
 								'field' => 'cost',
 								'label' => 'Fees',
 								'rules' => 'trim|required|is_natural|min_length[1]|max_length[5]|xss_clean'
-							),
-						array
-							(
-								'field' => 'id_payment_type',
-								'label' => 'Payment Type',
-								'rules' => 'trim|required|is_natural_no_zero|min_length[1]|max_length[5]|xss_clean'
-							),
-						array
-							(
-								'field' => 'registration_date_start',
-								'label' => 'Registration Date Start',
-								'rules' => 'trim|required|exact_length[10]|xss_clean'
-							),
-						array
-							(
-								'field' => 'registration_date_end',
-								'label' => 'Registration Date End',
-								'rules' => 'trim|required|exact_length[10]|xss_clean'
-							),
-						array
-							(
-								'field' => 'date_start',
-								'label' => 'Course Date Start',
-								'rules' => 'trim|required|exact_length[10]|xss_clean'
-							),
-						array
-							(
-								'field' => 'date_end',
-								'label' => 'Course Date End',
-								'rules' => 'trim|required|exact_length[10]|xss_clean'
-							),
+							)
 					),
 					'myilmu/bursary' => array
 					(
 						array
 							(
-								'field' => 'ic',
-								'label' => 'Identity Card',
-								'rules' => 'trim|required|is_natural|exact_length[12]|xss_clean'
+								'field' => 'case[]',
+								'label' => 'CheckBox',
+								'rules' => 'trim|required|is_natural|xss_clean'
 							)
 					),
 					'myilmu/upd_payment' => array

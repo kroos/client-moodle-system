@@ -12,7 +12,7 @@
 
 	<? startblock('top_nav') ?>
 		<li><?=anchor(base_url(), 'Home', array('title' => 'Home'))?></li>
-		<li><?=anchor('myilmu/login', 'Login', array('title' => 'Login'))?></li>
+		<!-- <li><?=anchor('myilmu/login', 'Login', array('title' => 'Login'))?></li> -->
 		<li><?=anchor('myilmu/contact', 'Contact Us', array('title' => 'Contact Us'))?></li>
 	<? endblock() ?>
 

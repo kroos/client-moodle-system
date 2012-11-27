@@ -18,7 +18,12 @@ class User_code_course extends CI_Model
 
 		function Getuser_course()
 			{
-				return $this->db->order_by('username')->get_where('user_code_course', array('graduate' => 0, 'id_user_role <>' => 1));
+				return $this->db->order_by('paid ASC, date_reg DESC')->get_where('user_code_course', array('id_user_role' => 5));
+			}
+
+		function Getuser_course_page($num, $offset)
+			{
+				return $this->db->order_by('paid ASC, date_reg DESC')->limit($num, $offset)->get_where('user_code_course', array('id_user_role' => 5));
 			}
 
 		function user_code_course($username, $id_course)
@@ -26,10 +31,11 @@ class User_code_course extends CI_Model
 				return $this->db->get_where('user_code_course', array('username' => $username, 'id_course' => $id_course));
 			}
 
-		function user_grad_course($username, $graduate)
+		/*function user_grad_course($username, $paid)
 			{
-				return $this->db->get_where('user_code_course', array('username' => $username, 'graduate' => $graduate));
+				//return $this->db->get_where('user_code_course', array('username' => $username, 'paid' => $paid, 'date_start <=' => '(SELECT curdate())', 'date_end >=' => '(SELECT curdate())'));
 			}
+		//*/
 
 		function grad_course($id_course, $id_user_role, $graduate)
 			{
@@ -37,20 +43,15 @@ class User_code_course extends CI_Model
 			}
 
 //UPDATE
-		function update_user_c_activate($username, $id_course, $activate)
+		function update_user_pay($id, $paid, $date_pay, $date_start, $date_end)
 			{
-				return $this->db->where(array('username' => $username, 'id_course' => $id_course))->update('user_code_course', array('activate' => $activate));
-			}
-
-		function update_user_c_graduate($username, $id_course, $graduate)
-			{
-				return $this->db->where(array('username' => $username, 'id_course' => $id_course))->update('user_code_course', array('graduate' => $graduate));
+				return $this->db->where(array('id' => $id))->update('user_code_course', array('paid' => $paid, 'date_pay' => $date_pay, 'date_start' => $date_start, 'date_end' => $date_end));
 			}
 
 //INSERT
-		function insert_user_course($username, $id_course, $id_user_role, $activate, $graduate)
+		function insert_user_course($username, $id_course, $id_user_role, $date_reg, $paid, $date_pay, $date_start, $date_end)
 			{
-				return $this->db->insert('user_code_course', array('username' => $username, 'id_course' => $id_course, 'id_user_role' => $id_user_role, 'activate' => $activate, 'graduate' => $graduate));
+				return $this->db->insert('user_code_course', array('username' => $username, 'id_course' => $id_course, 'id_user_role' => $id_user_role, 'date_reg' => $date_reg, 'paid' => $paid, 'date_pay' => $date_pay, 'date_start' => $date_start, 'date_end' => $date_end));
 			}
 
 //DELETE

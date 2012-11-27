@@ -8,7 +8,7 @@
     #city {  }
     </style>
 		<h1>Enrollment <?=$q->course?> Programme</h1>
-		<p><?=@$info?></p>
+		<p><font color="#FF0000"><?=@$info?></font></p>
 		<p>If you had register already and wanted to add more course, please login and enrol more course from the portal menu.</p>
 		<?=form_open('')?>
 		<div class="form_settings">

@@ -2,7 +2,7 @@
 
 	<? startblock('content') ?>
 		<h1>Contact Us</h1>
-		<p><?=@$info?></p>
+		<p><font color="#FF0000"><?=@$info?></font></p>
 		<?=form_open('')?>
 		<div class="form_settings">
 			<p><span>Name : </span>

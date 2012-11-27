@@ -1,8 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+﻿<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Myilmu extends CI_Controller 
 	{
-		public function index()
+		public function login()
 			{
 				if ($this->session->userdata('logged_in') == TRUE)
 					{
@@ -10,7 +10,19 @@ class Myilmu extends CI_Controller
 					}
 					else
 					{
-						$data['a'] = $this->course->course_avail();
+						//pagination process
+						$this->load->library('pagination');
+						$config['base_url'] = base_url().'myilmu/login';
+						$config['total_rows'] = $this->course->course_avail()->num_rows();
+						$config['per_page'] = 5;
+
+						$this->pagination->initialize($config);
+
+						$data['a'] = $this->course->course_avail_page($config['per_page'], $this->uri->segment(3, 0));
+
+						$data['paginate'] = $this->pagination->create_links();
+
+						//$data['a'] = $this->course->course_avail();
 						//echo $this->db->last_query();
 						$this->load->view('home', $data);
 					}
@@ -84,6 +96,7 @@ class Myilmu extends CI_Controller
 
 												if ($check == 0)
 													{
+														$this->captcha->delete_captcha(time());
 														$data['info'] = 'You must submit the word that appears in the image';
 														$this->load->view('enrol', $data);
 													}
@@ -92,99 +105,20 @@ class Myilmu extends CI_Controller
 														$course_id = $this->uri->segment(3, 0);
 														$q = $this->course->course_id($course_id);
 
-														//check rcurring fees for monthly course
-														//echo $q->row()->id.' = id dourse<br />'.$q->row()->id_payment_type.' = payment type<br />'.date_db(now()).' = date now<br />';
-
-														//register before date_start of the course
-														$dyst = $q->row()->date_start;
-														$dyed = $q->row()->date_end;
-														//echo $dyst.' = day start<br />'.$dyed.' = day end<br />';
-
-														if($q->row()->id_payment_type == 2)
+														//masukkan terus dlm user & user_code_course
+														$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
+														$p = $this->user_code_course->insert_user_course($username, $course_id, 5, date_db(now()), 0, '0000-00-00', '0000-00-00', '0000-00-00');
+														if($r && $p)
 															{
-																if (date_db(now()) < $dyst)
-																	{
-																		//how many months for that course
-																		$mn = $this->month->month($dyst, $dyed)->row()->month;	//must add 1 to the query
-																		//echo $mn.' = month<br />';
-
-																		//so insert $mn row to the user_payment_bank table
-																		for ($i = 0; $i <= $mn; $i++)
-																			{
-																				//echo $i.' = count month<br />';
-																				$nmp = $this->month->month_day($dyst, $i, $this->config->item('day_payment') - 1)->row()->nmp;
-																				//echo $nmp.' = next month payment<br />';
-																				$gh = $this->user_payment_bank->insert_user_payment($username, $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
-																			}
-																		$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
-																		$t = $this->user_code_course->insert_user_course($username, $course_id, 5, 0, 0);
-																		if ($r && $t)
-																			{
-																				$data['info'] = 'You may login with the credential.';
-																				$this->load->view('enrol', $data);
-																			}
-																			else
-																			{
-																				$data['info'] = 'Something teribly wrong. Please try again later';
-																				$this->load->view('enrol', $data);
-																			}
-																	}
-																	else
-																	{
-																		if (date_db(now()) > $dyst)
-																			{
-																				//calculate how many months left from the start date
-																				$mn = $this->month->month($dyst, $dyed)->row()->month;	//must add 1 to the query
-																				//echo $mn.' = month<br />';
-
-																				//so insert $mn row to the user_payment_bank table
-																				for ($i = 0; $i <= $mn; $i++)
-																					{
-																						//echo $i.' = count month<br />';
-																						$nmp = $this->month->month_day($dyst, $i, $this->config->item('day_payment') - 1)->row()->nmp;
-																						//echo $nmp.' = next month payment<br />';
-																						if (date_db(now()) < $nmp)
-																							{
-																								$gh = $this->user_payment_bank->insert_user_payment($username, $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
-																							}
-																					}
-																				$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
-																				$t = $this->user_code_course->insert_user_course($username, $course_id, 5, 0, 0);
-																				if ($r && $t)
-																					{
-																						$data['info'] = 'You may login with the credential.';
-																						$this->load->view('enrol', $data);
-																					}
-																					else
-																					{
-																						$data['info'] = 'Something teribly wrong. Please try again later';
-																						$this->load->view('enrol', $data);
-																					}
-																			}
-																	}
+																$this->captcha->delete_captcha(time() - 10);
+																$data['info'] = 'Please login with the username and your password';
+																$this->load->view('enrol', $data);
 															}
 															else
 															{
-																if($q->row()->id_payment_type == 1)
-																	{
-																		//have to pay within 7 days after registration or after what??
-																		//insert only 1 row data.... argghhh
-
-																		$nmp = $this->month->month_day($dyst, 0, $this->config->item('day_payment') - 1)->row()->nmp;
-																		$n = $this->user_payment_bank->insert_user_payment($username, $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
-																		$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
-																		$t = $this->user_code_course->insert_user_course($username, $course_id, 5, 0, 0);
-																		if ($r && $t)
-																			{
-																				$data['info'] = 'You may login with the credential.';
-																				$this->load->view('enrol', $data);
-																			}
-																			else
-																			{
-																				$data['info'] = 'Something teribly wrong. Please try again later';
-																				$this->load->view('enrol', $data);
-																			}
-																	}
+																$this->captcha->delete_captcha(time() - 10);
+																$data['info'] = 'Something teribly happen. Please try again later';
+																$this->load->view('enrol', $data);
 															}
 													}
 											}
@@ -197,7 +131,7 @@ class Myilmu extends CI_Controller
 					}
 			}
 
-		public function login()
+		public function index()
 			{
 				if ($this->session->userdata('logged_in') == TRUE)
 					{
@@ -243,23 +177,23 @@ class Myilmu extends CI_Controller
 												//in array strict checking
 												if(in_array('1', $this->session->userdata('role'), TRUE))
 													{
-														redirect('/admin/myilmu', 'location');
+														redirect('/admin/myilmu/index', 'location');
 													}
 													else
 													{
-														if(in_array('3', $this->session->userdata('role'), TRUE))
+														if(in_array('3', $this->session->userdata('role'), TRUE) || in_array('4', $this->session->userdata('role'), TRUE))
 															{
-																redirect('/teacher/myilmu', 'location');
+																redirect('/teacher/myilmu/index', 'location');
 															}
 															else
 															{
 																if(in_array('5', $this->session->userdata('role'), TRUE))
 																	{
-																		redirect('/user/myilmu', 'location');
+																		redirect('/user/myilmu/index', 'location');
 																	}
 																	else
 																	{
-																		redirect('/myilmu', 'location');
+																		redirect('/myilmu/index', 'location');
 																	}
 															}
 													}

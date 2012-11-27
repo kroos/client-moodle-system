@@ -6,7 +6,17 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') === TRUE && in_array('1', $this->session->userdata('role'), TRUE) === TRUE )
 					{
-						$data['q'] = $this->user->user();
+						$this->load->library('pagination');
+						$config['base_url'] = base_url().'user/myilmu/index';
+						$config['total_rows'] = $this->view->user_course()->num_rows();
+						$config['per_page'] = 5;
+						$config['uri_segment'] = 4;
+						$config['suffix'] = '.htm';
+						$this->pagination->initialize($config);
+						$data['q'] = $this->view->user_course_page($config['per_page'], $this->uri->segment(4, 0));
+
+						$data['l'] = $this->user->user();
+						$data['paginate'] = $this->pagination->create_links();
 						$this->load->view('admin/home', $data);
 					}
 					else
@@ -59,14 +69,9 @@ class Myilmu extends CI_Controller
 										$course = ucwords(strtolower($this->input->post('course', TRUE)));
 										$description = ucwords(strtolower($this->input->post('description', TRUE)));
 										$cost = $this->input->post('cost', TRUE);
-										$id_payment_type = $this->input->post('id_payment_type', TRUE);
-										$registration_date_start = $this->input->post('registration_date_start', TRUE);
-										$registration_date_end = $this->input->post('registration_date_end', TRUE);
-										$date_start = $this->input->post('date_start', TRUE);
-										$date_end = $this->input->post('date_end', TRUE);
 
-										$g = $this->course->insert_course($code_course, $course, $description, $cost, $id_payment_type, $registration_date_start, $registration_date_end, $date_start, $date_end);
-										echo $this->db->last_query().' = last query<br />';
+										$g = $this->course->insert_course($code_course, $course, $description, $cost);
+										//echo $this->db->last_query().' = last query<br />';
 										if($g)
 											{
 												$data['info'] = 'Success inserting data';
@@ -109,13 +114,8 @@ class Myilmu extends CI_Controller
 												$course = ucwords(strtolower($this->input->post('course', TRUE)));
 												$description = ucwords(strtolower($this->input->post('description', TRUE)));
 												$cost = $this->input->post('cost', TRUE);
-												$id_payment_type = $this->input->post('id_payment_type', TRUE);
-												$registration_date_start = $this->input->post('registration_date_start', TRUE);
-												$registration_date_end = $this->input->post('registration_date_end', TRUE);
-												$date_start = $this->input->post('date_start', TRUE);
-												$date_end = $this->input->post('date_end', TRUE);
 		
-												$g = $this->course->update_course($r, $code_course, $course, $description, $cost, $id_payment_type, $registration_date_start, $registration_date_end, $date_start, $date_end);
+												$g = $this->course->update_course($r, $code_course, $course, $description, $cost);
 												if($g)
 													{
 														$data['e'] = $this->course->course_id($r);
@@ -209,7 +209,7 @@ class Myilmu extends CI_Controller
 															{
 																//terus masukkan dalam db (2 table)
 																$u = $this->user->insert_user($username, md5($password1), $name, $ic, $address, $postal_code, $city, $state, $phone, $skype);
-																$c = $this->user_code_course->insert_user_course($username, $course, $role, 0, 1);
+																$c = $this->user_code_course->insert_user_course($username, $course, $role, date_db(now()), 1, '0000-00-00', '0000-00-00', '0000-00-00');
 																if ($u && $c)
 																	{
 																		$data['info'] = 'Successfully insert the user';
@@ -232,7 +232,7 @@ class Myilmu extends CI_Controller
 																if ($course != 1)
 																	{
 																		$u = $this->user->insert_user($username, md5($password1), $name, $ic, $address, $postal_code, $city, $state, $phone, $skype);
-																		$c = $this->user_code_course->insert_user_course($username, $course, $role, 0, 1);
+																		$c = $this->user_code_course->insert_user_course($username, $course, $role, date_db(now()), 1, '0000-00-00', '0000-00-00', '0000-00-00');
 																		if ($u && $c)
 																			{
 																				$data['info'] = 'Successfully insert the user';
@@ -254,71 +254,8 @@ class Myilmu extends CI_Controller
 																	{
 																		if ($course != 1)
 																			{
-																				//mula2 kena tau payment type
-																				$cpt = $this->course->course_id($course);
-																				$dyst = $cpt->row()->date_start;
-																				$dyed = $cpt->row()->date_end;
-																				if($cpt->row()->id_payment_type == 1)
-																					{
-																						//1 time payment off
-																						//have to pay within 7 days after registration or after what??
-																						//insert only 1 row data.... argghhh
-
-																						$nmp = $this->month->month_day($dyst, 0, $this->config->item('day_payment') - 1)->row()->nmp;
-																						$n = $this->user_payment_bank->insert_user_payment($username, $course, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
-																						if ($n)
-																							{
-																								$data['info'] = 'Success register course';
-																							}
-																							else
-																							{
-																								$data['info'] = 'Something teribly wrong. Please try again later';
-																							}
-																					}
-																					else
-																					{
-																						if ($cpt->row()->id_payment_type == 2)
-																							{
-																								if (date_db(now()) < $dyst)
-																									{
-																										//how many months for that course
-																										$mn = $this->month->month($dyst, $dyed)->row()->month;	//must add 1 to the query
-																										//echo $mn.' = month<br />';
-
-																										//so insert $mn row to the user_payment_bank table
-																										for ($i = 0; $i <= $mn; $i++)
-																											{
-																												//echo $i.' = count month<br />';
-																												$nmp = $this->month->month_day($dyst, $i, $this->config->item('day_payment') - 1)->row()->nmp;
-																												//echo $nmp.' = next month payment<br />';
-																												$gh = $this->user_payment_bank->insert_user_payment($username, $course, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
-																											}
-																									}
-																									else
-																									{
-																										if (date_db(now()) > $dyst)
-																											{
-																												//calculate how many months left from the start date
-																												$mn = $this->month->month($dyst, $dyed)->row()->month;	//must add 1 to the query
-																												//echo $mn.' = month<br />';
-
-																												//so insert $mn row to the user_payment_bank table
-																												for ($i = 0; $i <= $mn; $i++)
-																													{
-																														//echo $i.' = count month<br />';
-																														$nmp = $this->month->month_day($dyst, $i, $this->config->item('day_payment') - 1)->row()->nmp;
-																														//echo $nmp.' = next month payment<br />';
-																														if (date_db(now()) < $nmp)
-																															{
-																																$gh = $this->user_payment_bank->insert_user_payment($this->session->userdata('username'), $course_id, 0, '', NULL, $nmp, 0, 0, 'Please make a payment before '.date_view($nmp));
-																															}
-																													}
-																											}
-																									}
-																							}
-																					}
 																				$u = $this->user->insert_user($username, md5($password1), $name, $ic, $address, $postal_code, $city, $state, $phone, $skype);
-																				$c = $this->user_code_course->insert_user_course($username, $course, $role, 0, 0);
+																				$c = $this->user_code_course->insert_user_course($username, $course, $role, date_db(now()), 1, '0000-00-00', '0000-00-00', '0000-00-00');
 																				if ($u && $c)
 																					{
 																						$data['info'] = 'Successfully insert the user';
@@ -330,7 +267,7 @@ class Myilmu extends CI_Controller
 																			}
 																			else
 																			{
-																				$data['info'] = 'Sorry, you cant choose <strong>"ADM | Admin Course"</strong> as a course to the <strong>"Teacher"</strong> role. Please choose other course related to the teacher role.';
+																				$data['info'] = 'Sorry, you cant choose <strong>"ADM | Admin Course"</strong> as a course to the <strong>"Student"</strong> role. Please choose other course related to the student role.';
 																			}
 																	}
 															}
@@ -353,11 +290,7 @@ class Myilmu extends CI_Controller
 						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
 						$data['user'] = $this->user->user();
 						$data['course'] = $this->course->course();
-						if ($this->form_validation->run() == FALSE)
-							{
-								//form
-							}
-							else
+						if ($this->form_validation->run() == TRUE)
 							{
 								//form process
 								if($this->input->post('submit', TRUE))
@@ -372,7 +305,7 @@ class Myilmu extends CI_Controller
 												$uc = $this->user_code_course->user_code_course($teacher, $r);
 												if ($uc->num_rows() < 1)
 													{
-														$this->user_code_course->insert_user_course($teacher, $r, 3, 0, 1);
+														$this->user_code_course->insert_user_course($teacher, $r, 3, date_db(now()), 1, '0000-00-00', '0000-00-00', '0000-00-00');
 													}
 											}
 										$data['info'] = 'Successfully adding user <strong>Teacher</strong> to the <strong>Course</strong>';
@@ -402,22 +335,43 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') === TRUE && in_array('1', $this->session->userdata('role'), TRUE) === TRUE )
 					{
+						//load pagination class
+						$this->load->library('pagination');
+						$config['base_url'] = base_url().'admin/myilmu/bursary';
+						$config['total_rows'] = $this->user_code_course->Getuser_course()->num_rows();
+						$config['per_page'] = 10;
+						$config['uri_segment'] = 4;
+						$config['suffix'] = '.htm';
+						$this->pagination->initialize($config);
+						$data['k'] = $this->user_code_course->Getuser_course_page($config['per_page'], $this->uri->segment(4, 0));
+						//echo $this->db->last_query();
+
+						$data['paginate'] = $this->pagination->create_links();
+
 						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
-						if ($this->form_validation->run() == FALSE)
-							{
-								//form
-								$this->load->view('admin/bursary');
-							}
-							else
+						if ($this->form_validation->run() == TRUE)
 							{
 								//form process
 								if($this->input->post('search_ic', TRUE))
 									{
-										$ic = $this->input->post('ic', TRUE);
-										$data['ic'] = $this->user->user_ic($ic);
-										$this->load->view('admin/bursary', $data);
+										$case = $this->input->post('case', TRUE);
+										foreach($case as $u)
+											{
+												//echo $u.'<br />';
+												//nak kena check course yg dah paid sbb nak kena update date_end
+												//$dat[] = $this->user_code_course->update_user_pay($u, 1, date_db(now()), date_db(now()), $this->month->month_day(date_db(now()), 1, 0)->row()->nmp);
+											}
+										if($dat)
+											{
+												$data['info'] = 'Success make a payment';
+											}
+											else
+											{
+												$data['info'] = 'Something teribly has happen. Please try again later';
+											}
 									}
 							}
+						$this->load->view('admin/bursary', $data);
 					}
 					else
 					{

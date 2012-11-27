@@ -2,7 +2,7 @@
 
 	<? startblock('content') ?>
 		<h1>Login</h1>
-		<p><?=@$info?></p>
+		<p><font color="#FF0000"><?=@$info?></font></p>
 		<p>Please insert your email as your username</p>
 		<?=form_open('')?>
 		<div class="form_settings">
