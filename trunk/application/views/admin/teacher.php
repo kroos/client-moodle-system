@@ -3,7 +3,7 @@
 	<? startblock('content') ?>
 		<h1>Teacher</h1>
 		<p>Use this page if you intend to add more roles to the current user</p>
-		<p><?=@$info?></p>
+		<p><font color="#FF0000"><?=@$info?></font></p>
 
 		<?if ($user->num_rows() < 1):?>
 			<p>No user at the moment</p>

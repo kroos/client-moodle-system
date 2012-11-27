@@ -3,7 +3,7 @@
 	<? startblock('content') ?>
 	
 		<h1>Edit</h1>
-		<p><?=@$info?></p>
+		<p><font color="#FF0000"><?=@$info?></font></p>
 		<p>You can edit your profile here</p>
 		<?=form_open('')?>
 		<div class="form_settings">

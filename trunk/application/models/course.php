@@ -13,22 +13,27 @@ class Course extends CI_Model
 //SELECT
 		function course()
 			{
-				return $this->db->order_by('id')->get_where('course', array('id <>' => 1));
+				return $this->db->order_by('code_course')->get_where('course', array('id <>' => 1));
 			}
 
 		function courseadmin()
 			{
-				return $this->db->order_by('id')->get_where('course', array('(SELECT CURDATE()) <= ' => 'date_end'));
+				return $this->db->order_by('code_course')->get('course');
 			}
 
 		function course_page($num, $offset)
 			{
-				return $this->db->order_by('id')->limit($offset, $num)->get_where('course', array('id <>' => 1));
+				return $this->db->order_by('code_course')->limit($offset, $num)->get_where('course', array('id <>' => 1));
+			}
+
+		function course_avail_page($num, $offset)
+			{
+				return $this->db->query("SELECT * FROM course WHERE course.id <> 1 ORDER BY course.code_course ASC limit $offset, $num");
 			}
 
 		function course_avail()
 			{
-				return $this->db->query('SELECT * FROM course WHERE course.id <> 1 AND CURDATE() BETWEEN course.registration_date_start AND  course.registration_date_end ORDER BY course.id ASC');
+				return $this->db->query('SELECT * FROM course WHERE course.id <> 1 ORDER BY course.code_course ASC');
 			}
 
 		function course_id($id)
@@ -36,21 +41,17 @@ class Course extends CI_Model
 				return $this->db->get_where('course', array('id' => $id));
 			}
 
-		function course_code($id, $now)
-			{
-				return $this->db->get_where('course', array('id' => $id, 'date_end <= ' => $now));	//(select curdate()) >= course.date_end
-			}
 
 //UPDATE
-		function update_course($id, $code_course, $course, $description, $cost, $id_payment_type, $registration_date_start, $registration_date_end, $date_start, $date_end)
+		function update_course($id, $code_course, $course, $description, $cost)
 			{
-				return $this->db->where(array('id' => $id))->update('course', array('code_course' => $code_course, 'course' => $course, 'description' => $description, 'cost' => $cost, 'id_payment_type' => $id_payment_type, 'registration_date_start' => $registration_date_start, 'registration_date_end' => $registration_date_end, 'date_start' => $date_start, 'date_end' => $date_end));
+				return $this->db->where(array('id' => $id))->update('course', array('code_course' => $code_course, 'course' => $course, 'description' => $description, 'cost' => $cost));
 			}
 
 //INSERT
-		function insert_course($code_course, $course, $description, $cost, $id_payment_type, $registration_date_start, $registration_date_end, $date_start, $date_end)
+		function insert_course($code_course, $course, $description, $cost)
 			{
-				return $this->db->insert('course', array('code_course' => $code_course, 'course' => $course, 'description' => $description, 'cost' => $cost, 'id_payment_type' => $id_payment_type, 'registration_date_start' => $registration_date_start, 'registration_date_end' => $registration_date_end, 'date_start' => $date_start, 'date_end' => $date_end));
+				return $this->db->insert('course', array('code_course' => $code_course, 'course' => $course, 'description' => $description, 'cost' => $cost));
 			}
 
 //DELETE

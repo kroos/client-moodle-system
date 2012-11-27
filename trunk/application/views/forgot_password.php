@@ -2,7 +2,7 @@
 
 	<? startblock('content') ?>
 		<h1>Forgot Password</h1>
-		<p><?=@$info?></p>
+		<p><font color="#FF0000"><?=@$info?></font></p>
 		<p>Please insert your username and your identity card number so that we can reset your password. The password will be sent to your email account.</p>
 		<?=form_open('')?>
 		<div class="form_settings">

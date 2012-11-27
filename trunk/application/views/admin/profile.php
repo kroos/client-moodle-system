@@ -2,7 +2,7 @@
 
 	<? startblock('content') ?>
 		<h1>Profile</h1>
-		<p><?=@$info?></p>
+		<p><font color="#FF0000"><?=@$info?></font></p>
 			<table style="width:100%; border-spacing:0;">
 				<tr>
 					<td><b>Name</b></td>

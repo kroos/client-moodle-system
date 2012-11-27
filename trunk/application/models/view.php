@@ -45,19 +45,42 @@ class View extends CI_Model
 										");
 			}
 
-		function user_course($username, $id_course)
+		function user_course()
 			{
 				return $this->db->query("
-											SELECT *
-											FROM
-											course
-											INNER JOIN user_code_course ON user_code_course.id_course = course.id
-											WHERE
-											user_code_course.username = '$username' AND
-											curdate() < course.date_end AND
-											user_code_course.id_course = $id_course AND
-											user_code_course.graduate = 0 AND
-											(SELECT curdate()) < course.date_end
+											select
+											*
+											from
+											(((`user`
+											inner join `user_code_course` on((`user_code_course`.`username` = `user`.`username`)))
+											inner join `course` on((`user_code_course`.`id_course` = `course`.`id`)))
+											inner join `user_role` on((`user_code_course`.`id_user_role` = `user_role`.`id`)))
+											where
+											(`user`.`id` <> 1)
+											order by
+											`user_role`.`id`,
+											`user_code_course`.`paid` desc,
+											`user_code_course`.`date_pay`
+										");
+			}
+
+		function user_course_page($num, $offset)
+			{
+				return $this->db->query("
+											select
+											*
+											from
+											(((`user`
+											inner join `user_code_course` on((`user_code_course`.`username` = `user`.`username`)))
+											inner join `course` on((`user_code_course`.`id_course` = `course`.`id`)))
+											inner join `user_role` on((`user_code_course`.`id_user_role` = `user_role`.`id`)))
+											where
+											(`user`.`id` <> 1)
+											order by
+											`user_role`.`id`,
+											`user_code_course`.`paid` desc,
+											`user_code_course`.`date_pay`
+											limit $offset, $num
 										");
 			}
 
