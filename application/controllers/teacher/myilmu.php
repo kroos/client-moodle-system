@@ -16,75 +16,6 @@ class Myilmu extends CI_Controller
 					}
 			}
 
-		public function grad_stud()
-			{
-				if ($this->session->userdata('logged_in') === TRUE && (in_array('3', $this->session->userdata('role'), TRUE) === TRUE || in_array('4', $this->session->userdata('role'), TRUE) === TRUE))
-					{
-						//upacara kira course dan subjek yg dia involve....
-						$data['c'] = $this->user_code_course->user_course($this->session->userdata('username'));
-						$this->load->view('teacher/grad_stud', $data);
-					}
-					else
-					{
-						redirect('', 'location');
-					}
-			}
-
-		public function stud_grad()
-			{
-				if ($this->session->userdata('logged_in') === TRUE && (in_array('3', $this->session->userdata('role'), TRUE) === TRUE || in_array('4', $this->session->userdata('role'), TRUE) === TRUE))
-					{
-						$stud =  $this->uri->segment(4, 0);
-						$cou = $this->uri->segment(5, 0);
-						if(is_numeric($stud) && is_numeric($cou))
-							{
-								//echo $stud.$cou.'<br />';
-								//mari kita check payment
-								$vb = $this->user->user_id($stud);
-								$re = $this->user_payment_bank->user_payment_course($vb->row()->username, $cou);
-								foreach($re->result() as $yt)
-									{
-										if($yt->paid == 0)
-											{
-												$paid[] = 'unpaid';
-											}
-											else
-											{
-												if ($yt->paid == 1)
-													{
-														$paid[] = 'paid';
-													}
-											}
-									}
-								//echo '<pre>';
-								//print_r($paid);
-								//echo '</pre>';
-								if (in_array('unpaid', $paid, TRUE) === TRUE)
-									{
-										$data['info'] = 'Cant change his status to graduate cos he still have an outstanding payment';
-										$data['c'] = $this->user_code_course->user_course($this->session->userdata('username'));
-										$this->load->view('teacher/grad_stud', $data);
-									}
-									else
-									{
-										$po = $this->user_code_course->update_user_c_graduate($vb->row()->username, $cou, 1);
-										if ($po)
-											{
-												redirect('teacher/myilmu/grad_stud', 'location');
-											}
-									}
-							}
-							else
-							{
-								redirect('teacher/myilmu/grad_stud', 'location');
-							}
-					}
-					else
-					{
-						redirect('', 'location');
-					}
-			}
-
 		public function profile()
 			{
 				if ($this->session->userdata('logged_in') === TRUE && (in_array('3', $this->session->userdata('role'), TRUE) === TRUE || in_array('4', $this->session->userdata('role'), TRUE) === TRUE))
@@ -261,9 +192,7 @@ class Myilmu extends CI_Controller
 			{
 				if ($this->session->userdata('logged_in') === TRUE && (in_array('3', $this->session->userdata('role'), TRUE) === TRUE || in_array('4', $this->session->userdata('role'), TRUE) === TRUE))
 					{
-						//1st we check the course been taken n not finished yet (graduate = 0) --> continue to page 'views/user/course.php'
-						$data['s'] = $this->user_code_course->user_grad_course($this->session->userdata('username'), 0);
-						$this->load->view('teacher/course', $data);
+						$this->load->view('teacher/course');
 					}
 					else
 					{

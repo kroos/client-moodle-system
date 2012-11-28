@@ -1,4 +1,4 @@
-<? extend('scenic_photo_two/main_template') ?>
+<? extend('CSS3_seven/main_template') ?>
 
 	<? startblock('head') ?>
 		<title><?=$this->config->item('title')?></title>
@@ -12,11 +12,7 @@
 
 	<? startblock('top_nav') ?>
 		<li><?=anchor('teacher/myilmu', 'Home', array('title' => 'Home'))?></li>
-		<li><?=anchor('teacher/myilmu/course', 'Course', array('title' => 'Course'))?>
-			<ul>
-				<li><?=anchor('teacher/myilmu/grad_stud', 'Graduate Student', array('title' => 'Graduate Student'))?></li>
-			</ul>
-		</li>
+		<li><?=anchor('teacher/myilmu/course', 'Course', array('title' => 'Course'))?></li>
 		<li><?=anchor('teacher/myilmu/contact_admin', 'Contact Admin', array('title' => 'Contact Admin'))?></li>
 		<li><?=anchor('teacher/myilmu/profile', 'Profile', array('title' => 'Profile'))?>
 			<ul>
