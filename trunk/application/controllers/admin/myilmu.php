@@ -357,9 +357,23 @@ class Myilmu extends CI_Controller
 										$case = $this->input->post('case', TRUE);
 										foreach($case as $u)
 											{
-												//echo $u.'<br />';
+												//echo $u.' = id <br />'.$this->month->month_day(date_db(now()), 1, 0)->row()->nmp.' = 1 month<br />';
 												//nak kena check course yg dah paid sbb nak kena update date_end
-												//$dat[] = $this->user_code_course->update_user_pay($u, 1, date_db(now()), date_db(now()), $this->month->month_day(date_db(now()), 1, 0)->row()->nmp);
+												$v = $this->user_code_course->ucc_id($u);
+												foreach($v->result() as $y)
+													{
+														$g = $this->user_code_course->user_course($y->username);
+														foreach($g->result() as $f)
+															{
+																//echo $y->username.' = username<br />'.$y->paid.' paid<br />'.$y->date_end.' = date_end<br />'.$y->id_course.' = id course<br />';
+																if ($f->paid == 1 )
+																	{
+																		$n[] = $this->user_code_course->update_paid($y->username, 1, $this->month->month_day(date_db(now()), 1, 0)->row()->nmp);
+																		//echo $f->username.' = username<br />'.$f->paid.' paid<br />'.$f->date_end.' = date_end<br />'.$f->id_course.' = id course<br />';
+																	}
+															}
+													}
+												$dat[] = $this->user_code_course->update_user_pay($u, 1, date_db(now()), date_db(now()), $this->month->month_day(date_db(now()), 1, 0)->row()->nmp);
 											}
 										if($dat)
 											{
