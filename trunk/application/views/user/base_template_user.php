@@ -1,4 +1,4 @@
-<? extend('scenic_photo_two/main_template') ?>
+<? extend('CSS3_seven/main_template') ?>
 
 	<? startblock('head') ?>
 		<title><?=$this->config->item('title')?></title>

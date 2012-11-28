@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>scenic_photo_two</title>
+  <title>CSS3_seven</title>
   <meta name="description" content="website description" />
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -17,7 +17,7 @@
       <div id="logo">
         <div id="logo_text">
           <!-- class="logo_colour", allows you to change the colour of the text -->
-          <h1><a href="index.html">scenic<span class="logo_colour">_photo_two</span></a></h1>
+          <h1><a href="index.html">CCS3<span class="logo_colour">_seven</span></a></h1>
           <h2>Simple. Contemporary. Website Template.</h2>
         </div>
       </div>
@@ -52,19 +52,30 @@
     </header>
     <div id="site_content">
       <div id="sidebar_container">
+        <img class="marker" src="images/marker.png" alt="marker" />
         <div class="sidebar">
           <h3>Latest News</h3>
           <h4>New Website Launched</h4>
           <h5>January 1st, 2012</h5>
           <p>2012 sees the redesign of our website. Take a look around and let us know what you think.<br /><a href="#">Read more</a></p>
         </div>
+        <img class="marker" src="images/marker.png" alt="marker" />
         <div class="sidebar">
           <h3>Useful Links</h3>
           <ul>
             <li><a href="#">First Link</a></li>
             <li><a href="#">Another Link</a></li>
             <li><a href="#">And Another</a></li>
-            <li><a href="#">One More</a></li>
+            <li><a href="#">Last One</a></li>
+          </ul>
+        </div>
+        <img class="marker" src="images/marker.png" alt="marker" />
+        <div class="sidebar">
+          <h3>More Useful Links</h3>
+          <ul>
+            <li><a href="#">First Link</a></li>
+            <li><a href="#">Another Link</a></li>
+            <li><a href="#">And Another</a></li>
             <li><a href="#">Last One</a></li>
           </ul>
         </div>
@@ -124,11 +135,14 @@
         </form>
       </div>
     </div>
+    <div id="scroll">
+      <a title="Scroll to the top" class="top" href="#"><img src="images/top.png" alt="top" /></a>
+    </div>
     <footer>
-      <p>Copyright &copy; scenic_photo_two | <a href="http://www.css3templates.co.uk">design from css3templates.co.uk</a></p>
+      <p><a href="index.html">Home</a> | <a href="examples.html">Examples</a> | <a href="page.html">A Page</a> | <a href="another_page.html">Another Page</a> | <a href="contact.php">Contact Us</a></p>
+      <p>Copyright &copy; CSS3_seven | <a href="http://www.css3templates.co.uk">design from css3templates.co.uk</a></p>
     </footer>
   </div>
-  <p>&nbsp;</p>
   <!-- javascript at the bottom for fast page loading -->
   <script type="text/javascript" src="js/jquery.js"></script>
   <script type="text/javascript" src="js/jquery.easing-sooper.js"></script>
@@ -136,6 +150,7 @@
   <script type="text/javascript">
     $(document).ready(function() {
       $('ul.sf-menu').sooperfish();
+      $('.top').click(function() {$('html, body').animate({scrollTop:0}, 'fast'); return false;});
     });
   </script>
 </body>

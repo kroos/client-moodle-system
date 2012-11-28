@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
   <meta http-equiv="content-type" content="text/html;charset=utf-8">
-  <title>scenic_photo_two Template</title>
+  <title>CSS3_seven Template</title>
   <style type="text/css" media="screen">
     p, table, hr, .box { font-family: arial; margin-bottom:25px; }
     .box p { margin-bottom:10px; }
@@ -12,9 +12,9 @@
 <body>
   <div>
 
-    <h1>&ldquo;scenic_photo_two&rdquo; Template Documentation</h1>
+    <h1>&ldquo;CSS3_seven&rdquo; Template Documentation</h1>
 
-    <p><strong>Template version: 2.0<br />Created: June 2nd 2012</strong></p>
+    <p><strong>Template version: 2.0<br />Created: March 15th 2012</strong></p>
 
     <div>
       <p>Thank you for downloading this template.</p>
@@ -64,16 +64,20 @@
       &lt;div class=&quot;content&quot;&gt;&lt;/div&gt;
     &lt;/div&gt;
     &lt;!-- end content --&gt;
+    &lt;div id=&quot;scroll&quot;&gt;
+      &lt;!-- scroll to top --&gt;
+    &lt;/div&gt;
     &lt;!-- begin footer --&gt;
     &lt;footer&gt;&lt;/footer&gt;
     &lt;!-- end footer --&gt;
   &lt;/div&gt;
-  &lt;p&gt;&amp;nbsp;&lt;/p&gt;
   &lt;!-- jQuery with plugins --&gt;
   &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function(){
       &lt;!-- initialise sooperfish menu --&gt;
       $('ul.sf-menu').sooperfish();
+      &lt;!-- goto top javascript --&gt;
+      $('.top').click(function() {$('html, body').animate({scrollTop:0}, 'fast'); return false;});
     });
   &lt;/script&gt;
 &lt;/html&gt;

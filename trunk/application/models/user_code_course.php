@@ -36,6 +36,11 @@ class User_code_course extends CI_Model
 				return $this->db->get_where('user_code_course', array('id' => $id));
 			}
 
+		function grad_course($id_course, $id_user_role, $paid)
+			{
+				return $this->db->get_where('user_code_course', array('id_course' => $id_course, 'id_user_role' => $id_user_role, 'paid' => $paid));
+			}
+
 //UPDATE
 		function update_user_pay($id, $paid, $date_pay, $date_start, $date_end)
 			{
