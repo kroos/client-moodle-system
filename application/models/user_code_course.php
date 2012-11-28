@@ -31,21 +31,20 @@ class User_code_course extends CI_Model
 				return $this->db->get_where('user_code_course', array('username' => $username, 'id_course' => $id_course));
 			}
 
-		/*function user_grad_course($username, $paid)
+		function ucc_id($id)
 			{
-				//return $this->db->get_where('user_code_course', array('username' => $username, 'paid' => $paid, 'date_start <=' => '(SELECT curdate())', 'date_end >=' => '(SELECT curdate())'));
-			}
-		//*/
-
-		function grad_course($id_course, $id_user_role, $graduate)
-			{
-				return $this->db->get_where('user_code_course', array('id_course' => $id_course, 'graduate' => $graduate, 'id_user_role' => $id_user_role));
+				return $this->db->get_where('user_code_course', array('id' => $id));
 			}
 
 //UPDATE
 		function update_user_pay($id, $paid, $date_pay, $date_start, $date_end)
 			{
 				return $this->db->where(array('id' => $id))->update('user_code_course', array('paid' => $paid, 'date_pay' => $date_pay, 'date_start' => $date_start, 'date_end' => $date_end));
+			}
+
+		function update_paid($username, $paid, $date_end)
+			{
+				return $this->db->where(array('username' => $username, 'paid' => $paid))->update('user_code_course', array('date_end' => $date_end));
 			}
 
 //INSERT

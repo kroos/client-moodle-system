@@ -22,11 +22,7 @@
 				<li><?=anchor('admin/myilmu/add_course', 'Edit Course', array('title' => 'Edit Course'))?></li>
 			</ul>
 		</li>
-		<li><?=anchor('admin/myilmu/bursary', 'Bursary', array('title' => 'Bursary'))?>
-			<ul>
-				<li><?=anchor('admin/myilmu/stud_payment', 'Bursary Report', array('title' => 'Bursary Report'))?></li>
-			</ul>
-		</li>
+		<li><?=anchor('admin/myilmu/bursary', 'Bursary', array('title' => 'Bursary'))?></li>
 		<li><?=anchor('admin/myilmu/user', 'User', array('title' => 'User'))?>
 			<ul>
 				<li><?=anchor('admin/myilmu/teacher', 'Teacher', array('title' => 'Teacher'))?></li>
