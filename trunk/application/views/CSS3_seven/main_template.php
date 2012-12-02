@@ -8,7 +8,7 @@
 
 <link rel="stylesheet" type="text/css" href="<?=base_url()?>css/CSS3_seven.css" />
   <!-- modernizr enables HTML5 elements and feature detects -->
-  <script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
+  <script type="text/javascript" src="<?=base_url()?>js/modernizr-1.5.min.js"></script>
 </head>
 
 <body>
@@ -33,7 +33,7 @@
     </header>
     <div id="site_content">
       <div id="sidebar_container">
-        <img class="marker" src="images/marker.png" alt="marker" />
+        <img class="marker" src="<?=base_url()?>images/marker.png" alt="marker" />
         <div class="sidebar">
 <? start_block_marker('top_sidebar') ?>
 
