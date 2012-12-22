@@ -255,7 +255,7 @@ class Myilmu extends CI_Controller
 																		if ($course != 1)
 																			{
 																				$u = $this->user->insert_user($username, md5($password1), $name, $ic, $address, $postal_code, $city, $state, $phone, $skype);
-																				$c = $this->user_code_course->insert_user_course($username, $course, $role, date_db(now()), 1, '0000-00-00', '0000-00-00', '0000-00-00');
+																				$c = $this->user_code_course->insert_user_course($username, $course, $role, date_db(now()), 0, '0000-00-00', '0000-00-00', '0000-00-00');
 																				if ($u && $c)
 																					{
 																						$data['info'] = 'Successfully insert the user';
