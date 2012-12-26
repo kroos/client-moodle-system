@@ -7,7 +7,7 @@ class Myilmu extends CI_Controller
 				if ($this->session->userdata('logged_in') === TRUE && in_array('1', $this->session->userdata('role'), TRUE) === TRUE )
 					{
 						$this->load->library('pagination');
-						$config['base_url'] = base_url().'user/myilmu/index';
+						$config['base_url'] = base_url().'admin/myilmu/index';
 						$config['total_rows'] = $this->view->user_course()->num_rows();
 						$config['per_page'] = 5;
 						$config['uri_segment'] = 4;
