@@ -20,7 +20,7 @@ foreach ($s->result() as $j)
 					}
 					else
 					{
-						echo  form_open($this->config->item('moodle_login'), '', array('username' => $this->session->userdata('username'), 'password' => $this->session->userdata('password')));
+						echo  form_open($this->config->item('moodle_login'), 'target="_blank"', array('username' => $this->session->userdata('username'), 'password' => $this->session->userdata('password')));
 						echo '<div class="demo">'.form_submit('gotoclass', 'Go To Class '.$f->course).'</div>';
 						echo form_close();
 					}
