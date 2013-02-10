@@ -11,6 +11,16 @@ class User_code_course extends CI_Model
 //CRUD for User_code_course table
 
 //SELECT
+		function GetAll($lim, $offset)
+			{
+				return $this->db->get('user_code_course', $lim, $offset);
+			}
+
+		function GetWhere($where, $lim, $offset)
+			{
+				return $this->db->get('user_code_course', $lim, $offset);
+			}
+
 		function user_course($username)
 			{
 				return $this->db->get_where('user_code_course', array('username' => $username));
@@ -62,6 +72,11 @@ class User_code_course extends CI_Model
 		function delete_user_course($id)
 			{
 				return $this->db->delete('user_code_course', array('id' => $id));
+			}
+			
+		function delete($delete)
+			{
+				return $this->db->delete('user_code_course', $delete);
 			}
 	}
 ?>

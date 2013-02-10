@@ -32,6 +32,24 @@
 			<?=form_error('name')?>
 			</p>
 
+			<?php
+			if ($g->num_rows() < 1)
+				{
+					$f[NULL] = 'Please setup group';
+				}
+				else
+				{
+					foreach($g->result() AS $gr)
+						{
+							$f[$gr->id] = $gr->group;
+						}
+				}
+			?>
+			<p><span>User group : </span>
+			<?=form_dropdown('group', $f, set_value('group'))?>
+			<br /><?=form_error('group')?>
+			</p>
+
 			<p><span>Identity Card No. <b><i><font size="1">(120101021234)</font></i></b> : </span>
 			<?=form_input(array('name' => 'ic', 'value' => set_value('ic'), 'maxlength' => '12', 'size' => '10'))?>
 			<?=form_error('ic')?>

@@ -32,6 +32,24 @@
 			<br /><?=form_error('course')?>
 			</p>
 
+			<?php
+			if ($g->num_rows() < 1)
+				{
+					$f[NULL] = 'Please setup group';
+				}
+				else
+				{
+					foreach($g->result() AS $gr)
+						{
+							$f[$gr->id] = $gr->group;
+						}
+				}
+			?>
+			<p><span>User group : </span>
+			<?=form_dropdown('group', $f, set_value('group'))?>
+			<br /><?=form_error('group')?>
+			</p>
+
 			<p><span>Email Address : </span>
 			<?=form_input(array('name' => 'username', 'value' => set_value('username'), 'maxlength' => '50', 'size' => '10'))?>
 			<br /><?=form_error('username')?>

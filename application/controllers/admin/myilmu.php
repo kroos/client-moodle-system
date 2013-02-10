@@ -145,9 +145,23 @@ class Myilmu extends CI_Controller
 						$r = $this->uri->segment(4, 0);
 						if (is_numeric($r))
 							{
-								echo $this->uri->segment(4, 0);
-								$t = $this->course->delete_course($r);
-								if ($t)
+								//echo $this->uri->segment(4, 0);
+								$rows = $this->user_code_course->GetWhere(array('id_course' => $r), NULL, NULL)->num_rows();
+								if ($rows > 0)
+									{
+										$this->db->trans_start();
+										$this->course->delete_course($r);
+										$this->user_code_course->delete(array('id_course' => $r));
+										$this->db->trans_complete();
+									}
+									else
+									{
+										$this->db->trans_start();
+										$this->course->delete_course($r);
+										$this->db->trans_complete();
+									}
+
+								if ($this->db->trans_status() === TRUE)
 									{
 										redirect ('/admin/myilmu/add_course', 'location');
 									}
@@ -165,6 +179,7 @@ class Myilmu extends CI_Controller
 					{
 						$data['r'] = $this->user_role->Getuser_roles();
 						$data['c'] = $this->course->courseadmin();
+						$data['g'] = $this->group->GetAll(NULL, NULL);
 
 						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
 						if ($this->form_validation->run() == FALSE)
@@ -179,6 +194,7 @@ class Myilmu extends CI_Controller
 									{
 										$role = $this->input->post('role', TRUE);
 										$course = $this->input->post('course', TRUE);
+										$group = $this->input->post('group', TRUE);
 										$username = $this->input->post('username', TRUE);
 										$password1 = $this->input->post('password1', TRUE);
 										$password2 = $this->input->post('password2', TRUE);
@@ -208,7 +224,7 @@ class Myilmu extends CI_Controller
 														if ($course == 1)
 															{
 																//terus masukkan dalam db (2 table)
-																$u = $this->user->insert_user($username, md5($password1), $name, $ic, $address, $postal_code, $city, $state, $phone, $skype);
+																$u = $this->user->insert_user($username, md5($password1), $name, $group, $ic, $address, $postal_code, $city, $state, $phone, $skype);
 																$c = $this->user_code_course->insert_user_course($username, $course, $role, date_db(now()), 1, '0000-00-00', '0000-00-00', '0000-00-00');
 																if ($u && $c)
 																	{
@@ -231,7 +247,7 @@ class Myilmu extends CI_Controller
 															{
 																if ($course != 1)
 																	{
-																		$u = $this->user->insert_user($username, md5($password1), $name, $ic, $address, $postal_code, $city, $state, $phone, $skype);
+																		$u = $this->user->insert_user($username, md5($password1), $name, $group, $ic, $address, $postal_code, $city, $state, $phone, $skype);
 																		$c = $this->user_code_course->insert_user_course($username, $course, $role, date_db(now()), 1, '0000-00-00', '0000-00-00', '0000-00-00');
 																		if ($u && $c)
 																			{
@@ -254,7 +270,7 @@ class Myilmu extends CI_Controller
 																	{
 																		if ($course != 1)
 																			{
-																				$u = $this->user->insert_user($username, md5($password1), $name, $ic, $address, $postal_code, $city, $state, $phone, $skype);
+																				$u = $this->user->insert_user($username, md5($password1), $name, $group, $ic, $address, $postal_code, $city, $state, $phone, $skype);
 																				$c = $this->user_code_course->insert_user_course($username, $course, $role, date_db(now()), 0, '0000-00-00', '0000-00-00', '0000-00-00');
 																				if ($u && $c)
 																					{
