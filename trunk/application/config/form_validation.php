@@ -434,6 +434,15 @@ $config = array	(
 							(
 								'field' => 'group',
 								'label' => 'Group',
+								'rules' => 'required|trim|is_unique[group.group]|xss_clean'
+							)
+					),
+					'myilmu/edit_group' => array
+					(
+						array
+							(
+								'field' => 'group',
+								'label' => 'Group',
 								'rules' => 'required|trim|xss_clean'
 							)
 					),

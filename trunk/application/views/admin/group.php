@@ -28,9 +28,9 @@
 			</thead>
 			<?foreach($l->result() AS $g):?>
 				<tr>
-					<td><?=$g->id?></td>
+					<td><div class="demo"><?=anchor('admin/myilmu/edit_group/'.$g->id, $g->id, 'title="Edit Group '.$g->id.'"')?></div></td>
 					<td><?=$g->group?></td>
-					<td><?=anchor('admin/myilmu/edit_group/'.$g->id, 'Edit', 'title="Edit Group '.$g->id.'"')?><br /><?=anchor('admin/myilmu/del_group/'.$g->id, 'Delete', 'title="Delete Group '.$g->id.'"')?></td>
+					<td><div class="demo"><?=anchor('admin/myilmu/del_group/'.$g->id, 'Delete', 'title="Delete Group '.$g->id.'"')?></div></td>
 				</tr>
 			<?endforeach?>
 		</table>

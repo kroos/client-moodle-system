@@ -529,7 +529,55 @@ class Myilmu extends CI_Controller
 
 		public function del_group()
 			{
-				
+				if ($this->session->userdata('logged_in') === TRUE && in_array('1', $this->session->userdata('role'), TRUE) === TRUE)
+					{
+						$l = $this->uri->segment(4, 0);
+						//echo $l;
+						$k = $this->group->delete(array('id' => $l));
+						if($k)
+							{
+								redirect('admin/myilmu/group', 'location');
+							}
+							else
+							{
+								redirect('admin/myilmu/group', 'location');
+							}
+					}
+					else
+					{
+						redirect('', 'location');
+					}
+			}
+
+		public function edit_group()
+			{
+				if ($this->session->userdata('logged_in') === TRUE && in_array('1', $this->session->userdata('role'), TRUE) === TRUE)
+					{
+						$i = $this->uri->segment(4, 0);
+						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
+						if ($this->form_validation->run() == TRUE)
+							{
+								if($this->input->post('upd_group', TRUE))
+									{
+										$group = ucwords(strtolower($this->input->post('group', TRUE)));
+										$d = $this->group->update(array('group' => $group), array('id' => $i));
+										if($d)
+											{
+												redirect ('admin/myilmu/group', 'location');
+											}
+											else
+											{
+												$data['info'] = 'Please try again later';
+											}
+									}
+							}
+						$data['l'] = $this->group->GetWhere(array('id' => $i), NULL, NULL);
+						$this->load->view('admin/edit_group', $data);
+					}
+					else
+					{
+						redirect('', 'location');
+					}
 			}
 
 		public function edit()
