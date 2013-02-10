@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50522
 File Encoding         : 65001
 
-Date: 2013-02-10 15:43:38
+Date: 2013-02-11 03:00:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,7 +26,7 @@ CREATE TABLE `captcha` (
   `word` varchar(20) NOT NULL,
   PRIMARY KEY (`captcha_id`),
   KEY `word` (`word`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of captcha
@@ -47,6 +47,11 @@ INSERT INTO `captcha` VALUES ('21', '1360538861', '127.0.0.1', '96687');
 INSERT INTO `captcha` VALUES ('22', '1360538862', '127.0.0.1', '25257');
 INSERT INTO `captcha` VALUES ('23', '1360538902', '127.0.0.1', '66612');
 INSERT INTO `captcha` VALUES ('24', '1360539135', '127.0.0.1', '54769');
+INSERT INTO `captcha` VALUES ('25', '1360541139', '127.0.0.1', '26899');
+INSERT INTO `captcha` VALUES ('26', '1360541169', '127.0.0.1', '25419');
+INSERT INTO `captcha` VALUES ('27', '1360544096', '127.0.0.1', '18758');
+INSERT INTO `captcha` VALUES ('28', '1360562761', '127.0.0.1', '31110');
+INSERT INTO `captcha` VALUES ('29', '1360562905', '127.0.0.1', '95138');
 
 -- ----------------------------
 -- Table structure for `ci_sessions`
@@ -65,8 +70,7 @@ CREATE TABLE `ci_sessions` (
 -- ----------------------------
 -- Records of ci_sessions
 -- ----------------------------
-INSERT INTO `ci_sessions` VALUES ('abb1b4fa79c702cc51912d5a22347b56', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:21.0) Gecko/20130207 Firefox/21.0', '1360534297', 'a:5:{s:9:\"user_data\";s:0:\"\";s:8:\"username\";s:5:\"admin\";s:8:\"password\";s:6:\"123123\";s:4:\"role\";a:1:{i:1;s:1:\"1\";}s:9:\"logged_in\";b:1;}');
-INSERT INTO `ci_sessions` VALUES ('ba4389954bf1654011e39ff473699054', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:21.0) Gecko/20130207 Firefox/21.0', '1360539134', '');
+INSERT INTO `ci_sessions` VALUES ('f19c12cdf3de109e05d3e101c701dde9', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:21.0) Gecko/20130207 Firefox/21.0', '1360580019', 'a:5:{s:9:\"user_data\";s:0:\"\";s:8:\"username\";s:5:\"admin\";s:8:\"password\";s:6:\"123123\";s:4:\"role\";a:1:{i:1;s:1:\"1\";}s:9:\"logged_in\";b:1;}');
 
 -- ----------------------------
 -- Table structure for `course`
@@ -124,7 +128,7 @@ CREATE TABLE `group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `group` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of group
@@ -132,6 +136,7 @@ CREATE TABLE `group` (
 INSERT INTO `group` VALUES ('1', 'Admin');
 INSERT INTO `group` VALUES ('2', 'Teacher');
 INSERT INTO `group` VALUES ('3', 'Others');
+INSERT INTO `group` VALUES ('7', 'Maktab Mahmud');
 
 -- ----------------------------
 -- Table structure for `user`
@@ -156,7 +161,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', '4297f44b13955235245b2497399d7a93', null, 'Admin', '123456789012', null, null, null, null, null, null);
+INSERT INTO `user` VALUES ('1', 'admin', '4297f44b13955235245b2497399d7a93', '1', 'Admin', '123456789012', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `user_code_course`
