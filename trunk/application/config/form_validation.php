@@ -360,6 +360,12 @@ $config = array	(
 							),
 						array
 							(
+								'field' => 'group',
+								'label' => 'Group',
+								'rules' => 'trim|is_natural_no_zero|xss_clean'
+							),
+						array
+							(
 								'field' => 'ic',
 								'label' => 'Identity Card',
 								'rules' => 'trim|required|is_unique[user.IC]|is_natural|exact_length[12]|xss_clean'

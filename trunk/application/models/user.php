@@ -58,7 +58,7 @@ class User extends CI_Model
 			}
 
 //INSERT
-		function insert_user($username, $password, $name, $ic, $address, $postal_code, $city, $state, $phone, $skype)
+		function insert_user($username, $password, $name, $group, $ic, $address, $postal_code, $city, $state, $phone, $skype)
 			{
 				return $this->db->insert('user', array('username' => $username, 'password' => $password, 'name' => $name, 'ic' => $ic, 'address' => $address, 'postal_code' => $postal_code, 'city' => $city, 'state' => $state, 'phone' => $phone, 'skype' => $skype));
 			}

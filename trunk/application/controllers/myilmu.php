@@ -44,6 +44,9 @@ class Myilmu extends CI_Controller
 				$data['cap'] = create_captcha($vals);
 				$this->captcha->insert_captcha($data['cap']['time'], $data['cap']['word']);
 
+				$data['g'] = $this->group->GetWhere('`id` <> 1 AND `id` <> 2', NULL, NULL);
+				echo $this->db->last_query();
+
 				if ($this->session->userdata('logged_in') == TRUE)
 					{
 						redirect('/user/myilmu/index', 'location');
@@ -77,6 +80,7 @@ class Myilmu extends CI_Controller
 												$username = $this->input->post('username', TRUE);
 												$password = md5($this->input->post('password1', TRUE));
 												$name = ucwords(strtolower($this->input->post('name', TRUE)));
+												$group = $this->input->post('group', TRUE);
 												$ic = $this->input->post('ic', TRUE);
 												$postcode = $this->input->post('postcode', TRUE);
 												$city = ucwords(strtolower($this->input->post('city', TRUE)));
@@ -106,7 +110,7 @@ class Myilmu extends CI_Controller
 														$q = $this->course->course_id($course_id);
 
 														//masukkan terus dlm user & user_code_course
-														$r = $this->user->insert_user($username, $password, $name, $ic, $address, $postcode, $city, $state, $phone, $skype);
+														$r = $this->user->insert_user($username, $password, $name, $group, $ic, $address, $postcode, $city, $state, $phone, $skype);
 														$p = $this->user_code_course->insert_user_course($username, $course_id, 5, date_db(now()), 0, '0000-00-00', '0000-00-00', '0000-00-00');
 														if($r && $p)
 															{
