@@ -18,8 +18,9 @@
 			<?$n = 0?>
 				<?foreach ($user->result() as $u):?>
 					<?$ur = $this->user_code_course->user_course($u->username)?>
-					<?if (($ur->row()->id_user_role == 3) || ($ur->row()->id_user_role == 4)):?>
+					<?if ((@$ur->row()->id_user_role == 3) || (@$ur->row()->id_user_role == 4)):?>
 						<?=form_radio(array('name' => 'teacher', 'id' => 'radio'.$i++, 'value' => $u->username))?><label for="radio<?=$n++?>"><?=$u->name?></label><br />
+					<?else:?>
 					<?endif?>
 				<?endforeach?>
 			<?=form_error('teacher')?>
