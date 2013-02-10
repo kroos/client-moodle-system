@@ -428,6 +428,15 @@ $config = array	(
 								'rules' => 'required|xss_clean'
 							)
 					),
+					'myilmu/group' => array
+					(
+						array
+							(
+								'field' => 'group',
+								'label' => 'Group',
+								'rules' => 'required|trim|xss_clean'
+							)
+					),
 				);
 
 

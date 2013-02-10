@@ -45,7 +45,7 @@ class Myilmu extends CI_Controller
 				$this->captcha->insert_captcha($data['cap']['time'], $data['cap']['word']);
 
 				$data['g'] = $this->group->GetWhere('`id` <> 1 AND `id` <> 2', NULL, NULL);
-				echo $this->db->last_query();
+				//echo $this->db->last_query();
 
 				if ($this->session->userdata('logged_in') == TRUE)
 					{

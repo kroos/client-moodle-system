@@ -26,6 +26,7 @@
 		<li><?=anchor('admin/myilmu/user', 'User', array('title' => 'User'))?>
 			<ul>
 				<li><?=anchor('admin/myilmu/teacher', 'Teacher', array('title' => 'Teacher'))?></li>
+				<li><?=anchor('admin/myilmu/group', 'Group', array('title' => 'Group'))?></li>
 			</ul>
 		</li>
 		<li><?=anchor('admin/myilmu/profile', 'Profile', array('title' => 'Profile'))?>

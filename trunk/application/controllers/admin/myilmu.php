@@ -497,6 +497,41 @@ class Myilmu extends CI_Controller
 					}
 			}
 
+		public function group()
+			{
+				if ($this->session->userdata('logged_in') === TRUE && in_array('1', $this->session->userdata('role'), TRUE) === TRUE)
+					{
+						$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
+						if ($this->form_validation->run() == TRUE)
+							{
+								if($this->input->post('add_group', TRUE))
+									{
+										$group = ucwords(strtolower($this->input->post('group', TRUE)));
+										$d = $this->group->insert(array('group' => $group));
+										if($d)
+											{
+												$data['info'] = 'Succes insert data';
+											}
+											else
+											{
+												$data['info'] = 'Please try again later';
+											}
+									}
+							}
+						$data['l'] = $this->group->GetWhere('id <> 1 AND id <> 2 AND id <> 3', NULL, NULL);
+						$this->load->view('admin/group', $data);
+					}
+					else
+					{
+						redirect('', 'location');
+					}
+			}
+
+		public function del_group()
+			{
+				
+			}
+
 		public function edit()
 			{
 				if ($this->session->userdata('logged_in') === TRUE && in_array('1', $this->session->userdata('role'), TRUE) === TRUE)
