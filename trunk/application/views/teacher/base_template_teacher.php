@@ -12,7 +12,7 @@
 
 	<? startblock('top_nav') ?>
 		<li><?=anchor('teacher/myilmu', 'Home', array('title' => 'Home'))?></li>
-		<li><?=anchor('teacher/myilmu/course', 'Course', array('title' => 'Course'))?></li>
+		<li><?=anchor('teacher/myilmu/course', 'Go To Class', array('title' => 'Go To Class'))?></li>
 		<li><?=anchor('teacher/myilmu/contact_admin', 'Contact Admin', array('title' => 'Contact Admin'))?></li>
 		<li><?=anchor('teacher/myilmu/profile', 'Profile', array('title' => 'Profile'))?>
 			<ul>
